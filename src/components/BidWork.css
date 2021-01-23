@@ -1,0 +1,18 @@
+.bid-work {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.employee-name {
+  width: 500px;
+}
+
+.hours {
+  width: 160px;
+}
+
+.job-number {
+  width: 160px;
+}

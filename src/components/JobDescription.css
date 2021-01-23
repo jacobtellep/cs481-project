@@ -1,0 +1,11 @@
+.job-description {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.job-description-input {
+  width: 820px;
+  height: 75px;
+}

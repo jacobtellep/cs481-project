@@ -1,0 +1,13 @@
+.job-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.job-info-inputs {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
