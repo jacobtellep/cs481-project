@@ -1,6 +1,4 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# I only put comments in Bidwork.js, JobDescription.js and App.js
 
 ## Available Scripts
 

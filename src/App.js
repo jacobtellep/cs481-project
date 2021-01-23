@@ -7,6 +7,7 @@ import JobDescription from './components/JobDescription';
 
 const App = () => {
   return (
+    // These are JSX instances of each of the components I made to create the complete form
     <div>
       <JobInfo />
       <WeatherDelay />

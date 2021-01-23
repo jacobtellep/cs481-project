@@ -2,15 +2,16 @@ import React from 'react';
 import './JobDescription.css';
 
 class JobDescription extends React.Component {
-  state = {};
+  state = { description: '' };
 
   onSubmit = (event) => {
-    event.preventDefault();
+    // this is a method that I created. It could be named anything it doesnt have to be named onSubmit
+    event.preventDefault(); // this prevent default method keeps the enter key from clearing the fields (which is the default function of the <form>)
   };
 
   onChange = (event) => {
     this.setState({
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value, //using the setState method is how you update the values of state elements.
     });
   };
 

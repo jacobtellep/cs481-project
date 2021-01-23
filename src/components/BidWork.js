@@ -16,15 +16,17 @@ class BidWork extends React.Component {
 
   render() {
     return (
-      <div className="bid-work">
-        <form>
+      <div
+        className="bid-work" /* divs are just containers that hold other JSX elements. theyre regular html*/
+      >
+        <form /* form tags enable some features to allow form submition */>
           <div className="bid-work-inputs">
             <input
-              className="employee-name"
+              className="employee-name" // classNames are used for css styling
               placeholder="Employee Name"
-              name="notes"
-              onChange={(event) => this.onChange(event)}
-              value={this.state.value}
+              name="notes" // this name is used in the above onChange function
+              onChange={(event) => this.onChange(event)} // this is a React event handler. if the text changes, the state object is updated with the change
+              value={this.state.value} // this takes the value of the state object element and displays it in the input
             />
             <input
               className="hours"
