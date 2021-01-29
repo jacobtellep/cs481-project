@@ -1,0 +1,19 @@
+.jsa-weather{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    position: relative;
+    top: -30px;
+}
+
+.jsa-weather-input{
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+.checkbox-label{
+    display: flex;
+    flexDirection: row;
+}
