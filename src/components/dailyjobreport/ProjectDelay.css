@@ -1,0 +1,18 @@
+.project-delay {
+  display: flex;
+  flex-direction: row;
+  padding-left: 20px;
+  justify-content: left;
+  align-items: center;
+}
+
+.project-notes {
+  width: 500px;
+}
+.project-start {
+  width: 160px;
+}
+
+.project-end {
+  width: 160px;
+}
