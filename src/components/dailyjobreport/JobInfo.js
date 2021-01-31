@@ -1,14 +1,21 @@
 import React from 'react';
+import DatePicker from 'react-date-picker';
 import './JobInfo.css';
 
+
+
 class JobInfo extends React.Component {
+
   state = {
-    date: '',
+      date: '',
     customer: '',
     project: '',
     contractNumber: '',
     foreman: '',
   };
+
+
+
   onSubmit = (event) => {
     event.preventDefault();
   };
@@ -19,17 +26,23 @@ class JobInfo extends React.Component {
     });
   };
 
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+
   render() {
     return (
       <div className="job-info">
         <form>
           <div className="job-info-inputs">
-            <input
-              placeholder="Date"
-              name="date"
-              onChange={(event) => this.onChange(event)}
-              value={this.state.value}
+
+            <DatePicker
+                name='date'
+                onChange={(event) => this.onChange(event)}
+                value={this.state.value}
             />
+
             <input
               placeholder="Customer"
               name="customer"

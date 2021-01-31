@@ -1,0 +1,8 @@
+.JSABidwork {
+  display: flex;
+  flex-direction: row;
+  padding-left: 20px;
+  justify-content: left;
+  align-items: left;
+  white-space: nowrap;
+}

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {userState} from 'react';
+import DatePicker from 'react-date-picker'
 import './JSAinfo.css';
 
 class JSAinfo extends React.Component{
     state = {
         ticket_num: '',
-        date: '',
         company: '',
         representative: '',
         location: '',
@@ -32,11 +32,10 @@ class JSAinfo extends React.Component{
                             onChange={(event) => this.onChange(event)}
                             value={this.state.value}
                         />
-                        <input
-                            placeholder="Date"
-                            name="jsa-date"
+                    <DatePicker
                             onChange={(event) => this.onChange(event)}
                             value={this.state.value}
+                            closeCalendar="true"
                         />
                         <input
                             placeholder="Company"
