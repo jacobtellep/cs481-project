@@ -1,8 +1,10 @@
 .bid-work {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  padding-left: 20px;
+  justify-content: left;
+  align-items: left;
+  white-space: nowrap;
 }
 
 .employee-name {

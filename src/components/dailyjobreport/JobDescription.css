@@ -1,8 +1,9 @@
 .job-description {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  padding-left: 20px;
+  justify-content: left;
+  align-items: left;
 }
 
 .job-description-input {

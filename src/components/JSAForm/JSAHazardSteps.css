@@ -1,0 +1,12 @@
+.hazard-steps{
+    display: flex;
+    flex-direction: row;
+    padding-left: 20px;
+    justify-content: left;
+    align-items: left;
+}
+
+.textbox{
+    height: 50px;
+    width: 267px;
+}
