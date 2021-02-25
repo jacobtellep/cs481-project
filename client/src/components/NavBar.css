@@ -1,0 +1,26 @@
+li {
+  list-style: none;
+}
+
+nav {
+  display: flex;
+}
+
+a {
+  display: block;
+  padding: 8px;
+}
+
+.menu {
+  background-color: black;
+}
+
+.link {
+  display: block;
+  padding: 8px;
+  color: white;
+}
+
+.menu-items {
+  float: left;
+}

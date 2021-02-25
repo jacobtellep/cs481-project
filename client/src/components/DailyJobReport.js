@@ -121,6 +121,7 @@ class DailyJobReport extends React.Component {
         'This job will accomplish building a new substation in Beckley',
     });
   };
+
   onDataSubmit = (
     date,
     customer,
@@ -288,15 +289,6 @@ class DailyJobReport extends React.Component {
       });
   }; // end of onDataSubmit
 
-  getDailyJobReport = () => {
-    axios.get('http://localhost:5000/dailyjobreport').then((response) => {
-      this.setState({ dailyJobReport: response.data }); // the auto-incremented sql id is included in this response.data object
-
-      console.log(response.data);
-      console.log('successfully retrieved the data');
-    });
-  };
-
   onChange = (event) => {
     // checks for a change in each component, with each change, updates the state accordingly
     this.setState({
@@ -306,10 +298,6 @@ class DailyJobReport extends React.Component {
 
   handleChange = (event) => {
     this.setState({ value: event.target.value }); //sets the value attribute of each component
-  };
-
-  retrieveClick = () => {
-    this.getDailyJobReport(this.state.dailyJobReport);
   };
 
   dataClick = () => {
@@ -821,41 +809,14 @@ class DailyJobReport extends React.Component {
             />
           </div>
         </form>
+
         <button
           className="submit-button"
           type="submit"
           onClick={this.dataClick}>
           Submit
         </button>
-        <br></br>
-        <button
-          onClick={this.getDailyJobReport}
-          className="retrieve-button"
-          type="button">
-          Retrieve
-        </button>
 
-        {this.state.dailyJobReport.map((value, index) => {
-          return (
-            <div className="retrieve-report" key={index}>
-              <div>{value.date}</div>
-              <div>{value.customer}</div>
-              <div>{value.project}</div>
-              <div>{value.contract_number}</div>
-              <div>{value.foreman}</div>
-              <div>{value.weather_delay_notes}</div>
-              <div>{value.weather_delay_start}</div>
-              <div>{value.weather_delay_end}</div>
-              <div>{value.project_delay_notes}</div>
-              <div>{value.project_delay_start}</div>
-              <div>{value.project_delay_end}</div>
-              <div>{value.employee_name}</div>
-              <div>{value.hours}</div>
-              <div>{value.job_number}</div>
-              <div>{value.job_description}</div>
-            </div>
-          );
-        })}
       </div>
     );
   }
