@@ -8,6 +8,7 @@ import CreateForm from "./components/CreateForm";
 import ViewForm from "./components/ViewForm";
 import JSAform from './components/JSAform';
 import GetJSAform from './components/GetJSAform';
+import InspectionForm from './components/InspectionForm';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/getdailyjobreport" component={GetDailyJobReport} />
           <Route path="/createjobsafetyanalysis" component={JSAform} />
           <Route path="/getjobsafetyanalysis" component={GetJSAform} />
+          <Route path="/createinspectionform" component={InspectionForm} />
           <Route path="/forms" exact component={Forms} />
           <Route path="/createform" component={CreateForm} />
           <Route path="/viewform" component={ViewForm} />
