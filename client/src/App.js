@@ -6,6 +6,8 @@ import NavBar from "./components/NavBar";
 import Forms from "./components/Forms";
 import CreateForm from "./components/CreateForm";
 import ViewForm from "./components/ViewForm";
+import JSAform from './components/JSAform';
+import GetJSAform from './components/GetJSAform';
 
 const App = () => {
   return (
@@ -15,6 +17,8 @@ const App = () => {
         <Switch>
           <Route path="/createdailyjobreport" component={DailyJobReport} />
           <Route path="/getdailyjobreport" component={GetDailyJobReport} />
+          <Route path="/createjobsafetyanalysis" component={JSAform} />
+          <Route path="/getjobsafetyanalysis" component={GetJSAform} />
           <Route path="/forms" exact component={Forms} />
           <Route path="/createform" component={CreateForm} />
           <Route path="/viewform" component={ViewForm} />
