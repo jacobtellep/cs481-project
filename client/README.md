@@ -1,4 +1,4 @@
-# I only put comments in Bidwork.js, JobDescription.js and App.js
+# Basic Authentication added
 
 ## Available Scripts
 
