@@ -1,0 +1,23 @@
+
+
+database name: formsdb
+
+
+CREATE TABLE `daily_job_report` (
+  `daily_job_report_id` int NOT NULL AUTO_INCREMENT,
+  `date` varchar(255) DEFAULT NULL,
+  `customer` varchar(255) DEFAULT NULL,
+  `project` varchar(255) DEFAULT NULL,
+  `contract_number` varchar(255) DEFAULT NULL,
+  `foreman` varchar(255) DEFAULT NULL,
+  `weather_delay_notes` varchar(255) DEFAULT NULL,
+  `weather_delay_start` varchar(255) DEFAULT NULL,
+  `weather_delay_end` varchar(255) DEFAULT NULL,
+  `project_delay_notes` varchar(255) DEFAULT NULL,
+  `project_delay_start` varchar(255) DEFAULT NULL,
+  `project_delay_end` varchar(255) DEFAULT NULL,
+  `employee_name` varchar(255) DEFAULT NULL,
+  `hours` varchar(255) DEFAULT NULL,
+  `job_number` varchar(255) DEFAULT NULL,
+  `job_description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`daily_job_report_id`)
