@@ -96,6 +96,13 @@ class GetJSAform extends React.Component{
           this.getjsaform(this.state.GetJSAform);
         };
 
+        stringToBoolean = (string) => {
+            switch(string.toLowerCase().trim()){
+                case "true": case "yes": case "1": return true;
+                case "false": case "no": case "0": case null: return false;
+                default: return Boolean(string);
+            }
+        }
 
 
         render() {
@@ -143,7 +150,8 @@ class GetJSAform extends React.Component{
                                       <div><b>AFE Number: </b>{value.afe_num}</div>
                                   </div>
                                 <div style={{display: "flex", flexDirection: "column", paddingLeft: "100px"}}>
-                                  {weather.split('\n').map(str=> <div style={{paddingBottom: "1px"}}><input type="checkbox" defaultChecked={str} /></div>)}
+                                  {weather.split('\n').map(str=> <div style={{paddingBottom: "1px"}}> <input type="checkbox" checked={!!this.str}/>{str}</div>)
+                                      }
                                 </div>
                                 <div style={{display: "flex", flexDirection: "column"}}>
                                     <div>Sun</div>
@@ -164,7 +172,9 @@ class GetJSAform extends React.Component{
                               <h3>Hazards</h3>
                               <div className="hazardCheck" style={{display: "flex", flexDirection: "row"}}>
                               <div style={{display: "flex", flexDirection: "column"}}>
-                                {hazard_1.split('\n').map(str=> <div style={{paddingBottom: "1px"}}><input type="checkbox" defaultChecked={str} /></div>)}
+                                  {/* Still unsure why the value of the ckeckbox does not redner correctly but for now have the values printed next to
+                                      it checkbox and the user can't change the view/state of the checkbox*/}
+                                {hazard_1.split('\n').map(str=> <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={!!this.str}/>{str}</div>)}
                               </div>
                               <div style={{display: "flex", flexDirection: "column"}}>
                                   <div>Confined Space</div>
@@ -176,7 +186,7 @@ class GetJSAform extends React.Component{
                               </div>
 
                               <div style={{display: "flex", flexDirection: "column", paddingLeft: "20px"}}>
-                                {hazard_2.split('\n').map(str=> <div style={{paddingBottom: "1px"}}><input type="checkbox" defaultChecked={str} /></div>)}
+                                {hazard_2.split('\n').map(str=> <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={!!this.str}/>{str}</div>)}
                               </div>
                               <div style={{display: "flex", flexDirection: "column"}}>
                                   <div>Pinch/Crush/Strike Hazard</div>
@@ -188,7 +198,7 @@ class GetJSAform extends React.Component{
                               </div>
 
                               <div style={{display: "flex", flexDirection: "column", position: "relative", left: "-450px"}}>
-                                {hazard_3.split('\n').map(str=> <div style={{paddingBottom: "1px"}}><input type="checkbox" defaultChecked={str} /></div>)}
+                                {hazard_3.split('\n').map(str=> <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={!!this.str}/>{str}</div>)}
                               </div>
                               <div style={{display: "flex", flexDirection: "column", position: "relative", left: "-450px"}}>
                                   <div>Elevated Work Load</div>

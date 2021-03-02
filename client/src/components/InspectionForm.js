@@ -124,6 +124,373 @@ class InspectionForm extends React.Component {
         mechanicInitals: ''
     }
 
+    onDataSubmit = (
+        company,
+        date,
+        location,
+        job_num,
+        equipment,
+        hour_meter,
+        mileage,
+        na_lights,
+        ok_lights,
+        rr_lights,
+        na_steps,
+        ok_steps,
+        rr_steps,
+        na_tires,
+        ok_tires,
+        rr_tires,
+        na_exhaust,
+        ok_exhaust,
+        rr_exhaust,
+        na_fenders,
+        ok_fenders,
+        rr_fenders,
+        na_bucket,
+        ok_bucket,
+        rr_bucket,
+        na_cuttingEdge,
+        ok_cuttingEdge,
+        rr_cuttingEdge,
+        na_lift,
+        ok_lift,
+        rr_lift,
+        na_hoses,
+        ok_hoses,
+        rr_hoses,
+        na_fittingsG,
+        ok_fittingsG,
+        rr_fittingsG,
+        na_hitch,
+        ok_hitch,
+        rr_hitch,
+        na_wipers,
+        ok_wipers,
+        rr_wipers,
+        na_bCable,
+        ok_bCable,
+        rr_bCable,
+        na_fanBelt,
+        ok_fanBelt,
+        rr_fanBelt,
+        na_engineHose,
+        ok_engineHose,
+        rr_engineHose,
+        na_airFilter,
+        ok_airFilter,
+        rr_airFilter,
+        na_guards,
+        ok_guards,
+        rr_guards,
+        na_brakesS,
+        ok_brakesS,
+        rr_brakesS,
+        na_brakesP,
+        ok_brakesP,
+        rr_brakesP,
+        na_backup,
+        ok_backup,
+        rr_backup,
+        na_fire,
+        ok_fire,
+        rr_fire,
+        na_gauges,
+        ok_gauges,
+        rr_gauges,
+        na_horn,
+        ok_horn,
+        rr_horn,
+        na_hydroControls,
+        ok_hydroControls,
+        rr_hydroControls,
+        na_glass,
+        ok_glass,
+        rr_glass,
+        na_mirror,
+        ok_mirror,
+        rr_mirror,
+        na_rollOver,
+        ok_rollOver,
+        rr_rollOver,
+        na_seat,
+        ok_seat,
+        rr_seat,
+        na_steering,
+        ok_steering,
+        rr_steering,
+        na_leaks,
+        ok_leaks,
+        rr_leaks,
+        na_oil,
+        ok_oil,
+        rr_oil,
+        na_coolant,
+        ok_coolant,
+        rr_coolant,
+        na_hydroOil,
+        ok_hydroOil,
+        rr_hydroOil,
+        na_transFluid,
+        ok_transFluid,
+        rr_transFluid,
+        na_fuel,
+        ok_fuel,
+        rr_fuel,
+        defects,
+        repairsNeeded,
+        repairsNotNeeded,
+        operatorInitals,
+        mechanicInitals
+    ) => {
+        axios.post('http://localhost:5000/inspectionform', {
+            company: company,
+            date: date,
+            location: location,
+            job_num: job_num,
+            equipment: equipment,
+            hour_meter: hour_meter,
+            mileage: mileage,
+            column1:
+            na_lights + '\n' +
+            ok_lights + '\n' +
+            rr_lights + '\n' +
+            na_steps + '\n' +
+            ok_steps + '\n' +
+            rr_steps + '\n' +
+            na_tires + '\n' +
+            ok_tires + '\n' +
+            rr_tires + '\n' +
+            na_exhaust + '\n' +
+            ok_exhaust + '\n' +
+            rr_exhaust + '\n' +
+            na_fenders + '\n' +
+            ok_fenders + '\n' +
+            rr_fenders + '\n' +
+            na_bucket + '\n' +
+            ok_bucket + '\n' +
+            rr_bucket + '\n' +
+            na_cuttingEdge + '\n' +
+            ok_cuttingEdge + '\n' +
+            rr_cuttingEdge + '\n' +
+            na_lift + '\n' +
+            ok_lift + '\n' +
+            rr_lift + '\n' +
+            na_hoses + '\n' +
+            ok_hoses + '\n' +
+            rr_hoses + '\n' +
+            na_fittingsG + '\n' +
+            ok_fittingsG + '\n' +
+            rr_fittingsG + '\n' +
+            na_hitch + '\n' +
+            ok_hitch + '\n' +
+            rr_hitch + '\n' +
+            na_wipers + '\n' +
+            ok_wipers + '\n' +
+            rr_wipers,
+            column2:
+            na_bCable + '\n' +
+            ok_bCable + '\n' +
+            rr_bCable + '\n' +
+            na_fanBelt + '\n' +
+            ok_fanBelt + '\n' +
+            rr_fanBelt + '\n' +
+            na_engineHose + '\n' +
+            ok_engineHose + '\n' +
+            rr_engineHose + '\n' +
+            na_airFilter + '\n' +
+            ok_airFilter + '\n' +
+            rr_airFilter + '\n' +
+            na_guards + '\n' +
+            ok_guards + '\n' +
+            rr_guards + '\n' +
+            na_brakesS + '\n' +
+            ok_brakesS + '\n' +
+            rr_brakesS + '\n' +
+            na_brakesP + '\n' +
+            ok_brakesP + '\n' +
+            rr_brakesP + '\n' +
+            na_backup + '\n' +
+            ok_backup + '\n' +
+            rr_backup + '\n' +
+            na_fire + '\n' +
+            ok_fire + '\n' +
+            rr_fire + '\n' +
+            na_gauges + '\n' +
+            ok_gauges + '\n' +
+            rr_gauges + '\n' +
+            na_horn + '\n' +
+            ok_horn + '\n' +
+            rr_horn + '\n' +
+            na_hydroControls + '\n' +
+            ok_hydroControls + '\n' +
+            rr_hydroControls,
+            column3:
+            na_glass + '\n' +
+            ok_glass + '\n' +
+            rr_glass + '\n' +
+            na_mirror + '\n' +
+            ok_mirror + '\n' +
+            rr_mirror + '\n' +
+            na_rollOver + '\n' +
+            ok_rollOver + '\n' +
+            rr_rollOver + '\n' +
+            na_seat + '\n' +
+            ok_seat + '\n' +
+            rr_seat + '\n' +
+            na_steering + '\n' +
+            ok_steering + '\n' +
+            rr_steering + '\n' +
+            na_leaks + '\n' +
+            ok_leaks + '\n' +
+            rr_leaks + '\n' +
+            na_oil + '\n' +
+            ok_oil + '\n' +
+            rr_oil + '\n' +
+            na_coolant + '\n' +
+            ok_coolant + '\n' +
+            rr_coolant + '\n' +
+            na_hydroOil + '\n' +
+            ok_hydroOil + '\n' +
+            rr_hydroOil + '\n' +
+            na_transFluid + '\n' +
+            ok_transFluid + '\n' +
+            rr_transFluid + '\n' +
+            na_fuel + '\n' +
+            ok_fuel + '\n' +
+            rr_fuel,
+            defects: defects,
+            repairsNeeded: repairsNeeded,
+            repairsNotNeeded: repairsNotNeeded,
+            operatorInitals: operatorInitals,
+            mechanicInitals: mechanicInitals
+        }).then(() => {
+            console.log('successfully sent the data');
+        });
+    };
+
+    dataClick = () => {
+        this.onDataSubmit(
+            this.state.company,
+            this.state.date,
+            this.state.location,
+            this.state.job_num,
+            this.state.equipment,
+            this.state.hour_meter,
+            this.state.mileage,
+            this.state.na_lights,
+            this.state.ok_lights,
+            this.state.rr_lights,
+            this.state.na_steps,
+            this.state.ok_steps,
+            this.state.rr_steps,
+            this.state.na_tires,
+            this.state.ok_tires,
+            this.state.rr_tires,
+            this.state.na_exhaust,
+            this.state.ok_exhaust,
+            this.state.rr_exhaust,
+            this.state.na_fenders,
+            this.state.ok_fenders,
+            this.state.rr_fenders,
+            this.state.na_bucket,
+            this.state.ok_bucket,
+            this.state.rr_bucket,
+            this.state.na_cuttingEdge,
+            this.state.ok_cuttingEdge,
+            this.state.rr_cuttingEdge,
+            this.state.na_lift,
+            this.state.ok_lift,
+            this.state.rr_lift,
+            this.state.na_hoses,
+            this.state.ok_hoses,
+            this.state.rr_hoses,
+            this.state.na_fittingsG,
+            this.state.ok_fittingsG,
+            this.state.rr_fittingsG,
+            this.state.na_hitch,
+            this.state.ok_hitch,
+            this.state.rr_hitch,
+            this.state.na_wipers,
+            this.state.ok_wipers,
+            this.state.rr_wipers,
+            this.state.na_bCable,
+            this.state.ok_bCable,
+            this.state.rr_bCable,
+            this.state.na_fanBelt,
+            this.state.ok_fanBelt,
+            this.state.rr_fanBelt,
+            this.state.na_engineHose,
+            this.state.ok_engineHose,
+            this.state.rr_engineHose,
+            this.state.na_airFilter,
+            this.state.ok_airFilter,
+            this.state.rr_airFilter,
+            this.state.na_guards,
+            this.state.ok_guards,
+            this.state.rr_guards,
+            this.state.na_brakesS,
+            this.state.ok_brakesS,
+            this.state.rr_brakesS,
+            this.state.na_brakesP,
+            this.state.ok_brakesP,
+            this.state.rr_brakesP,
+            this.state.na_backup,
+            this.state.ok_backup,
+            this.state.rr_backup,
+            this.state.na_fire,
+            this.state.ok_fire,
+            this.state.rr_fire,
+            this.state.na_gauges,
+            this.state.ok_gauges,
+            this.state.rr_gauges,
+            this.state.na_horn,
+            this.state.ok_horn,
+            this.state.rr_horn,
+            this.state.na_hydroControls,
+            this.state.ok_hydroControls,
+            this.state.rr_hydroControls,
+            this.state.na_glass,
+            this.state.ok_glass,
+            this.state.rr_glass,
+            this.state.na_mirror,
+            this.state.ok_mirror,
+            this.state.rr_mirror,
+            this.state.na_rollOver,
+            this.state.ok_rollOver,
+            this.state.rr_rollOver,
+            this.state.na_seat,
+            this.state.ok_seat,
+            this.state.rr_seat,
+            this.state.na_steering,
+            this.state.ok_steering,
+            this.state.rr_steering,
+            this.state.na_leaks,
+            this.state.ok_leaks,
+            this.state.rr_leaks,
+            this.state.na_oil,
+            this.state.ok_oil,
+            this.state.rr_oil,
+            this.state.na_coolant,
+            this.state.ok_coolant,
+            this.state.rr_coolant,
+            this.state.na_hydroOil,
+            this.state.ok_hydroOil,
+            this.state.rr_hydroOil,
+            this.state.na_transFluid,
+            this.state.ok_transFluid,
+            this.state.rr_transFluid,
+            this.state.na_fuel,
+            this.state.ok_fuel,
+            this.state.rr_fuel,
+            this.state.defects,
+            this.state.repairsNeeded,
+            this.state.repairsNotNeeded,
+            this.state.operatorInitals,
+            this.state.mechanicInitals
+        )
+    }
+
     onSubmit = (event) => {
       event.preventDefault();
     };
@@ -874,6 +1241,13 @@ class InspectionForm extends React.Component {
                     /></div>
 
             </form>
+
+            <button
+              className="submit-button"
+              type="submit"
+              onClick={this.dataClick}>
+              Submit
+            </button>
         </div>
         );
     };
