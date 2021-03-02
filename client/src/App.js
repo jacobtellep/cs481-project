@@ -9,7 +9,9 @@ import ViewForm from "./components/ViewForm";
 
 import JSAform from './components/JSAform';
 import GetJSAform from './components/GetJSAform';
+
 import InspectionForm from './components/InspectionForm';
+import GetInspectionForm from './components/GetInspectionForm';
 
 import Logout from "./components/Logout";
 import LoginButton from "./components/LoginButton";
@@ -28,13 +30,16 @@ const App = () => {
 
           <Route path="/createjobsafetyanalysis" component={JSAform} />
           <Route path="/getjobsafetyanalysis" component={GetJSAform} />
+
           <Route path="/createinspectionform" component={InspectionForm} />
+          <Route path="/getinspectionform" component={GetInspectionForm} />
+
           <Route path="/forms" exact component={Forms} />
           <Route path="/createform" component={CreateForm} />
           <Route path="/viewform" component={ViewForm} />
-          
 
-          
+
+
           <Route path="/logout" component={Logout} />
           <Route path="/login" component={Login} />
           <Route path="/" exact>
