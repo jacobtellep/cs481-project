@@ -12,7 +12,7 @@ const Forms = () => {
           <Link to="/createjobsafetyanalysis">Job Safety Analysis</Link>
         </li>
         <li>
-          <Link to="/createinspection">Equipment Inspection</Link>
+          <Link to="/createinspectionform">Equipment Inspection</Link>
         </li>
       </ul>
     </div>
