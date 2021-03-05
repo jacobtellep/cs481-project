@@ -8,7 +8,6 @@ nav {
 
 a {
   display: block;
-  padding: 8px;
 }
 
 .menu {
@@ -17,8 +16,16 @@ a {
 
 .link {
   display: block;
+  padding-left: 8px;
+  color: white;
+}
+
+.button {
+  display: flex;
+  align-items: center;
   padding: 8px;
   color: white;
+  cursor: pointer;
 }
 
 .menu-items {

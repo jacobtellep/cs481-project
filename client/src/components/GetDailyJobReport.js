@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import "./GetDailyJobReport.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 class GetDailyJobReport extends React.Component {
   state = {

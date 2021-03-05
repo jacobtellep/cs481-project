@@ -1,124 +1,125 @@
-import React from 'react';
-import axios from 'axios';
-import './DailyJobReport.css';
+import React from "react";
+import axios from "axios";
+import "./DailyJobReport.css";
+import { withAuth0 } from "@auth0/auth0-react";
 
 class DailyJobReport extends React.Component {
   state = {
-    date: '',
-    customer: '',
-    project: '',
-    contractNumber: '',
-    foreman: '',
-    weatherNotes: '',
-    weatherStart: '',
-    weatherEnd: '',
-    weatherNotes1: '',
-    weatherStart1: '',
-    weatherEnd1: '',
-    weatherNotes2: '',
-    weatherStart2: '',
-    weatherEnd2: '',
-    weatherNotes3: '',
-    weatherStart3: '',
-    weatherEnd3: '',
-    projectNotes: '',
-    projectStart: '',
-    projectEnd: '',
-    projectNotes1: '',
-    projectStart1: '',
-    projectEnd1: '',
-    projectNotes2: '',
-    projectStart2: '',
-    projectEnd2: '',
-    projectNotes3: '',
-    projectStart3: '',
-    projectEnd3: '',
-    employeeName: '',
-    hours: '',
-    jobNumber: '',
-    employeeName1: '',
-    hours1: '',
-    jobNumber1: '',
-    employeeName2: '',
-    hours2: '',
-    jobNumber2: '',
-    employeeName3: '',
-    hours3: '',
-    jobNumber3: '',
-    employeeName4: '',
-    hours4: '',
-    jobNumber4: '',
-    employeeName5: '',
-    hours5: '',
-    jobNumber5: '',
-    employeeName6: '',
-    hours6: '',
-    jobNumber6: '',
-    employeeName7: '',
-    hours7: '',
-    jobNumber7: '',
-    jobDescription: '',
+    date: "",
+    customer: "",
+    project: "",
+    contractNumber: "",
+    foreman: "",
+    weatherNotes: "",
+    weatherStart: "",
+    weatherEnd: "",
+    weatherNotes1: "",
+    weatherStart1: "",
+    weatherEnd1: "",
+    weatherNotes2: "",
+    weatherStart2: "",
+    weatherEnd2: "",
+    weatherNotes3: "",
+    weatherStart3: "",
+    weatherEnd3: "",
+    projectNotes: "",
+    projectStart: "",
+    projectEnd: "",
+    projectNotes1: "",
+    projectStart1: "",
+    projectEnd1: "",
+    projectNotes2: "",
+    projectStart2: "",
+    projectEnd2: "",
+    projectNotes3: "",
+    projectStart3: "",
+    projectEnd3: "",
+    employeeName: "",
+    hours: "",
+    jobNumber: "",
+    employeeName1: "",
+    hours1: "",
+    jobNumber1: "",
+    employeeName2: "",
+    hours2: "",
+    jobNumber2: "",
+    employeeName3: "",
+    hours3: "",
+    jobNumber3: "",
+    employeeName4: "",
+    hours4: "",
+    jobNumber4: "",
+    employeeName5: "",
+    hours5: "",
+    jobNumber5: "",
+    employeeName6: "",
+    hours6: "",
+    jobNumber6: "",
+    employeeName7: "",
+    hours7: "",
+    jobNumber7: "",
+    jobDescription: "",
 
     dailyJobReport: [],
   };
 
   componentDidMount = () => {
     this.setState({
-      date: '03/02/1993',
-      customer: 'Jake Tellep',
-      project: 'Electrical',
-      contractNumber: '123',
-      foreman: 'Greg Carte',
-      weatherNotes: 'Rain',
-      weatherStart: '2:00 PM',
-      weatherEnd: '3:00 PM',
-      weatherNotes1: 'Snow',
-      weatherStart1: '7:00 AM',
-      weatherEnd1: '9:00 AM',
-      weatherNotes2: 'Hail',
-      weatherStart2: '5:00 PM',
-      weatherEnd2: '8:00 PM',
-      weatherNotes3: 'Fire',
-      weatherStart3: '4:00 AM',
-      weatherEnd3: '7:00 AM',
-      projectNotes: 'equipent breakdown',
-      projectStart: '7:00 AM',
-      projectEnd: '9:00 AM',
-      projectNotes1: 'out of material',
-      projectStart1: '2:00 PM',
-      projectEnd1: '3:00 PM',
-      projectNotes2: 'fueling',
-      projectStart2: '3:00 PM',
-      projectEnd2: '3:30 PM',
-      projectNotes3: 'Equipment maintenance',
-      projectStart3: '4:00 PM',
-      projectEnd3: '4:45 PM',
-      employeeName: 'George Martin',
-      hours: '8',
-      jobNumber: '1',
-      employeeName1: 'Stephen King',
-      hours1: '9',
-      jobNumber1: '2',
-      employeeName2: 'Patrick Rothfuss',
-      hours2: '9',
-      jobNumber2: '3',
-      employeeName3: 'Steven Erikson',
-      hours3: '10',
-      jobNumber3: '4',
-      employeeName4: 'Robert Jordan',
-      hours4: '12',
-      jobNumber4: '5',
-      employeeName5: 'Brandon Sanderson',
-      hours5: '10',
-      jobNumber5: '6',
-      employeeName6: 'Joe Abercrombie',
-      hours6: '8',
-      jobNumber6: '7',
-      employeeName7: 'Dan Simmons',
-      hours7: '10',
-      jobNumber7: '8',
+      date: "03/02/1993",
+      customer: "Jake Tellep",
+      project: "Electrical",
+      contractNumber: "123",
+      foreman: "Greg Carte",
+      weatherNotes: "Rain",
+      weatherStart: "2:00 PM",
+      weatherEnd: "3:00 PM",
+      weatherNotes1: "Snow",
+      weatherStart1: "7:00 AM",
+      weatherEnd1: "9:00 AM",
+      weatherNotes2: "Hail",
+      weatherStart2: "5:00 PM",
+      weatherEnd2: "8:00 PM",
+      weatherNotes3: "Fire",
+      weatherStart3: "4:00 AM",
+      weatherEnd3: "7:00 AM",
+      projectNotes: "equipent breakdown",
+      projectStart: "7:00 AM",
+      projectEnd: "9:00 AM",
+      projectNotes1: "out of material",
+      projectStart1: "2:00 PM",
+      projectEnd1: "3:00 PM",
+      projectNotes2: "fueling",
+      projectStart2: "3:00 PM",
+      projectEnd2: "3:30 PM",
+      projectNotes3: "Equipment maintenance",
+      projectStart3: "4:00 PM",
+      projectEnd3: "4:45 PM",
+      employeeName: "George Martin",
+      hours: "8",
+      jobNumber: "1",
+      employeeName1: "Stephen King",
+      hours1: "9",
+      jobNumber1: "2",
+      employeeName2: "Patrick Rothfuss",
+      hours2: "9",
+      jobNumber2: "3",
+      employeeName3: "Steven Erikson",
+      hours3: "10",
+      jobNumber3: "4",
+      employeeName4: "Robert Jordan",
+      hours4: "12",
+      jobNumber4: "5",
+      employeeName5: "Brandon Sanderson",
+      hours5: "10",
+      jobNumber5: "6",
+      employeeName6: "Joe Abercrombie",
+      hours6: "8",
+      jobNumber6: "7",
+      employeeName7: "Dan Simmons",
+      hours7: "10",
+      jobNumber7: "8",
       jobDescription:
-        'This job will accomplish building a new substation in Beckley',
+        "This job will accomplish building a new substation in Beckley",
     });
   };
 
@@ -180,7 +181,7 @@ class DailyJobReport extends React.Component {
   ) => {
     // this is where the data is sent to the backend
     axios
-      .post('http://localhost:5000/dailyjobreport', {
+      .post("http://localhost:5000/dailyjobreport", {
         date: date,
         customer: customer,
         project: project,
@@ -188,104 +189,104 @@ class DailyJobReport extends React.Component {
         foreman: foreman,
         weatherNotes:
           weatherNotes +
-          '\n' +
+          "\n" +
           weatherNotes1 +
-          '\n' +
+          "\n" +
           weatherNotes2 +
-          '\n' +
+          "\n" +
           weatherNotes3,
         weatherStart:
           weatherStart +
-          '\n' +
+          "\n" +
           weatherStart1 +
-          '\n' +
+          "\n" +
           weatherStart2 +
-          '\n' +
+          "\n" +
           weatherStart3,
         weatherEnd:
           weatherEnd +
-          '\n' +
+          "\n" +
           weatherEnd1 +
-          '\n' +
+          "\n" +
           weatherEnd2 +
-          '\n' +
+          "\n" +
           weatherEnd3,
         projectNotes:
           projectNotes +
-          '\n' +
+          "\n" +
           projectNotes1 +
-          '\n' +
+          "\n" +
           projectNotes2 +
-          '\n' +
+          "\n" +
           projectNotes3,
         projectStart:
           projectStart +
-          '\n' +
+          "\n" +
           projectStart1 +
-          '\n' +
+          "\n" +
           projectStart2 +
-          '\n' +
+          "\n" +
           projectStart3,
         projectEnd:
           projectEnd +
-          '\n' +
+          "\n" +
           projectEnd1 +
-          '\n' +
+          "\n" +
           projectEnd2 +
-          '\n' +
+          "\n" +
           projectEnd3,
         employeeName:
           employeeName +
-          '\n' +
+          "\n" +
           employeeName1 +
-          '\n' +
+          "\n" +
           employeeName2 +
-          '\n' +
+          "\n" +
           employeeName3 +
-          '\n' +
+          "\n" +
           employeeName4 +
-          '\n' +
+          "\n" +
           employeeName5 +
-          '\n' +
+          "\n" +
           employeeName6 +
-          '\n' +
+          "\n" +
           employeeName7,
         hours:
           hours +
-          '\n' +
+          "\n" +
           hours1 +
-          '\n' +
+          "\n" +
           hours2 +
-          '\n' +
+          "\n" +
           hours3 +
-          '\n' +
+          "\n" +
           hours4 +
-          '\n' +
+          "\n" +
           hours5 +
-          '\n' +
+          "\n" +
           hours6 +
-          '\n' +
+          "\n" +
           hours7,
         jobNumber:
           jobNumber +
-          '\n' +
+          "\n" +
           jobNumber1 +
-          '\n' +
+          "\n" +
           jobNumber2 +
-          '\n' +
+          "\n" +
           jobNumber3 +
-          '\n' +
+          "\n" +
           jobNumber4 +
-          '\n' +
+          "\n" +
           jobNumber5 +
-          '\n' +
+          "\n" +
           jobNumber6 +
-          '\n' +
+          "\n" +
           jobNumber7,
         jobDescription: jobDescription,
       })
       .then(() => {
-        console.log('successfully sent the data');
+        console.log("successfully sent the data");
       });
   }; // end of onDataSubmit
 
@@ -381,8 +382,9 @@ class DailyJobReport extends React.Component {
 
     return (
       // These are JSX instances of each of the components I made to create the complete form
+
       <div className="daily-job-report">
-        <h1 style={{ paddingLeft: '20px', paddingTop: '20px' }}>
+        <h1 style={{ paddingLeft: "20px", paddingTop: "20px" }}>
           Daily Job Report
         </h1>
         <form onSubmit={this.onDataSubmit}>
@@ -813,10 +815,10 @@ class DailyJobReport extends React.Component {
         <button
           className="submit-button"
           type="submit"
-          onClick={this.dataClick}>
+          onClick={this.dataClick}
+        >
           Submit
         </button>
-
       </div>
     );
   }
