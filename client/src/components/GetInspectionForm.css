@@ -1,0 +1,20 @@
+.info {
+    padding-left: 20px;
+}
+
+.columns {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.column1{
+    display: flex;
+    flex-direction: column;
+}
+
+.column2{
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+}
