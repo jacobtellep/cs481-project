@@ -1,13 +1,13 @@
-li {
-  list-style: none;
-}
-
 nav {
   display: flex;
 }
 
-a {
-  display: block;
+li {
+  list-style: none;
+}
+
+a:hover {
+  color: orange;
 }
 
 .menu {
