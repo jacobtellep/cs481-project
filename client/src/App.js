@@ -8,19 +8,14 @@ import CreateForm from './components/CreateForm';
 import ViewForm from './components/ViewForm';
 import Logout from './components/Logout';
 import Login from './components/Login';
-import LoginNavBar from './components/LoginNavBar';
 import Pricing from './components/Pricing';
 import ViewPricing from './components/ViewPricing';
-import { useAuth0 } from '@auth0/auth0-react';
 
 const App = () => {
-  const { isAuthenticated } = useAuth0();
-
   return (
     <div>
       <Router>
         <NavBar />
-        <LoginNavBar />
         <Switch>
           <Route path="/createdailyjobreport" component={DailyJobReport} />
           <Route path="/getdailyjobreport" component={GetDailyJobReport} />
