@@ -1,24 +1,28 @@
-import React from "react";
-import { Link, BrowserRouter as Router } from "react-router-dom";
-import "./NavBar.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './NavBar.css';
+import LogoutButton from './LogoutButton';
+import { useAuth0 } from '@auth0/auth0-react';
+import LoginButton from './LoginButton';
 
 const NavBar = () => {
+  const { isAuthenticated } = useAuth0();
   return (
-    // The home button is not working
+    <nav className="menu button">
+      <Link to="/" className="link">
+        Home{' '}
+      </Link>
 
-    <nav className="menu">
-      <ul>
-        <li className="menu-items">
-          <Link to="/" className="link">
-            Home{" "}
-          </Link>
-        </li>
-        <li className="menu-items">
-          <Link to="/forms" className="link">
-            Forms{" "}
-          </Link>
-        </li>
-      </ul>
+      <Link to="/forms" className="link">
+        Forms{' '}
+      </Link>
+
+      <Link to="/pricing" className="link">
+        Pricing{' '}
+      </Link>
+
+      <LogoutButton />
+      <LoginButton />
     </nav>
   );
 };

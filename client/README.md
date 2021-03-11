@@ -1,6 +1,4 @@
-
 # Basic Authentication added
-
 
 ## Available Scripts
 
