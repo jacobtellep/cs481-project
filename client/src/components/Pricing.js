@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const Forms = () => {
+const Pricing = () => {
   const { isAuthenticated } = useAuth0();
 
   return (
@@ -10,10 +10,10 @@ const Forms = () => {
       <div>
         <ul>
           <li className="home">
-            <Link to="/createform">Create Form</Link>
+            <Link to="/createpricing">Create Pricing</Link>
           </li>
           <li>
-            <Link to="/viewform">View Form</Link>
+            <Link to="/viewpricing">View Pricing</Link>
           </li>
         </ul>
       </div>
@@ -21,4 +21,4 @@ const Forms = () => {
   );
 };
 
-export default Forms;
+export default Pricing;

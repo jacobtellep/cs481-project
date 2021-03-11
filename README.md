@@ -1,7 +1,3 @@
-
-# Basic Authentication added
-
-
 ## Available Scripts
 
 In the project directory, you can run:
