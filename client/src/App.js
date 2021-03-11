@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
 import DailyJobReport from './components/DailyJobReport';
 import GetDailyJobReport from './components/GetDailyJobReport';
 import NavBar from './components/NavBar';
@@ -17,13 +18,19 @@ const App = () => {
       <Router>
         <NavBar />
         <Switch>
-          <Route path="/createdailyjobreport" component={DailyJobReport} />
-          <Route path="/getdailyjobreport" component={GetDailyJobReport} />
-          <Route path="/forms" exact component={Forms} />
-          <Route path="/createform" component={CreateForm} />
-          <Route path="/viewform" component={ViewForm} />
-          <Route path="/pricing" component={Pricing} />
-          <Route path="/viewpricing" component={ViewPricing} />
+          <ProtectedRoute
+            path="/createdailyjobreport"
+            component={DailyJobReport}
+          />
+          <ProtectedRoute
+            path="/getdailyjobreport"
+            component={GetDailyJobReport}
+          />
+          <ProtectedRoute path="/forms" exact component={Forms} />
+          <ProtectedRoute path="/createform" component={CreateForm} />
+          <ProtectedRoute path="/viewform" component={ViewForm} />
+          <ProtectedRoute path="/pricing" component={Pricing} />
+          <ProtectedRoute path="/viewpricing" component={ViewPricing} />
           <Route path="/logout" component={Logout} />
           <Route path="/login" component={Login} />
           <Route path="/" exact>
