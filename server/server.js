@@ -126,12 +126,11 @@ app.post('/inspectionform', (req,res) => {
     const column3 = req.body.column3;
     const defects = req.body.defects;
     const repairsNeeded = req.body.repairsNeeded;
-    const repairsNotNeeded = req.body.repairsNotNeeded;
     const operatorInitals = req.body.operatorInitals;
     const mechanicInitals = req.body.mechanicInitals;
 
     db.query(
-        'INSERT INTO inspection (company, proj_date, location, job_num, equip_type, hour_meter, mileage, column1, column2, column3, explain_defects, sign_operator, sign_mech) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
+        'INSERT INTO inspection (company, proj_date, location, job_num, equip_type, hour_meter, mileage, column1, column2, column3, explain_defects, sign_operator, sign_mech, needsRepair) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
         [
              company,
              date,
@@ -144,10 +143,9 @@ app.post('/inspectionform', (req,res) => {
              column2,
              column3,
              defects,
-             repairsNeeded,
-             repairsNotNeeded,
              operatorInitals,
              mechanicInitals,
+             repairsNeeded
         ],
         (err, result) => {
           if (err) {
@@ -174,14 +172,12 @@ app.get('/dailyjobreport', (req, res) => {
 
 app.get('/jsaform', (req, res) => {
   db.query(
-    'SELECT * FROM jsa_form WHERE ticket_num = 11',
+    'SELECT * FROM jsa_form WHERE ticket_num = 55',
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
         res.send(result);
-        console.log("Hello");
-        console.log(result);
       }
     }
   );
@@ -189,14 +185,12 @@ app.get('/jsaform', (req, res) => {
 
 app.get('/inspection', (req, res) => {
   db.query(
-    'SELECT * FROM inspection WHERE job_num = 1',
+    'SELECT * FROM inspection WHERE job_num = 2',
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
         res.send(result);
-        console.log("Hello");
-        console.log(result);
       }
     }
   );
