@@ -361,7 +361,6 @@ class InspectionForm extends React.Component {
             rr_fuel,
             defects: defects,
             repairsNeeded: repairsNeeded,
-            repairsNotNeeded: repairsNotNeeded,
             operatorInitals: operatorInitals,
             mechanicInitals: mechanicInitals
         }).then(() => {
@@ -596,8 +595,10 @@ class InspectionForm extends React.Component {
             <div className="columns">
 
                 <div className="column">
+                    <div style={{display: "flex", flexDirection: "column"}}>
                     <b>Outside</b>
                     <b>NA OK RR</b>
+                    </div>
                     <div className="checkRow">
                         <input type="checkbox"
                                 name="na_lights"
@@ -1012,22 +1013,6 @@ class InspectionForm extends React.Component {
 
                     <div className="checkRow">
                         <input type="checkbox"
-                                name="na_glass"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_glass"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_glass"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Glass (all sides)</label>
-                    </div>
-
-                    <div className="checkRow">
-                        <input type="checkbox"
                                 name="na_mirror"
                                  onChange= {(event) => this.handleCheck(event)}
                         />
@@ -1041,6 +1026,7 @@ class InspectionForm extends React.Component {
                         />
                     <label> Mirror</label>
                     </div>
+
 
                     <div className="checkRow">
                         <input type="checkbox"

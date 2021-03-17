@@ -96,7 +96,7 @@ class GetJSAform extends React.Component{
           this.getjsaform(this.state.GetJSAform);
         };
 
-        stringToBoolean = (string) => {
+         stringToBoolean = (string) => {
             switch(string.toLowerCase().trim()){
                 case "true": case "yes": case "1": return true;
                 case "false": case "no": case "0": case null: return false;
@@ -121,11 +121,11 @@ class GetJSAform extends React.Component{
                         {/* && operator, kind of like using an if statement, will ignore any null values and stills render */}
                         {this.state.GetJSAform && this.state.GetJSAform.map((value, index) => {
                             /* Created variables to help format and split*/
-                            const weather = value.weather_id;
+                            const weather = value.weather_id.split('\n');
 
-                            const hazard_1 = value.hazard_1;
-                            const hazard_2 = value.hazard_2;
-                            const hazard_3 = value.hazard_3;
+                            const hazard_1 = value.hazard_1.split('\n');
+                            const hazard_2 = value.hazard_2.split('\n');
+                            const hazard_3 = value.hazard_3.split('\n');
 
                             const majorSteps = value.major_steps;
                             const potentialHazard = value.potential_hazard;
@@ -133,6 +133,8 @@ class GetJSAform extends React.Component{
 
                             const employeeName = value.user_id;
                             const employeeInitals = value.signatures;
+
+
 
                           return (
                             <div className="retrieve-report" key={index}>
@@ -150,8 +152,12 @@ class GetJSAform extends React.Component{
                                       <div><b>AFE Number: </b>{value.afe_num}</div>
                                   </div>
                                 <div style={{display: "flex", flexDirection: "column", paddingLeft: "100px"}}>
-                                  {weather.split('\n').map(str=> <div style={{paddingBottom: "1px"}}> <input type="checkbox" checked={!!this.str}/>{str}</div>)
-                                      }
+                                  {weather.map((str)=> {if(String(str).toLowerCase() == "true")
+                                                            return <div style={{paddingBottom: "1px"}}> <input type="checkbox" checked={true}/></div>
+                                                        else if(String(str).toLowerCase() == "true" || String(str).toLowerCase() != "false")
+                                                            return <div style={{paddingBottom: "1px"}}> {str}</div>
+                                                        return <div style={{paddingBottom: "1px"}}> <input type="checkbox" checked={false}/></div>})}
+
                                 </div>
                                 <div style={{display: "flex", flexDirection: "column"}}>
                                     <div>Sun</div>
@@ -159,8 +165,8 @@ class GetJSAform extends React.Component{
                                     <div>Overcast</div>
                                     <div>Windy</div>
                                     <div>Hail</div>
-                                    <div>Snow</div>
-                                    <div>Temp</div>
+                                    <div style={{paddingBottom: "1px"}}>Snow</div>
+                                    <div style={{paddingTop: "3px"}}>F Temp</div>
                                 </div>
                               </div>
                               <br />
@@ -172,9 +178,9 @@ class GetJSAform extends React.Component{
                               <h3>Hazards</h3>
                               <div className="hazardCheck" style={{display: "flex", flexDirection: "row"}}>
                               <div style={{display: "flex", flexDirection: "column"}}>
-                                  {/* Still unsure why the value of the ckeckbox does not redner correctly but for now have the values printed next to
-                                      it checkbox and the user can't change the view/state of the checkbox*/}
-                                {hazard_1.split('\n').map(str=> <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={!!this.str}/>{str}</div>)}
+                                {hazard_1.map(str=> {if (String(str).toLowerCase() == "true")
+                                                    return <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={true}/></div>
+                                                return <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={false}/></div>})}
                               </div>
                               <div style={{display: "flex", flexDirection: "column"}}>
                                   <div>Confined Space</div>
@@ -186,7 +192,9 @@ class GetJSAform extends React.Component{
                               </div>
 
                               <div style={{display: "flex", flexDirection: "column", paddingLeft: "20px"}}>
-                                {hazard_2.split('\n').map(str=> <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={!!this.str}/>{str}</div>)}
+                                  {hazard_2.map(str=> {if (String(str).toLowerCase() == "true")
+                                                      return <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={true}/></div>
+                                                  return <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={false}/></div>})}
                               </div>
                               <div style={{display: "flex", flexDirection: "column"}}>
                                   <div>Pinch/Crush/Strike Hazard</div>
@@ -198,7 +206,9 @@ class GetJSAform extends React.Component{
                               </div>
 
                               <div style={{display: "flex", flexDirection: "column", position: "relative", left: "-450px"}}>
-                                {hazard_3.split('\n').map(str=> <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={!!this.str}/>{str}</div>)}
+                                  {hazard_3.map(str=> {if (String(str).toLowerCase() == "true")
+                                                      return <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={true}/></div>
+                                                  return <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={false}/></div>})}
                               </div>
                               <div style={{display: "flex", flexDirection: "column", position: "relative", left: "-450px"}}>
                                   <div>Elevated Work Load</div>

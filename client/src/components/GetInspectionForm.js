@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import './GetInspectionForm';
 
 class GetInspectionForm extends React.Component {
     state = {
@@ -123,44 +122,7 @@ class GetInspectionForm extends React.Component {
         mechanicInitals: ''
     }
 
-    columnA : {
-        na_lights: 'false',
-        ok_lights: 'false',
-        rr_lights: 'false',
-        na_steps: 'false',
-        ok_steps: 'false',
-        rr_steps: 'false',
-        na_tires: 'false',
-        ok_tires: 'false',
-        rr_tires: 'false',
-        na_exhaust: 'false',
-        ok_exhaust: 'false',
-        rr_exhaust: 'false',
-        na_fenders: 'false',
-        ok_fenders: 'false',
-        rr_fenders: 'false',
-        na_bucket: 'false',
-        ok_bucket: 'false',
-        rr_bucket: 'false',
-        na_cuttingEdge: 'false',
-        ok_cuttingEdge: 'false',
-        rr_cuttingEdge: 'false',
-        na_lift: 'false',
-        ok_lift: 'false',
-        rr_lift: 'false',
-        na_hoses: 'false',
-        ok_hoses: 'false',
-        rr_hoses: 'false',
-        na_fittingsG: 'false',
-        ok_fittingsG: 'false',
-        rr_fittingsG: 'false',
-        na_hitch: 'false',
-        ok_hitch: 'false',
-        rr_hitch: 'false',
-        na_wipers: 'false',
-        ok_wipers: 'false',
-        rr_wipers: 'false'
-    }
+
 
     getInspectionForm = () => {
       axios.get('http://localhost:5000/inspection').then((response) => {
@@ -189,20 +151,18 @@ class GetInspectionForm extends React.Component {
                 <br /><br /><br />
 
                 {this.state.GetInspectionForm && this.state.GetInspectionForm.map((value, index) => {
-                    const column1 = value.column1;
-                    {/*column1.split('\n').map((str,i)=> this.setState({columnA[i]: {str}}))
+                    const column1 = value.column1.split('\n');
+                    const column2 = value.column2.split('\n');
+                    const column3 = value.column3.split('\n');
 
-                        Going to have to render like we did in the inspectionform, need to get
-                        an array of the values from the database mapped to the names of each
-                        checkbox like in the inspectionform
-
-
-                    */}
-                    const column2 = value.column2;
-                    const column3 = value.column3;
+                    const renderRepairs = () => {
+                        if(String(value.repairsNeeded).toLowerCase() === "true")
+                            return <div> <input type="checkbox" checked={true}/> Repairs or adjustments needed  <input type="checkbox" checked={false}/> Repairs or adjustments NOT needed for safe equipment operation </div>
+                        return <div> <input type="checkbox" checked={false}/> Repairs or adjustments needed  <input type="checkbox" checked={true}/> Repairs or adjustments NOT needed for safe equipment operation </div>
+                    }
 
                     return(
-                        <div className='retrieve-report' key={index}>
+                        <div className='retrieve-report' key={index} style={{paddingBottom: "20px"}}>
                             <h1>Inspection Form</h1>
 
                             <h3>Job Info</h3>
@@ -227,24 +187,139 @@ class GetInspectionForm extends React.Component {
                             <br /><br />
 
                             <div className="columns">
+
                                 <div classname="column1">
-                                    <b>Outside</b>
-                                    <p>NA OK RR</p>
-                                    <div className="checkRow">
-                                         {column1.split('\n').map((str)=> <div> <input type="checkbox" checked={!!this.str} />{str} </div> )}
-                                    </div>
+                                    <b>Outside</b><br />
+                                    <b>NA OK RR</b> <br />
+                                     {column1.map((str, i) =>
+                                              {if(i%3===0 && i!==0) {
+                                                    if(String(str).toLowerCase() === "true")
+                                                        return <fragment><br /> <input type="checkbox" checked={true}/> </fragment>
+                                                    return <fragment><br /> <input type="checkbox" checked={false} /> </fragment>
+                                              } else {
+                                                if(String(str).toLowerCase() === "true")
+                                                    return <fragment> <input type="checkbox" checked={true}/> </fragment>
+                                                return <fragment> <input type="checkbox" checked={false} /> </fragment>
+                                        }
+                                    })}
                                 </div>
+
+                                <div style={{display: "flex", flexDirection: "column", paddingTop: "39px", position: "relative", left: "-30px"}}>
+                                    <div>Lights</div>
+                                    <div>Steps/Hand Rail</div>
+                                    <div>Tires/Tracks</div>
+                                    <div>Exhaust</div>
+                                    <div>Fenders</div>
+                                    <div>Buckets</div>
+                                    <div>Cutting Edge/Teeth</div>
+                                    <div>LIfting Mechanism</div>
+                                    <div>Hoses</div>
+                                    <div>Fittings Greased</div>
+                                    <div>Hitch/Coupler</div>
+                                    <div>Wipers</div>
+                                </div>
+
+
+                                <div>
+                                    <b>Engine Compartment</b> <br />
+                                    <b>NA OK RR</b> <br />
+                                        {column2.map((str, i) =>
+                                                 {if(i===15) {
+                                                     if(String(str).toLowerCase() === "true")
+                                                         return <React.Fragment><br /> <b>Inside Cab</b><br /> <input type="checkbox" checked={true}/> </React.Fragment>
+                                                     return <React.Fragment><br /> <b>Inside Cab</b> <br /> <input type="checkbox" checked={false} /> </React.Fragment>
+                                                 } else if(i%3===0 && i!==0) {
+                                                       if(String(str).toLowerCase() === "true")
+                                                           return <React.Fragment><br /> <input type="checkbox" checked={true}/> </React.Fragment>
+                                                       return <React.Fragment><br /> <input type="checkbox" checked={false} /> </React.Fragment>
+                                                 } else {
+                                                    if(String(str).toLowerCase() === "true")
+                                                       return <React.Fragment> <input type="checkbox" checked={true}/> </React.Fragment>
+                                                   return <React.Fragment> <input type="checkbox" checked={false} /> </React.Fragment>
+                                                 }
+                                      })}
+                                </div>
+
+                                <div style={{display: "flex", flexDirection: "column", paddingTop: "39px", position: "relative", left: "-120px"}}>
+                                    <div>Battery Cable</div>
+                                    <div>Fan Belt</div>
+                                    <div>Hoses</div>
+                                    <div>Air Filter</div>
+                                    <div>Guards</div>
+                                        <br />
+                                    <div>Brakes Service</div>
+                                    <div>Brakes Parking</div>
+                                    <div>Backup Alarm</div>
+                                    <div>Fire Extinguisher</div>
+                                    <div>Gauges</div>
+                                    <div>Horn</div>
+                                    <div>Hydraulic Controls</div>
+                                </div>
+
+                                <div style={{position: "relative", left:"-80px"}}>
+                                    <b>Inside Cab (cont.)</b> <br />
+                                    <b>NA OK RR</b> <br />
+                                        {column3.map((str, i) =>
+                                                 {if(i===15) {
+                                                     if(String(str).toLowerCase() === "true")
+                                                         return <React.Fragment><br /> <b>Fluids</b><br /> <input type="checkbox" checked={true}/> </React.Fragment>
+                                                     return <React.Fragment><br /> <b>Fluids</b> <br /> <input type="checkbox" checked={false} /> </React.Fragment>
+                                                 } else if(i%3===0 && i!==0) {
+                                                       if(String(str).toLowerCase() === "true")
+                                                           return <React.Fragment><br /> <input type="checkbox" checked={true}/> </React.Fragment>
+                                                       return <React.Fragment><br /> <input type="checkbox" checked={false} /> </React.Fragment>
+                                                 } else {
+                                                    if(String(str).toLowerCase() === "true")
+                                                       return <React.Fragment> <input type="checkbox" checked={true}/> </React.Fragment>
+                                                   return <React.Fragment> <input type="checkbox" checked={false} /> </React.Fragment>
+                                                 }
+                                      })}
+                                </div>
+
+                                <div style={{display: "flex", flexDirection: "column", paddingTop: "39px", position: "relative", left: "-165px"}}>
+                                    <div>Glass (all sides)</div>
+                                    <div>Mirror</div>
+                                    <div>Roll Over Protection</div>
+                                    <div>Seat Belt/Seat</div>
+                                    <div>Steering</div>
+                                        <br />
+                                    <div>Visible Leaks</div>
+                                    <div>Oil Level/Pressure</div>
+                                    <div>Coolant Level</div>
+                                    <div>Hydraulic Oil Level</div>
+                                    <div>Transmission Fluid Level</div>
+                                    <div>Fuel Level</div>
+                                </div>
+
+                            </div> {/*******end of columns**********/}
+
+                            <br />
+                            <div>
+                                <b>Explain Defects:</b>
+                                <br />
+                                {value.explain_defects}
+                            </div>
+                            <br />
+
+                            <div>
+                            {renderRepairs()}
                             </div>
 
-                        </div>
+                            <br />
+                            <br />
+
+                            <div className="initals" style={{display: "flex", flexDirection: "column"}}>
+                                <div><b>Operator's initals: </b> {value.sign_operator}</div>
+                                <div><b>Mechanic's initals: </b> {value.sign_mech}</div>
+
+                            </div>
+
+                        </div> //**************end of return
                     );
-
                 })}
-
             </div>
         );
     };
-
 };
 
 export default GetInspectionForm;
