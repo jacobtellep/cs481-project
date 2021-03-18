@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Forms = () => {
   return (
@@ -12,7 +12,7 @@ const Forms = () => {
           <Link to="/getjobsafetyanalysis">Job Safety Analysis</Link>
         </li>
         <li>
-          <Link to="/getinspectionform">Equipment Inspection</Link>
+          <Link to="/getinspection">Equipment Inspection</Link>
         </li>
       </ul>
     </div>

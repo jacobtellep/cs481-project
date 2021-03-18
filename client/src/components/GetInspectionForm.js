@@ -165,27 +165,6 @@ class GetInspectionForm extends React.Component {
                         <div className='retrieve-report' key={index} style={{paddingBottom: "20px"}}>
                             <h1>Inspection Form</h1>
 
-                            <h3>Job Info</h3>
-                            <div className="inspection-info">
-                                <div><b>Company: </b> {value.company}</div>
-                                <div><b>Date: </b> {value.date}</div>
-                                <div><b>Location: </b> {value.location}</div>
-                                <div><b>Job Number: </b> {value.job_num}</div>
-                                <div><b>Equipment: </b> {value.equip_type}</div>
-                                <div><b>Hour Meter: </b> {value.hour_meter}</div>
-                                <div><b>Mileage: </b> {value.mileage}</div>
-                            </div>
-
-                            <br /><br />
-
-                            <div className="info">
-                            <b>N/A = NOT APPLICABLE</b>
-                            <b className="info">OK = NO REPAIRS NEEDED</b>
-                            <b className="info">RR = REQUIRES REPAIR</b>
-                            </div>
-
-                            <br /><br />
-
                             <div className="columns">
 
                                 <div classname="column1">

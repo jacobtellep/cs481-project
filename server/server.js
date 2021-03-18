@@ -9,7 +9,7 @@ app.use(express.json()); // you need to use the json() function to so that the d
 const db = mysql.createConnection({
   user: 'root',
   host: 'localhost',
-  password: '',
+  password: 'password',
   database: 'formsdb',
 });
 
@@ -60,6 +60,7 @@ app.post('/dailyjobreport', (req, res) => {
     }
   );
 }); // end of dailyjobreport endpoint
+
 
 app.post('/jsaform', (req,res) => {
     const date = req.body.date;
@@ -157,6 +158,7 @@ app.post('/inspectionform', (req,res) => {
     );
 });
 
+
 app.get('/dailyjobreport', (req, res) => {
   db.query(
     'SELECT * FROM daily_job_report WHERE daily_job_report_id = 13',
@@ -169,6 +171,7 @@ app.get('/dailyjobreport', (req, res) => {
     }
   );
 });
+
 
 app.get('/jsaform', (req, res) => {
   db.query(
@@ -195,6 +198,7 @@ app.get('/inspection', (req, res) => {
     }
   );
 });
+
 
 
 app.listen(5000, () => {

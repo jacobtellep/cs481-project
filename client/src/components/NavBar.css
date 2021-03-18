@@ -1,14 +1,13 @@
-li {
-  list-style: none;
-}
-
 nav {
   display: flex;
 }
 
-a {
-  display: block;
-  padding: 8px;
+li {
+  list-style: none;
+}
+
+a:hover {
+  color: orange;
 }
 
 .menu {
@@ -17,8 +16,24 @@ a {
 
 .link {
   display: block;
+  padding-left: 8px;
+  color: white;
+}
+
+.button {
+  display: flex;
+  align-items: center;
   padding: 8px;
   color: white;
+  cursor: pointer;
+  font-size: larger;
+  font-weight: bold;
+}
+
+.log {
+  display: flex;
+  justify-content: right;
+  float: right;
 }
 
 .menu-items {

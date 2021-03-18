@@ -2,8 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import DatePicker from 'react-date-picker';
 import './InspectionForm.css';
+import withAuth0 from '@auth0/auth0-react';
 
 class InspectionForm extends React.Component {
+
     state = {
         company: '',
         date: '',
@@ -368,127 +370,7 @@ class InspectionForm extends React.Component {
         });
     };
 
-    dataClick = () => {
-        this.onDataSubmit(
-            this.state.company,
-            this.state.date,
-            this.state.location,
-            this.state.job_num,
-            this.state.equipment,
-            this.state.hour_meter,
-            this.state.mileage,
-            this.state.na_lights,
-            this.state.ok_lights,
-            this.state.rr_lights,
-            this.state.na_steps,
-            this.state.ok_steps,
-            this.state.rr_steps,
-            this.state.na_tires,
-            this.state.ok_tires,
-            this.state.rr_tires,
-            this.state.na_exhaust,
-            this.state.ok_exhaust,
-            this.state.rr_exhaust,
-            this.state.na_fenders,
-            this.state.ok_fenders,
-            this.state.rr_fenders,
-            this.state.na_bucket,
-            this.state.ok_bucket,
-            this.state.rr_bucket,
-            this.state.na_cuttingEdge,
-            this.state.ok_cuttingEdge,
-            this.state.rr_cuttingEdge,
-            this.state.na_lift,
-            this.state.ok_lift,
-            this.state.rr_lift,
-            this.state.na_hoses,
-            this.state.ok_hoses,
-            this.state.rr_hoses,
-            this.state.na_fittingsG,
-            this.state.ok_fittingsG,
-            this.state.rr_fittingsG,
-            this.state.na_hitch,
-            this.state.ok_hitch,
-            this.state.rr_hitch,
-            this.state.na_wipers,
-            this.state.ok_wipers,
-            this.state.rr_wipers,
-            this.state.na_bCable,
-            this.state.ok_bCable,
-            this.state.rr_bCable,
-            this.state.na_fanBelt,
-            this.state.ok_fanBelt,
-            this.state.rr_fanBelt,
-            this.state.na_engineHose,
-            this.state.ok_engineHose,
-            this.state.rr_engineHose,
-            this.state.na_airFilter,
-            this.state.ok_airFilter,
-            this.state.rr_airFilter,
-            this.state.na_guards,
-            this.state.ok_guards,
-            this.state.rr_guards,
-            this.state.na_brakesS,
-            this.state.ok_brakesS,
-            this.state.rr_brakesS,
-            this.state.na_brakesP,
-            this.state.ok_brakesP,
-            this.state.rr_brakesP,
-            this.state.na_backup,
-            this.state.ok_backup,
-            this.state.rr_backup,
-            this.state.na_fire,
-            this.state.ok_fire,
-            this.state.rr_fire,
-            this.state.na_gauges,
-            this.state.ok_gauges,
-            this.state.rr_gauges,
-            this.state.na_horn,
-            this.state.ok_horn,
-            this.state.rr_horn,
-            this.state.na_hydroControls,
-            this.state.ok_hydroControls,
-            this.state.rr_hydroControls,
-            this.state.na_glass,
-            this.state.ok_glass,
-            this.state.rr_glass,
-            this.state.na_mirror,
-            this.state.ok_mirror,
-            this.state.rr_mirror,
-            this.state.na_rollOver,
-            this.state.ok_rollOver,
-            this.state.rr_rollOver,
-            this.state.na_seat,
-            this.state.ok_seat,
-            this.state.rr_seat,
-            this.state.na_steering,
-            this.state.ok_steering,
-            this.state.rr_steering,
-            this.state.na_leaks,
-            this.state.ok_leaks,
-            this.state.rr_leaks,
-            this.state.na_oil,
-            this.state.ok_oil,
-            this.state.rr_oil,
-            this.state.na_coolant,
-            this.state.ok_coolant,
-            this.state.rr_coolant,
-            this.state.na_hydroOil,
-            this.state.ok_hydroOil,
-            this.state.rr_hydroOil,
-            this.state.na_transFluid,
-            this.state.ok_transFluid,
-            this.state.rr_transFluid,
-            this.state.na_fuel,
-            this.state.ok_fuel,
-            this.state.rr_fuel,
-            this.state.defects,
-            this.state.repairsNeeded,
-            this.state.repairsNotNeeded,
-            this.state.operatorInitals,
-            this.state.mechanicInitals
-        )
-    }
+   
 
     onSubmit = (event) => {
       event.preventDefault();
@@ -497,98 +379,145 @@ class InspectionForm extends React.Component {
     onChange = (event) => {
       this.setState({
         [event.target.name]: event.target.value,
-      });
+
+  
+
+
+  handleCheck = (event) => {
+    this.setState({
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  handleDateChange = (date) => {
+    let selectedDateFromcalender = date.toUTCString();
+    console.log('date:', date);
+    this.setState({
+      date: selectedDateFromcalender,
+    });
+  };
+
+  handleDate = (event) => {
+    return (evt) => {
+      const value = evt._d;
+      this.setState({ date: value });
     };
+  };
 
-    handleCheck = (event) => {
-        this.setState({
-            [event.target.name]: event.target.checked
-        })
-    }
+  render() {
+    
+    return (
+  
+        <div style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+          <form>
+            <h1 style={{ paddingLeft: '20px' }}>Equipment Inspection Form</h1>
+            <div className="inspect-info">
+              <input
+                placeholder="Company"
+                name="company"
+                onChange={(event) => this.onChange(event)}
+                value={this.state.value}
+              />
+              <DatePicker
+                name="date"
+                selected={this.state.date}
+                onChange={(date) => this.handleDateChange}
+                value={this.state.startDate}
+              />
+              <input
+                placeholder="Locatoin"
+                name="location"
+                onChange={(event) => this.onChange(event)}
+                value={this.state.value}
+              />
+              <input
+                type="number"
+                min={0}
+                placeholder="Job Number"
+                name="job_num"
+                onChange={(event) => this.onChange(event)}
+                value={this.state.value}
+              />
+              <input
+                placeholder="Equipment"
+                name="equipment"
+                onChange={(event) => this.onChange(event)}
+                value={this.state.value}
+              />
+              <input
+                type="number"
+                precision={2}
+                step={0.01}
+                min={0}
+                placeholder="Hour Meter"
+                name="hour_meter"
+                onChange={(event) => this.onChange(event)}
+                value={this.state.value}
+              />
+              <input
+                type="number"
+                min={0}
+                placeholder="Mileage"
+                precision={2}
+                step={0.01}
+                name="mileage"
+                onChange={(event) => this.onChange(event)}
+                value={this.state.value}
+              />
+            </div>
 
-    handleDateChange = date => {
-        let selectedDateFromcalender = date.toUTCString();
-        console.log('date:', date);
-        this.setState({
-            date: selectedDateFromcalender,
-        });
-    };
+            <br />
 
-    handleDate = (event) => {
-        return evt => {
-            const value = evt._d;
-            this.setState({date: value});
-        }
-    }
+            <div className="info">
+              <b>N/A = NOT APPLICABLE</b>
+              <b className="info">OK = NO REPAIRS NEEDED</b>
+              <b className="info">RR = REQUIRES REPAIR</b>
+            </div>
 
-    render() {
-        return(
+            <br />
 
-            <div style={{paddingTop: "20px", paddingBottom: "20px"}}>
-                <form>
-                <h1 style={{paddingLeft: "20px"}}>Equipment Inspection Form</h1>
-                <div className="inspect-info" >
-                    <input
-                        placeholder="Company"
-                        name="company"
-                        onChange={(event) => this.onChange(event)}
-                        value={this.state.value}
-                        />
-                    <DatePicker
-                        name='date'
-                        selected={this.state.date}
-                        onChange={(date) => this.handleDateChange}
-                        value={this.state.startDate}
-                        />
-                    <input
-                        placeholder="Locatoin"
-                        name="location"
-                        onChange={(event) => this.onChange(event)}
-                        value={this.state.value}
-                        />
-                    <input
-                        type='number'
-                        min={0}
-                        placeholder="Job Number"
-                        name="job_num"
-                        onChange={(event) => this.onChange(event)}
-                        value={this.state.value}
-                    />
-                    <input
-                        placeholder="Equipment"
-                        name="equipment"
-                        onChange={(event) => this.onChange(event)}
-                        value={this.state.value}
-                    />
-                    <input
-                        type='number'
-                        precision={2}
-                        step={0.01}
-                        min={0}
-                        placeholder="Hour Meter"
-                        name="hour_meter"
-                        onChange={(event) => this.onChange(event)}
-                        value={this.state.value}
-                    />
-                    <input
-                        type='number'
-                        min={0}
-                        placeholder="Mileage"
-                        precision={2}
-                        step={0.01}
-                        name="mileage"
-                        onChange={(event) => this.onChange(event)}
-                        value={this.state.value}
-                    />
+            <div className="columns">
+              <div className="column">
+                <b>Outside</b>
+                <b>NA OK RR</b>
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_lights"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_lights"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_lights"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Lights</label>
                 </div>
 
-                <br />
-
-                <div className="info">
-                <b>N/A = NOT APPLICABLE</b>
-                <b className="info">OK = NO REPAIRS NEEDED</b>
-                <b className="info">RR = REQUIRES REPAIR</b>
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_steps"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_steps"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_steps"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Steps/Hand Rails</label>
                 </div>
+
 
                 <br />
 
@@ -759,257 +688,374 @@ class InspectionForm extends React.Component {
                     <label> Fittings Greased</label>
                     </div>
 
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_hitch"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="ok_hitch"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_hitch"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Hitch/Coupler</label>
-                    </div>
 
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_wipers"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="ok_wipers"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_wipers"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Wipers</label>
-                    </div>
-
-
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_exhaust"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_exhaust"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_exhaust"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Exhaust</label>
                 </div>
 
-                <div className="column2">
-                    <b>Engine Compartment</b>
-                    <b>NA OK RR</b>
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_bCable"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_bCable"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_bCable"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Battery Cable</label>
-                    </div>
-
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_fanBelt"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_fanBelt"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_fanBelt"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Fan Belt</label>
-                    </div>
-
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_engineHose"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_engineHose"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_engineHose"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Hoses</label>
-                    </div>
-
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_airFilter"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_airFilter"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_airFilter"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Air Filter</label>
-                    </div>
-
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_guards"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_guards"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_guards"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Guards</label>
-                    </div>
-
-                    <b>Engine Compartment</b>
-
-                        <div className="checkRow">
-                            <input type="checkbox"
-                                    name="na_brakesS"
-                                     onChange= {(event) => this.handleCheck(event)}
-                            />
-                            <input type="checkbox"
-                                   name="ok_brakesS"
-                                   onChange= {(event) => this.handleCheck(event)}
-                            />
-                            <input type="checkbox"
-                                    name="rr_brakesS"
-                                     onChange= {(event) => this.handleCheck(event)}
-                            />
-                        <label> Brakes, Service</label>
-                        </div>
-
-                        <div className="checkRow">
-                            <input type="checkbox"
-                                    name="na_brakesp"
-                                     onChange= {(event) => this.handleCheck(event)}
-                            />
-                            <input type="checkbox"
-                                   name="ok_brakesP"
-                                   onChange= {(event) => this.handleCheck(event)}
-                            />
-                            <input type="checkbox"
-                                    name="rr_brakesP"
-                                     onChange= {(event) => this.handleCheck(event)}
-                            />
-                        <label> Brakes, Parking</label>
-                        </div>
-
-                        <div className="checkRow">
-                            <input type="checkbox"
-                                    name="na_backup"
-                                     onChange= {(event) => this.handleCheck(event)}
-                            />
-                            <input type="checkbox"
-                                   name="ok_backup"
-                                   onChange= {(event) => this.handleCheck(event)}
-                            />
-                            <input type="checkbox"
-                                    name="rr_backup"
-                                     onChange= {(event) => this.handleCheck(event)}
-                            />
-                        <label> Backup Alarm</label>
-                        </div>
-
-                        <div className="checkRow">
-                            <input type="checkbox"
-                                    name="na_fire"
-                                     onChange= {(event) => this.handleCheck(event)}
-                            />
-                            <input type="checkbox"
-                                   name="ok_fire"
-                                   onChange= {(event) => this.handleCheck(event)}
-                            />
-                            <input type="checkbox"
-                                    name="rr_fire"
-                                     onChange= {(event) => this.handleCheck(event)}
-                            />
-                        <label> Fire Extinguisher</label>
-                        </div>
-
-                        <div className="checkRow">
-                            <input type="checkbox"
-                                    name="na_gauges"
-                                     onChange= {(event) => this.handleCheck(event)}
-                            />
-                            <input type="checkbox"
-                                   name="ok_gauges"
-                                   onChange= {(event) => this.handleCheck(event)}
-                            />
-                            <input type="checkbox"
-                                    name="rr_gauges"
-                                     onChange= {(event) => this.handleCheck(event)}
-                            />
-                        <label> Gauges</label>
-                        </div>
-
-                        <div className="checkRow">
-                            <input type="checkbox"
-                                    name="na_horn"
-                                     onChange= {(event) => this.handleCheck(event)}
-                            />
-                            <input type="checkbox"
-                                   name="ok_horn"
-                                   onChange= {(event) => this.handleCheck(event)}
-                            />
-                            <input type="checkbox"
-                                    name="rr_horn"
-                                     onChange= {(event) => this.handleCheck(event)}
-                            />
-                        <label> Horn</label>
-                        </div>
-
-                        <div className="checkRow">
-                            <input type="checkbox"
-                                    name="na_hydroControls"
-                                     onChange= {(event) => this.handleCheck(event)}
-                            />
-                            <input type="checkbox"
-                                   name="ok_hydroControls"
-                                   onChange= {(event) => this.handleCheck(event)}
-                            />
-                            <input type="checkbox"
-                                    name="rr_hydroControls"
-                                     onChange= {(event) => this.handleCheck(event)}
-                            />
-                        <label> Hydraulic Controls</label>
-                        </div>
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_fenders"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_fenders"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_fenders"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Fenders</label>
                 </div>
 
-                <div className="column2">
-                    <b>Inside Cab (cont.)</b>
-                    <b>NA OK RR</b>
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_glass"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_glass"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_glass"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Glass (all sides)</label>
-                    </div>
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_bucket"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_bucket"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_bucket"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Bucket</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_cuttingEdge"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_cuttingEdge"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_cuttingEdge"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Cutting Edge/Teeth</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_lift"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_lift"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_lift"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Lifting Mechanism</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_hoses"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_hoses"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_hoses"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Hoses</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_fittingsG"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_fittingsG"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_fittingsG"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Fittings Greased</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_hitch"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_hitch"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_hitch"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Hitch/Coupler</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_wipers"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_wipers"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_wipers"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Wipers</label>
+                </div>
+              </div>
+
+              <div className="column2">
+                <b>Engine Compartment</b>
+                <b>NA OK RR</b>
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_bCable"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_bCable"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_bCable"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Battery Cable</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_fanBelt"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_fanBelt"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_fanBelt"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Fan Belt</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_engineHose"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_engineHose"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_engineHose"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Hoses</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_airFilter"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_airFilter"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_airFilter"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Air Filter</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_guards"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_guards"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_guards"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Guards</label>
+                </div>
+
+                <b>Engine Compartment</b>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_brakesS"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_brakesS"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_brakesS"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Brakes, Service</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_brakesp"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_brakesP"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_brakesP"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Brakes, Parking</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_backup"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_backup"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_backup"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Backup Alarm</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_fire"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_fire"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_fire"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Fire Extinguisher</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_gauges"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_gauges"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_gauges"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Gauges</label>
+                </div>
+
 
                     <div className="checkRow">
                         <input type="checkbox"
@@ -1044,199 +1090,269 @@ class InspectionForm extends React.Component {
                     <label> Roll Over Protection</label>
                     </div>
 
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_seat"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_seat"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_seat"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Seat Belt/Seat</label>
-                    </div>
 
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_steering"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_steering"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_steering"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Steering</label>
-                    </div>
-
-                    <b>Fluids</b>
-
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_leaks"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_leaks"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_leaks"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Visible Leaks</label>
-                    </div>
-
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_oil"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_oil"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_oil"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Oil Level/Pressure</label>
-                    </div>
-
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_coolant"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_coolant"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_coolant"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Coolant Level (check only when COLD)</label>
-                    </div>
-
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_hydroOil"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_hydroOil"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_hydroOil"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Hydraulic Oil Level</label>
-                    </div>
-
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_transFluid"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_transFluid"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_transFluid"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Transmission Fluid Level</label>
-                    </div>
-
-                    <div className="checkRow">
-                        <input type="checkbox"
-                                name="na_fuel"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                               name="ok_fuel"
-                               onChange= {(event) => this.handleCheck(event)}
-                        />
-                        <input type="checkbox"
-                                name="rr_fuel"
-                                 onChange= {(event) => this.handleCheck(event)}
-                        />
-                    <label> Fuel Level</label>
-                    </div>
-
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_mirror"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_mirror"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_mirror"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Mirror</label>
                 </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_rollOver"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_rollOver"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_rollOver"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Roll Over Protection</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_seat"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_seat"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_seat"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Seat Belt/Seat</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_steering"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_steering"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_steering"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Steering</label>
+                </div>
+
+                <b>Fluids</b>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_leaks"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_leaks"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_leaks"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Visible Leaks</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_oil"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_oil"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_oil"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Oil Level/Pressure</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_coolant"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_coolant"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_coolant"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Coolant Level (check only when COLD)</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_hydroOil"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_hydroOil"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_hydroOil"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Hydraulic Oil Level</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_transFluid"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_transFluid"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_transFluid"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Transmission Fluid Level</label>
+                </div>
+
+                <div className="checkRow">
+                  <input
+                    type="checkbox"
+                    name="na_fuel"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="ok_fuel"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <input
+                    type="checkbox"
+                    name="rr_fuel"
+                    onChange={(event) => this.handleCheck(event)}
+                  />
+                  <label> Fuel Level</label>
+                </div>
+              </div>
             </div>
 
             <br />
 
-            <div style={{paddingLeft: "20px"}}>
-            <textarea
-              className="explain-defects"
-              placeholder="Explanation of Defects"
-              name="defects"
-              onChange={(event) => this.onChange(event)}
-              value={this.state.value}
-            />
+            <div style={{ paddingLeft: '20px' }}>
+              <textarea
+                className="explain-defects"
+                placeholder="Explanation of Defects"
+                name="defects"
+                onChange={(event) => this.onChange(event)}
+                value={this.state.value}
+              />
             </div>
 
             <br />
 
             <div className="check-repair">
-                    <input type="checkbox"
-                            name="repairsNeeded"
-                            onChange= {(event) => this.handleCheck(event)}
-                         />
-                <label> Repairs or adjustments needed</label>
-                <div style={{paddingLeft: "20px"}}>
-                    <input type="checkbox"
-                            name="repairsNotNeeded"
-                            onChange= {(event) => this.handleCheck(event)}
-                         />
-                <label> Repairs or Adjustments NOT needed for safe equipment operation</label>
-                </div>
+              <input
+                type="checkbox"
+                name="repairsNeeded"
+                onChange={(event) => this.handleCheck(event)}
+              />
+              <label> Repairs or adjustments needed</label>
+              <div style={{ paddingLeft: '20px' }}>
+                <input
+                  type="checkbox"
+                  name="repairsNotNeeded"
+                  onChange={(event) => this.handleCheck(event)}
+                />
+                <label>
+                  {' '}
+                  Repairs or Adjustments NOT needed for safe equipment operation
+                </label>
+              </div>
             </div>
 
-        <br />
+            <br />
 
-            <div style={{paddingLeft: "20px"}}><b>Operator's Initals: </b>
-                <input
-                    className="initals"
-                    placeholder="Enter Initals"
-                    name="operatorInitals"
-                    onChange={(event) => this.onChange(event)}
-                    value={this.state.value}
-                    />
+            <div style={{ paddingLeft: '20px' }}>
+              <b>Operator's Initals: </b>
+              <input
+                className="initals"
+                placeholder="Enter Initals"
+                name="operatorInitals"
+                onChange={(event) => this.onChange(event)}
+                value={this.state.value}
+              />
             </div>
-            <div style={{paddingLeft: "20px"}}><b>Mechanic's Initals: </b>
-                <input
-                    className="initals"
-                    placeholder="Enter Initals"
-                    name="mechanicInitals"
-                    onChange={(event) => this.onChange(event)}
-                    value={this.state.value}
-                    /></div>
+            <div style={{ paddingLeft: '20px' }}>
+              <b>Mechanic's Initals: </b>
+              <input
+                className="initals"
+                placeholder="Enter Initals"
+                name="mechanicInitals"
+                onChange={(event) => this.onChange(event)}
+                value={this.state.value}
+              />
+            </div>
+          </form>
 
-            </form>
-
-            <button
-              className="submit-button"
-              type="submit"
-              onClick={this.dataClick}>
-              Submit
-            </button>
+          <button
+            className="submit-button"
+            type="submit"
+            onClick={this.dataClick}>
+            Submit
+          </button>
         </div>
-        );
-    };
-};
+      
+    );
+  }
+}
 
 export default InspectionForm;

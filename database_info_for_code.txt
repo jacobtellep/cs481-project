@@ -62,3 +62,4 @@ CREATE TABLE inspection(
     needsRepair varchar(5)
     PRIMARY KEY (job_num)
 )
+
