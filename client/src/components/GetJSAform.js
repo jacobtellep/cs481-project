@@ -81,16 +81,33 @@ class GetJSAform extends React.Component {
     employee_initals9: '',
     print_name10: '',
     employee_initals10: '',
+    ticket_numbers: [],
+    selectValue: ''
   };
 
   getjsaform = () => {
-    axios.get('http://localhost:5000/jsaform').then((response) => {
+    axios.get('http://localhost:5000/jsaform', {params: {id: this.state.selectValue}}).then((response) => {
       this.setState({ GetJSAform: response.data }); // the auto-incremented sql id is included in this response.data object
 
-      console.log(response.data);
       console.log('successfully retrieved the data');
     });
   };
+
+  getjsaform_id = () => {
+    axios.get('http://localhost:5000/jsaform_ticket').then((response) => {
+      this.setState({ ticket_numbers: response.data }); // the auto-incremented sql id is included in this response.data object
+
+      console.log('successfully retrieved the data');
+    });
+  };
+
+  componentDidMount() {
+    window.addEventListener('load', this.getjsaform_id());
+ }
+
+ handleChange = (event) => {
+     this.setState({selectValue:event.target.value});
+ }
 
   retrieveClick = () => {
     this.getjsaform(this.state.GetJSAform);
@@ -99,11 +116,21 @@ class GetJSAform extends React.Component {
 
 
   render() {
-   
 
+      const renderDrop = () => {
+          return (<select value={this.state.selectValue}
+              onChange={this.handleChange}>
+              {this.state.ticket_numbers.map((str) =>
+                  <option value={str.ticket_num}>{str.ticket_num}</option>
+              )}
+          </select>)
+      }
     return (
-     
+
         <div>
+
+            <b>Select Ticket Number</b>
+            {renderDrop()}
           <button
             onClick={this.getjsaform}
             className="retrieve-button"
