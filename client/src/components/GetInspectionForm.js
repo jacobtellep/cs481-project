@@ -119,13 +119,15 @@ class GetInspectionForm extends React.Component {
         repairsNeeded: 'false',
         repairsNotNeeded: 'false',
         operatorInitals: '',
-        mechanicInitals: ''
+        mechanicInitals: '',
+        job_numbers: [],
+        selectValue: ''
     }
 
 
 
     getInspectionForm = () => {
-      axios.get('http://localhost:5000/inspection').then((response) => {
+      axios.get('http://localhost:5000/inspection', {params: {id: this.state.selectValue}}).then((response) => {
         this.setState({ GetInspectionForm: response.data }); // the auto-incremented sql id is included in this response.data object
 
         console.log(response.data);
@@ -133,14 +135,42 @@ class GetInspectionForm extends React.Component {
       });
     };
 
+    getInspectionForm_id = () => {
+      axios.get('http://localhost:5000/inspection_id').then((response) => {
+        this.setState({ job_numbers: response.data }); // the auto-incremented sql id is included in this response.data object
+
+        console.log(response.data);
+        console.log('successfully retrieved the data');
+      });
+    };
+
+    componentDidMount() {
+      window.addEventListener('load', this.getInspectionForm_id());
+   }
+
+    handleChange = (event) => {
+        this.setState({selectValue:event.target.value});
+    }
+
     retrieveClick = () => {
       this.getInspectionForm(this.state.GetInspectionForm);
     };
 
 
     render() {
+
+        const renderDrop = () => {
+            return (<select value={this.state.selectValue}
+                onChange={this.handleChange}>
+                {this.state.job_numbers.map((str) =>
+                    <option value={str.job_num}>{str.job_num}</option>
+                )}
+            </select>)
+        }
         return(
             <div>
+                <b>Select Job Number</b>
+                {renderDrop()}
                 <button
                   onClick={this.getInspectionForm}
                   className="retrieve-button"
@@ -164,6 +194,27 @@ class GetInspectionForm extends React.Component {
                     return(
                         <div className='retrieve-report' key={index} style={{paddingBottom: "20px"}}>
                             <h1>Inspection Form</h1>
+
+                                <h3>Job Info</h3>
+                                <div className="inspection-info">
+                                    <div><b>Company: </b> {value.company}</div>
+                                    <div><b>Date: </b> {value.date}</div>
+                                    <div><b>Location: </b> {value.location}</div>
+                                    <div><b>Job Number: </b> {value.job_num}</div>
+                                    <div><b>Equipment: </b> {value.equip_type}</div>
+                                    <div><b>Hour Meter: </b> {value.hour_meter}</div>
+                                    <div><b>Mileage: </b> {value.mileage}</div>
+                                </div>
+
+                                <br /><br />
+
+                                <div className="info">
+                                <b>N/A = NOT APPLICABLE</b>
+                                <b className="info">OK = NO REPAIRS NEEDED</b>
+                                <b className="info">RR = REQUIRES REPAIR</b>
+                                </div>
+
+                                <br /><br />
 
                             <div className="columns">
 

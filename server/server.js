@@ -9,7 +9,7 @@ app.use(express.json()); // you need to use the json() function to so that the d
 const db = mysql.createConnection({
   user: 'root',
   host: 'localhost',
-  password: 'password',
+  password: '',
   database: 'formsdb',
 });
 
@@ -158,10 +158,16 @@ app.post('/inspectionform', (req,res) => {
     );
 });
 
+//get---------------------------------------------get
 
+//in client side call app.get('url', {params: {id:this.state.value}})
+//called over here in req.query.id <-- this and ^ this must be the same name
+//pass '?' where the id will be and it will call that when you call
+//db.query(sql, [value], (err,result)) 
 app.get('/dailyjobreport', (req, res) => {
-  db.query(
-    'SELECT * FROM daily_job_report WHERE daily_job_report_id = 13',
+    var value = req.query.id;
+    var sql = 'SELECT * FROM daily_job_report WHERE contract_number = ?'
+  db.query(sql, [value],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -172,10 +178,37 @@ app.get('/dailyjobreport', (req, res) => {
   );
 });
 
+app.get('/dailyjobreport_id', (req, res) => {
+    db.query(
+        'SELECT contract_number from daily_job_report',
+        (err,result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.send(result);
+            }
+        }
+    );
+});
+
 
 app.get('/jsaform', (req, res) => {
+    var value = req.query.id;
+    var sql = 'SELECT * FROM jsa_form WHERE ticket_num = ?'
+  db.query(sql, [value],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.get('/jsaform_ticket', (req, res) => {
   db.query(
-    'SELECT * FROM jsa_form WHERE ticket_num = 55',
+    'SELECT ticket_num FROM jsa_form',
     (err, result) => {
       if (err) {
         console.log(err);
@@ -187,8 +220,22 @@ app.get('/jsaform', (req, res) => {
 });
 
 app.get('/inspection', (req, res) => {
+    var value = req.query.id;
+    var sql = 'SELECT * FROM inspection WHERE job_num = ?'
+  db.query(sql, [value],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.get('/inspection_id', (req, res) => {
   db.query(
-    'SELECT * FROM inspection WHERE job_num = 2',
+    'SELECT job_num FROM inspection',
     (err, result) => {
       if (err) {
         console.log(err);
