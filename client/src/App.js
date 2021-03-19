@@ -12,6 +12,9 @@ import Login from "./components/Login";
 import Pricing from "./components/Pricing";
 import ViewPricing from "./components/ViewPricing";
 import JSAform from "./components/JSAform";
+import GetJSAform from "./components/GetJSAform";
+import Inspection from "./components/InspectionForm";
+import GetInspection from "./components/GetInspectionForm";
 
 const App = () => {
   return (
@@ -28,6 +31,9 @@ const App = () => {
             component={GetDailyJobReport}
           />
           <ProtectedRoute path="/createjobsafetyanalysis" component={JSAform} />
+           <ProtectedRoute path="/getjobsafetyanalysis" component={GetJSAform} />
+          <ProtectedRoute path="/createinspection" component={Inspection} />
+          <ProtectedRoute path="/getinspection" component={GetInspection} />
           <ProtectedRoute path="/forms" exact component={Forms} />
           <ProtectedRoute path="/createform" component={CreateForm} />
           <ProtectedRoute path="/viewform" component={ViewForm} />
