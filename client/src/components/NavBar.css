@@ -26,6 +26,14 @@ a:hover {
   padding: 8px;
   color: white;
   cursor: pointer;
+  font-size: larger;
+  font-weight: bold;
+}
+
+.log {
+  display: flex;
+  justify-content: right;
+  float: right;
 }
 
 .menu-items {

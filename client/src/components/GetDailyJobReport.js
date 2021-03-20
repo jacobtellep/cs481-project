@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import './GetDailyJobReport.css';
-import { withAuth0 } from '@auth0/auth0-react';
 
 class GetDailyJobReport extends React.Component {
   state = {
@@ -59,13 +58,15 @@ class GetDailyJobReport extends React.Component {
     hours7: '',
     jobNumber7: '',
     jobDescription: '',
+    selectValue: '',
+    contract_nums: [],
 
     dailyJobReport: [],
   };
 
   //same functions you created
   getDailyJobReport = () => {
-    axios.get('http://localhost:5000/dailyjobreport').then((response) => {
+    axios.get('http://localhost:5000/dailyjobreport', {params: {id: this.state.selectValue}}).then((response) => {
       this.setState({ GetDailyJobReport: response.data }); // the auto-incremented sql id is included in this response.data object
 
       console.log(response.data);
@@ -73,19 +74,58 @@ class GetDailyJobReport extends React.Component {
     });
   };
 
+  getDailyJobReportID = () => {
+      axios.get('http://localhost:5000/dailyjobreport_id').then((response) => {
+          if(response && response.data)
+            this.setState({ contract_nums: response.data});
+      })
+
+  }
+
+  componentDidMount() {
+    window.addEventListener('load', this.getDailyJobReportID());
+ }
+
+  handleChange = (event) => {
+      this.setState({selectValue:event.target.value});
+  }
+
   retrieveClick = () => {
     this.getDailyJobReport(this.state.GetDailyJobReport);
   };
 
+
+
   render() {
-    const { isAuthenticated } = this.props.auth0;
+
+
+      const renderDrop = () => {
+          return (<select value={this.state.selectValue}
+              onChange={this.handleChange}>
+              {this.state.contract_nums.map((str) =>
+                  <option value={str.contract_number}>{str.contract_number}</option>
+              )}
+          </select>)
+      }
 
     return (
-      isAuthenticated && (
+
         <div>
+            <b>Select Contract Number</b>
+            {renderDrop()}
+
+            <button
+                onClick={this.getDailyJobReport}
+                className="retrieve-button"
+                type="button">
+                Retrieve
+            </button>
+
+
+
+            <br /><br /><br />
           {/* && operator, kind of like using an if statement, will ignore any null values and stills render */}
-          {this.state.GetDailyJobReport &&
-            this.state.GetDailyJobReport.map((value, index) => {
+          {this.state.GetDailyJobReport && this.state.GetDailyJobReport.map((value, index) => {
               {
                 /* Created variables to help format and split*/
               }
@@ -213,16 +253,10 @@ class GetDailyJobReport extends React.Component {
           <br />
           <br />
 
-          <button
-            onClick={this.getDailyJobReport}
-            className="retrieve-button"
-            type="button">
-            Retrieve
-          </button>
+
         </div>
-      )
     );
   }
 }
 
-export default withAuth0(GetDailyJobReport);
+export default GetDailyJobReport;

@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import './DailyJobReport.css';
-import { withAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 
 class DailyJobReport extends React.Component {
   state = {
@@ -320,11 +319,11 @@ class DailyJobReport extends React.Component {
     const weatherStart3 = this.state.weatherStart3;
     const weatherEnd3 = this.state.weatherEnd3;
 
-    const { isAuthenticated } = this.props.auth0;
+    
 
     return (
       // These are JSX instances of each of the components I made to create the complete form
-      isAuthenticated && (
+
         <div className="daily-job-report">
           <h1 style={{ paddingLeft: '20px', paddingTop: '20px' }}>
             Daily Job Report
@@ -761,9 +760,9 @@ class DailyJobReport extends React.Component {
             Submit
           </button>
         </div>
-      )
+
     );
   }
 } // end of function component
 
-export default withAuth0(DailyJobReport);
+export default DailyJobReport;
