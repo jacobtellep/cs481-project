@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./NavBar.css";
-import LogoutButton from "./LogoutButton";
-import { useAuth0 } from "@auth0/auth0-react";
-import LoginButton from "./LoginButton";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './NavBar.css';
+import LogoutButton from './LogoutButton';
+import { useAuth0 } from '@auth0/auth0-react';
+import LoginButton from './LoginButton';
 
 const NavBar = () => {
   const { isAuthenticated } = useAuth0();
@@ -11,16 +11,16 @@ const NavBar = () => {
     <div>
       <nav className="menu button">
         <Link to="/" className="link">
-          Home{" "}
+          Home{' '}
         </Link>
 
         <Link to="/forms" className="link">
-          Forms{" "}
+          Forms{' '}
         </Link>
 
-        <Link to="/pricing" className="link">
+        {/* <Link to="/pricing" className="link">
           Pricing{" "}
-        </Link>
+        </Link> */}
         <div className="log">
           <LogoutButton />
         </div>

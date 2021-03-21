@@ -1,22 +1,30 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ProtectedRoute from "./components/ProtectedRoute";
-import DailyJobReport from "./components/DailyJobReport";
-import GetDailyJobReport from "./components/GetDailyJobReport";
-import NavBar from "./components/NavBar";
-import Forms from "./components/Forms";
-import CreateForm from "./components/CreateForm";
-import ViewForm from "./components/ViewForm";
-import Logout from "./components/Logout";
-import Login from "./components/Login";
-import Pricing from "./components/Pricing";
-import ViewPricing from "./components/ViewPricing";
-import JSAform from "./components/JSAform";
-import GetJSAform from "./components/GetJSAform";
-import Inspection from "./components/InspectionForm";
-import GetInspection from "./components/GetInspectionForm";
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
+import DailyJobReport from './components/DailyJobReport';
+import GetDailyJobReport from './components/GetDailyJobReport';
+import NavBar from './components/NavBar';
+import Forms from './components/Forms';
+import CreateForm from './components/CreateForm';
+import ViewForm from './components/ViewForm';
+import Logout from './components/Logout';
+import Login from './components/Login';
+import Pricing from './components/Pricing';
+import ViewPricing from './components/ViewPricing';
+import JSAform from './components/JSAform';
+import GetJSAform from './components/GetJSAform';
+import Inspection from './components/InspectionForm';
+import GetInspection from './components/GetInspectionForm';
+import { useAuth0 } from '@auth0/auth0-react';
+import Loading from './components/Loading';
 
 const App = () => {
+  const { isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div>
       <Router>
@@ -31,7 +39,7 @@ const App = () => {
             component={GetDailyJobReport}
           />
           <ProtectedRoute path="/createjobsafetyanalysis" component={JSAform} />
-           <ProtectedRoute path="/getjobsafetyanalysis" component={GetJSAform} />
+          <ProtectedRoute path="/getjobsafetyanalysis" component={GetJSAform} />
           <ProtectedRoute path="/createinspection" component={Inspection} />
           <ProtectedRoute path="/getinspection" component={GetInspection} />
           <ProtectedRoute path="/forms" exact component={Forms} />
