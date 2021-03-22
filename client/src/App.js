@@ -17,6 +17,7 @@ import Inspection from './components/InspectionForm';
 import GetInspection from './components/GetInspectionForm';
 import { useAuth0 } from '@auth0/auth0-react';
 import Loading from './components/Loading';
+import logo from './HGCARTE.jpg';
 
 const App = () => {
   const { isLoading } = useAuth0();
@@ -50,7 +51,7 @@ const App = () => {
           <Route path="/logout" component={Logout} />
           <Route path="/login" component={Login} />
           <Route path="/" exact>
-            Home Page
+            <img style={{ padding: '10px', width: '100px' }} src={logo} />
           </Route>
         </Switch>
       </Router>

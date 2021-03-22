@@ -2,11 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
 import LogoutButton from './LogoutButton';
-import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from './LoginButton';
 
 const NavBar = () => {
-  const { isAuthenticated } = useAuth0();
   return (
     <div>
       <nav className="menu button">

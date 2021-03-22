@@ -211,7 +211,7 @@ app.get('/dailyjobreport_id', (req, res) => {
   });
 });
 
-app.get('/jsaform', (req, res) => {
+app.get('/jsaform', checkJwt, checkScopes, (req, res) => {
   var value = req.query.id;
   var sql = 'SELECT * FROM jsa_form WHERE ticket_num = ?';
   db.query(sql, [value], (err, result) => {
@@ -233,7 +233,7 @@ app.get('/jsaform_ticket', (req, res) => {
   });
 });
 
-app.get('/inspection', (req, res) => {
+app.get('/inspection', checkJwt, checkScopes, (req, res) => {
   var value = req.query.id;
   var sql = 'SELECT * FROM inspection WHERE job_num = ?';
   db.query(sql, [value], (err, result) => {
