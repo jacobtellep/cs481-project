@@ -59,7 +59,7 @@ CREATE TABLE inspection(
     explain_defects TEXT,
     sign_operator VARCHAR(5),
     sign_mech VARCHAR(5),
-    needsRepair varchar(5)
+    needsRepair varchar(5),
     PRIMARY KEY (job_num)
-)
+);
 
