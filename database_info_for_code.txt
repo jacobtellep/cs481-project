@@ -27,7 +27,7 @@ CREATE TABLE jsa_form(
     ticket_num INT NOT NULL,
     proj_date VARCHAR(255),
     company VARCHAR(255),
-    representive VARCHAR(255),
+    representative VARCHAR(255),
     location VARCHAR(255),
     well_num INT,
     afe_num INT,
