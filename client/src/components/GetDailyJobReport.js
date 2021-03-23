@@ -1,65 +1,65 @@
-import React from 'react';
-import axios from 'axios';
-import { withAuth0 } from '@auth0/auth0-react';
-import './GetDailyJobReport.css';
+import React from "react";
+import axios from "axios";
+import { withAuth0 } from "@auth0/auth0-react";
+import "./GetDailyJobReport.css";
 
 class GetDailyJobReport extends React.Component {
   state = {
-    date: '',
-    customer: '',
-    project: '',
-    contractNumber: '',
-    foreman: '',
-    weatherNotes: '',
-    weatherStart: '',
-    weatherEnd: '',
-    weatherNotes1: '',
-    weatherStart1: '',
-    weatherEnd1: '',
-    weatherNotes2: '',
-    weatherStart2: '',
-    weatherEnd2: '',
-    weatherNotes3: '',
-    weatherStart3: '',
-    weatherEnd3: '',
-    projectNotes: '',
-    projectStart: '',
-    projectEnd: '',
-    projectNotes1: '',
-    projectStart1: '',
-    projectEnd1: '',
-    projectNotes2: '',
-    projectStart2: '',
-    projectEnd2: '',
-    projectNotes3: '',
-    projectStart3: '',
-    projectEnd3: '',
-    employeeName: '',
-    hours: '',
-    jobNumber: '',
-    employeeName1: '',
-    hours1: '',
-    jobNumber1: '',
-    employeeName2: '',
-    hours2: '',
-    jobNumber2: '',
-    employeeName3: '',
-    hours3: '',
-    jobNumber3: '',
-    employeeName4: '',
-    hours4: '',
-    jobNumber4: '',
-    employeeName5: '',
-    hours5: '',
-    jobNumber5: '',
-    employeeName6: '',
-    hours6: '',
-    jobNumber6: '',
-    employeeName7: '',
-    hours7: '',
-    jobNumber7: '',
-    jobDescription: '',
-    selectValue: '',
+    date: "",
+    customer: "",
+    project: "",
+    contractNumber: "",
+    foreman: "",
+    weatherNotes: "",
+    weatherStart: "",
+    weatherEnd: "",
+    weatherNotes1: "",
+    weatherStart1: "",
+    weatherEnd1: "",
+    weatherNotes2: "",
+    weatherStart2: "",
+    weatherEnd2: "",
+    weatherNotes3: "",
+    weatherStart3: "",
+    weatherEnd3: "",
+    projectNotes: "",
+    projectStart: "",
+    projectEnd: "",
+    projectNotes1: "",
+    projectStart1: "",
+    projectEnd1: "",
+    projectNotes2: "",
+    projectStart2: "",
+    projectEnd2: "",
+    projectNotes3: "",
+    projectStart3: "",
+    projectEnd3: "",
+    employeeName: "",
+    hours: "",
+    jobNumber: "",
+    employeeName1: "",
+    hours1: "",
+    jobNumber1: "",
+    employeeName2: "",
+    hours2: "",
+    jobNumber2: "",
+    employeeName3: "",
+    hours3: "",
+    jobNumber3: "",
+    employeeName4: "",
+    hours4: "",
+    jobNumber4: "",
+    employeeName5: "",
+    hours5: "",
+    jobNumber5: "",
+    employeeName6: "",
+    hours6: "",
+    jobNumber6: "",
+    employeeName7: "",
+    hours7: "",
+    jobNumber7: "",
+    jobDescription: "",
+    selectValue: "",
     contract_nums: [],
 
     dailyJobReport: [],
@@ -69,12 +69,12 @@ class GetDailyJobReport extends React.Component {
   getDailyJobReport = async () => {
     const { getAccessTokenSilently } = this.props.auth0;
     const token = await getAccessTokenSilently({
-      audience: 'http://localhost:5000/',
-      scope: 'view:forms',
+      audience: "http://localhost:5000/",
+      scope: "view:forms",
     });
 
     axios
-      .get('http://localhost:5000/dailyjobreport', {
+      .get("http://localhost:5000/dailyjobreport", {
         params: { id: this.state.selectValue },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -84,19 +84,19 @@ class GetDailyJobReport extends React.Component {
         this.setState({ GetDailyJobReport: response.data }); // the auto-incremented sql id is included in this response.data object
 
         console.log(response.data);
-        console.log('successfully retrieved the data');
+        console.log("successfully retrieved the data");
       });
   };
 
   getDailyJobReportID = () => {
-    axios.get('http://localhost:5000/dailyjobreport_id').then((response) => {
+    axios.get("http://localhost:5000/dailyjobreport_id").then((response) => {
       if (response && response.data)
         this.setState({ contract_nums: response.data });
     });
   };
 
   componentDidMount() {
-    window.addEventListener('load', this.getDailyJobReportID());
+    window.addEventListener("load", this.getDailyJobReportID());
   }
 
   handleChange = (event) => {
@@ -126,7 +126,8 @@ class GetDailyJobReport extends React.Component {
         <button
           onClick={this.getDailyJobReport}
           className="retrieve-button"
-          type="button">
+          type="button"
+        >
           Retrieve
         </button>
 
@@ -182,19 +183,19 @@ class GetDailyJobReport extends React.Component {
                     Puts each entry on a new line
                     Styling to split attr up so they're not on top of each other*/}
                   <div>
-                    {weatherNotes.split('\n').map((str) => (
+                    {weatherNotes.split("\n").map((str) => (
                       <p>{str}</p>
                     ))}
                   </div>
-                  <div style={{ paddingLeft: '100px' }}>
-                    {weatherStart.split('\n').map((str) => (
+                  <div style={{ paddingLeft: "100px" }}>
+                    {weatherStart.split("\n").map((str) => (
                       <p>
                         <b>Start:</b> {str}
                       </p>
                     ))}
                   </div>
-                  <div style={{ paddingLeft: '15px' }}>
-                    {weatherEnd.split('\n').map((str) => (
+                  <div style={{ paddingLeft: "15px" }}>
+                    {weatherEnd.split("\n").map((str) => (
                       <p>
                         <b>End:</b> {str}
                       </p>
@@ -206,19 +207,19 @@ class GetDailyJobReport extends React.Component {
                 <h3>Project Delay</h3>
                 <div className="return">
                   <div>
-                    {projectNotes.split('\n').map((str) => (
+                    {projectNotes.split("\n").map((str) => (
                       <p>{str}</p>
                     ))}
                   </div>
-                  <div style={{ paddingLeft: '100px' }}>
-                    {projectStart.split('\n').map((str) => (
+                  <div style={{ paddingLeft: "100px" }}>
+                    {projectStart.split("\n").map((str) => (
                       <p>
                         <b>Start:</b> {str}
                       </p>
                     ))}
                   </div>
-                  <div style={{ paddingLeft: '15px' }}>
-                    {projectEnd.split('\n').map((str) => (
+                  <div style={{ paddingLeft: "15px" }}>
+                    {projectEnd.split("\n").map((str) => (
                       <p>
                         <b>End:</b> {str}
                       </p>
@@ -230,19 +231,19 @@ class GetDailyJobReport extends React.Component {
                 <h3>Employees and Hours</h3>
                 <div className="return">
                   <div>
-                    {employeeName.split('\n').map((str) => (
+                    {employeeName.split("\n").map((str) => (
                       <p>{str}</p>
                     ))}
                   </div>
-                  <div style={{ paddingLeft: '100px' }}>
-                    {employeeHours.split('\n').map((str) => (
+                  <div style={{ paddingLeft: "100px" }}>
+                    {employeeHours.split("\n").map((str) => (
                       <p>
                         <b>Hours:</b> {str}
                       </p>
                     ))}
                   </div>
-                  <div style={{ paddingLeft: '15px' }}>
-                    {jobNum.split('\n').map((str) => (
+                  <div style={{ paddingLeft: "15px" }}>
+                    {jobNum.split("\n").map((str) => (
                       <p>
                         <b>Job Number:</b> {str}
                       </p>
@@ -252,7 +253,7 @@ class GetDailyJobReport extends React.Component {
 
                 <br />
                 <h3>Job Description</h3>
-                <div style={{ paddingBottom: '20px' }}>
+                <div style={{ paddingBottom: "20px" }}>
                   {value.job_description}
                 </div>
               </div>
