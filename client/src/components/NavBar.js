@@ -16,9 +16,9 @@ const NavBar = () => {
           Forms{' '}
         </Link>
 
-        {/* <Link to="/pricing" className="link">
-          Pricing{" "}
-        </Link> */}
+        <Link to="/pricing" className="link">
+          Pricing{' '}
+        </Link>
         <div className="log">
           <LogoutButton />
         </div>

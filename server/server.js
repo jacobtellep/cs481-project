@@ -35,7 +35,7 @@ app.use(express.json()); // you need to use the json() function to so that the d
 const db = mysql.createConnection({
   user: 'root',
   host: 'localhost',
-  password: 'password',
+  password: '',
   database: 'formsdb',
 });
 
