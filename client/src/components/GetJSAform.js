@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { withAuth0 } from '@auth0/auth0-react';
 
 class GetJSAform extends React.Component {
   state = {
@@ -82,15 +83,28 @@ class GetJSAform extends React.Component {
     print_name10: '',
     employee_initals10: '',
     ticket_numbers: [],
-    selectValue: ''
+    selectValue: '',
   };
 
-  getjsaform = () => {
-    axios.get('http://localhost:5000/jsaform', {params: {id: this.state.selectValue}}).then((response) => {
-      this.setState({ GetJSAform: response.data }); // the auto-incremented sql id is included in this response.data object
-
-      console.log('successfully retrieved the data');
+  getjsaform = async () => {
+    const { getAccessTokenSilently } = this.props.auth0;
+    const token = await getAccessTokenSilently({
+      audience: 'http://localhost:5000/',
+      scope: 'view:forms',
     });
+
+    axios
+      .get('http://localhost:5000/jsaform', {
+        params: { id: this.state.selectValue },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        this.setState({ GetJSAform: response.data }); // the auto-incremented sql id is included in this response.data object
+
+        console.log('successfully retrieved the data');
+      });
   };
 
   getjsaform_id = () => {
@@ -103,235 +117,330 @@ class GetJSAform extends React.Component {
 
   componentDidMount() {
     window.addEventListener('load', this.getjsaform_id());
- }
+  }
 
- handleChange = (event) => {
-     this.setState({selectValue:event.target.value});
- }
+  handleChange = (event) => {
+    this.setState({ selectValue: event.target.value });
+  };
 
   retrieveClick = () => {
     this.getjsaform(this.state.GetJSAform);
   };
 
-
-
   render() {
-
-      const renderDrop = () => {
-          return (<select value={this.state.selectValue}
-              onChange={this.handleChange}>
-              {this.state.ticket_numbers.map((str) =>
-                  <option value={str.ticket_num}>{str.ticket_num}</option>
-              )}
-          </select>)
-      }
+    const renderDrop = () => {
+      return (
+        <select value={this.state.selectValue} onChange={this.handleChange}>
+          {this.state.ticket_numbers.map((str) => (
+            <option value={str.ticket_num}>{str.ticket_num}</option>
+          ))}
+        </select>
+      );
+    };
     return (
+      <div>
+        <b>Select Ticket Number</b>
+        {renderDrop()}
+        <button
+          onClick={this.getjsaform}
+          className="retrieve-button"
+          type="button">
+          Retrieve
+        </button>
 
-        <div>
+        <br />
+        <br />
+        <br />
 
-            <b>Select Ticket Number</b>
-            {renderDrop()}
-          <button
-            onClick={this.getjsaform}
-            className="retrieve-button"
-            type="button">
-            Retrieve
-          </button>
+        {/* && operator, kind of like using an if statement, will ignore any null values and stills render */}
+        {this.state.GetJSAform &&
+          this.state.GetJSAform.map((value, index) => {
+            /* Created variables to help format and split*/
+            const weather = value.weather_id.split('\n');
 
-          <br />
-          <br />
-          <br />
+            const hazard_1 = value.hazard_1.split('\n');
+            const hazard_2 = value.hazard_2.split('\n');
+            const hazard_3 = value.hazard_3.split('\n');
 
+            const majorSteps = value.major_steps;
+            const potentialHazard = value.potential_hazard;
+            const recommHazard = value.remove_hazard;
 
-                        {/* && operator, kind of like using an if statement, will ignore any null values and stills render */}
-                        {this.state.GetJSAform && this.state.GetJSAform.map((value, index) => {
-                            /* Created variables to help format and split*/
-                            const weather = value.weather_id.split('\n');
+            const employeeName = value.user_id;
+            const employeeInitals = value.signatures;
 
-                            const hazard_1 = value.hazard_1.split('\n');
-                            const hazard_2 = value.hazard_2.split('\n');
-                            const hazard_3 = value.hazard_3.split('\n');
+            return (
+              <div className="retrieve-report" key={index}>
+                <h1>JSA Form</h1>
 
-              const majorSteps = value.major_steps;
-              const potentialHazard = value.potential_hazard;
-              const recommHazard = value.remove_hazard;
-
-              const employeeName = value.user_id;
-              const employeeInitals = value.signatures;
-
-
-
-
-                          return (
-                            <div className="retrieve-report" key={index}>
-                              <h1>JSA Form</h1>
-
-                              <h3>Job Info</h3>
-                              <div className='jsa-info-weather' style={{display: "flex", flexDirection: "row"}}>
-                                  <div>
-                                      <div><b>Ticket Number: </b>{value.ticket_num}</div>
-                                      <div><b>Date: </b>{value.date}</div>
-                                      <div><b>Company: </b>{value.company}</div>
-                                      <div><b>representative: </b>{value.representative}</div>
-                                      <div><b>location: </b>{value.location}</div>
-                                      <div><b>Well Number: </b>{value.well_num}</div>
-                                      <div><b>AFE Number: </b>{value.afe_num}</div>
-                                  </div>
-                                <div style={{display: "flex", flexDirection: "column", paddingLeft: "100px"}}>
-                                  {weather.map((str)=> {if(String(str).toLowerCase() == "true")
-                                                            return <div style={{paddingBottom: "1px"}}> <input type="checkbox" checked={true}/></div>
-                                                        else if(String(str).toLowerCase() == "true" || String(str).toLowerCase() != "false")
-                                                            return <div style={{paddingBottom: "1px"}}> {str}</div>
-                                                        return <div style={{paddingBottom: "1px"}}> <input type="checkbox" checked={false}/></div>})}
-
-                                </div>
-                                <div style={{display: "flex", flexDirection: "column"}}>
-                                    <div>Sun</div>
-                                    <div>Rain</div>
-                                    <div>Overcast</div>
-                                    <div>Windy</div>
-                                    <div>Hail</div>
-                                    <div style={{paddingBottom: "1px"}}>Snow</div>
-                                    <div style={{paddingTop: "3px"}}>F Temp</div>
-                                </div>
-                              </div>
-                              <br />
-                              <div className="jsa-gps-medical">
-                                 <div><b>Medical Facility: </b>{value.gps_location}</div>
-                                 <div><b>Emergency Address GPS: </b>{value.emergency_address}</div>
-                              </div>
-                              <br />
-                              <h3>Hazards</h3>
-                              <div className="hazardCheck" style={{display: "flex", flexDirection: "row"}}>
-                              <div style={{display: "flex", flexDirection: "column"}}>
-                                {hazard_1.map(str=> {if (String(str).toLowerCase() == "true")
-                                                    return <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={true}/></div>
-                                                return <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={false}/></div>})}
-                              </div>
-                              <div style={{display: "flex", flexDirection: "column"}}>
-                                  <div>Confined Space</div>
-                                  <div>Fall Protection</div>
-                                  <div>Sharp/Hot/Cold Surfaces</div>
-                                  <div>Electric Shock Hazard</div>
-                                  <div>Irritants-Respiratory/Skin</div>
-                                  <div>Environment Extremes</div>
-                              </div>
-
-                              <div style={{display: "flex", flexDirection: "column", paddingLeft: "20px"}}>
-                                  {hazard_2.map(str=> {if (String(str).toLowerCase() == "true")
-                                                      return <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={true}/></div>
-                                                  return <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={false}/></div>})}
-                              </div>
-                              <div style={{display: "flex", flexDirection: "column"}}>
-                                  <div>Pinch/Crush/Strike Hazard</div>
-                                  <div>Lifting Hazard</div>
-                                  <div>Short Services Employees</div>
-                                  <div>Fore or Explosion Potential</div>
-                                  <div>Potential Release of Energy</div>
-                                  <div>We ALL have the right and obligation to STOP WORK if unsafe conditions or acts are present</div>
-                              </div>
-
-                              <div style={{display: "flex", flexDirection: "column", position: "relative", left: "-450px"}}>
-                                  {hazard_3.map(str=> {if (String(str).toLowerCase() == "true")
-                                                      return <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={true}/></div>
-                                                  return <div style={{paddingBottom: "1px"}}><input type="checkbox" checked={false}/></div>})}
-                              </div>
-                              <div style={{display: "flex", flexDirection: "column", position: "relative", left: "-450px"}}>
-                                  <div>Elevated Work Load</div>
-                                  <div>Excavation</div>
-                                  <div>Hazardous Chemical Exposure</div>
-                                  <div>High Noise Level</div>
-                                  <div>Water or Drowning Hazard</div>
-                              </div>
-                            </div>
-                            <br />
-                  <div
-                    className="steps-Consquences-remove"
-                    style={{ display: 'flex', flexDirection: 'row' }}>
+                <h3>Job Info</h3>
+                <div
+                  className="jsa-info-weather"
+                  style={{ display: 'flex', flexDirection: 'row' }}>
+                  <div>
                     <div>
-                      <h3>Major Steps</h3>
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          paddingLeft: '20px',
-                        }}>
-                        {majorSteps.split('\n').map((str) => (
-                          <p>{str}</p>
-                        ))}
-                      </div>
+                      <b>Ticket Number: </b>
+                      {value.ticket_num}
                     </div>
-
-                    <div style={{ paddingLeft: '20px' }}>
-                      <h3>Potential Hazards/Consquences</h3>
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          paddingLeft: '20px',
-                        }}>
-                        {potentialHazard.split('\n').map((str) => (
-                          <p>{str}</p>
-                        ))}
-                      </div>
+                    <div>
+                      <b>Date: </b>
+                      {value.date}
                     </div>
+                    <div>
+                      <b>Company: </b>
+                      {value.company}
+                    </div>
+                    <div>
+                      <b>representative: </b>
+                      {value.representative}
+                    </div>
+                    <div>
+                      <b>location: </b>
+                      {value.location}
+                    </div>
+                    <div>
+                      <b>Well Number: </b>
+                      {value.well_num}
+                    </div>
+                    <div>
+                      <b>AFE Number: </b>
+                      {value.afe_num}
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      paddingLeft: '100px',
+                    }}>
+                    {weather.map((str) => {
+                      if (String(str).toLowerCase() == 'true')
+                        return (
+                          <div style={{ paddingBottom: '1px' }}>
+                            {' '}
+                            <input type="checkbox" checked={true} />
+                          </div>
+                        );
+                      else if (
+                        String(str).toLowerCase() == 'true' ||
+                        String(str).toLowerCase() != 'false'
+                      )
+                        return (
+                          <div style={{ paddingBottom: '1px' }}> {str}</div>
+                        );
+                      return (
+                        <div style={{ paddingBottom: '1px' }}>
+                          {' '}
+                          <input type="checkbox" checked={false} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div>Sun</div>
+                    <div>Rain</div>
+                    <div>Overcast</div>
+                    <div>Windy</div>
+                    <div>Hail</div>
+                    <div style={{ paddingBottom: '1px' }}>Snow</div>
+                    <div style={{ paddingTop: '3px' }}>F Temp</div>
+                  </div>
+                </div>
+                <br />
+                <div className="jsa-gps-medical">
+                  <div>
+                    <b>Medical Facility: </b>
+                    {value.gps_location}
+                  </div>
+                  <div>
+                    <b>Emergency Address GPS: </b>
+                    {value.emergency_address}
+                  </div>
+                </div>
+                <br />
+                <h3>Hazards</h3>
+                <div
+                  className="hazardCheck"
+                  style={{ display: 'flex', flexDirection: 'row' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    {hazard_1.map((str) => {
+                      if (String(str).toLowerCase() == 'true')
+                        return (
+                          <div style={{ paddingBottom: '1px' }}>
+                            <input type="checkbox" checked={true} />
+                          </div>
+                        );
+                      return (
+                        <div style={{ paddingBottom: '1px' }}>
+                          <input type="checkbox" checked={false} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div>Confined Space</div>
+                    <div>Fall Protection</div>
+                    <div>Sharp/Hot/Cold Surfaces</div>
+                    <div>Electric Shock Hazard</div>
+                    <div>Irritants-Respiratory/Skin</div>
+                    <div>Environment Extremes</div>
+                  </div>
 
-                    <div style={{ paddingLeft: '20px' }}>
-                      <h3>Recommendations to Remove Hazard</h3>
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          paddingLeft: '20px',
-                        }}>
-                        {recommHazard.split('\n').map((str) => (
-                          <p>{str}</p>
-                        ))}
-                      </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      paddingLeft: '20px',
+                    }}>
+                    {hazard_2.map((str) => {
+                      if (String(str).toLowerCase() == 'true')
+                        return (
+                          <div style={{ paddingBottom: '1px' }}>
+                            <input type="checkbox" checked={true} />
+                          </div>
+                        );
+                      return (
+                        <div style={{ paddingBottom: '1px' }}>
+                          <input type="checkbox" checked={false} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div>Pinch/Crush/Strike Hazard</div>
+                    <div>Lifting Hazard</div>
+                    <div>Short Services Employees</div>
+                    <div>Fore or Explosion Potential</div>
+                    <div>Potential Release of Energy</div>
+                    <div>
+                      We ALL have the right and obligation to STOP WORK if
+                      unsafe conditions or acts are present
                     </div>
                   </div>
 
-                  <h3>
-                    All Contractors and/or Personnel must read and sign this JSA
-                    form to work on or around G L Services area of Operations.{' '}
-                    <br /> DO NOT sign this form if you have not read and FULLY
-                    understand the activities that G L Services is engaged in
-                    <br />
-                    and that you are participating in.
-                  </h3>
-
                   <div
-                    className="employeesAndInitials"
-                    style={{ display: 'flex', flexDirection: 'row' }}>
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      position: 'relative',
+                      left: '-450px',
+                    }}>
+                    {hazard_3.map((str) => {
+                      if (String(str).toLowerCase() == 'true')
+                        return (
+                          <div style={{ paddingBottom: '1px' }}>
+                            <input type="checkbox" checked={true} />
+                          </div>
+                        );
+                      return (
+                        <div style={{ paddingBottom: '1px' }}>
+                          <input type="checkbox" checked={false} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      position: 'relative',
+                      left: '-450px',
+                    }}>
+                    <div>Elevated Work Load</div>
+                    <div>Excavation</div>
+                    <div>Hazardous Chemical Exposure</div>
+                    <div>High Noise Level</div>
+                    <div>Water or Drowning Hazard</div>
+                  </div>
+                </div>
+                <br />
+                <div
+                  className="steps-Consquences-remove"
+                  style={{ display: 'flex', flexDirection: 'row' }}>
+                  <div>
+                    <h3>Major Steps</h3>
                     <div
                       style={{
                         display: 'flex',
                         flexDirection: 'column',
                         paddingLeft: '20px',
                       }}>
-                      <h3>Employee Name</h3>
-                      {employeeName.split('\n').map((str) => (
+                      {majorSteps.split('\n').map((str) => (
                         <p>{str}</p>
                       ))}
                     </div>
+                  </div>
+
+                  <div style={{ paddingLeft: '20px' }}>
+                    <h3>Potential Hazards/Consquences</h3>
                     <div
                       style={{
                         display: 'flex',
                         flexDirection: 'column',
                         paddingLeft: '20px',
                       }}>
-                      <h3>Employee Initals</h3>
-                      {employeeInitals.split('\n').map((str) => (
+                      {potentialHazard.split('\n').map((str) => (
+                        <p>{str}</p>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div style={{ paddingLeft: '20px' }}>
+                    <h3>Recommendations to Remove Hazard</h3>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        paddingLeft: '20px',
+                      }}>
+                      {recommHazard.split('\n').map((str) => (
                         <p>{str}</p>
                       ))}
                     </div>
                   </div>
                 </div>
-              );
-            })}
-        </div>
+
+                <h3>
+                  All Contractors and/or Personnel must read and sign this JSA
+                  form to work on or around G L Services area of Operations.{' '}
+                  <br /> DO NOT sign this form if you have not read and FULLY
+                  understand the activities that G L Services is engaged in
+                  <br />
+                  and that you are participating in.
+                </h3>
+
+                <div
+                  className="employeesAndInitials"
+                  style={{ display: 'flex', flexDirection: 'row' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      paddingLeft: '20px',
+                    }}>
+                    <h3>Employee Name</h3>
+                    {employeeName.split('\n').map((str) => (
+                      <p>{str}</p>
+                    ))}
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      paddingLeft: '20px',
+                    }}>
+                    <h3>Employee Initals</h3>
+                    {employeeInitals.split('\n').map((str) => (
+                      <p>{str}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+      </div>
     );
   }
 }
 
-export default GetJSAform;
+export default withAuth0(GetJSAform);

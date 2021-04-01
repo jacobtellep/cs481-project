@@ -470,14 +470,14 @@ class JSAform extends React.Component {
       <div style={{ paddingTop: '20px', paddingBottom: '20px' }}>
         <form>
           <h1 style={{ paddingLeft: '20px' }}>Job Safety Analysis Form</h1>
-
+                     
               <div style={{paddingLeft: "20px"}}>
               {infoMessage()}
               <br />
               {errorMessage()}
               <br />
               </div>
-
+               
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <div className="jsa-info">
               <div className="jsa-info-input">
