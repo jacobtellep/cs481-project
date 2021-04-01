@@ -15,6 +15,7 @@ import JSAform from './components/JSAform';
 import GetJSAform from './components/GetJSAform';
 import Inspection from './components/InspectionForm';
 import GetInspection from './components/GetInspectionForm';
+import DataSent from './components/DataSent';
 import { useAuth0 } from '@auth0/auth0-react';
 import Loading from './components/Loading';
 import logo from './HGCARTE.jpg';
@@ -50,6 +51,7 @@ const App = () => {
           <ProtectedRoute path="/viewpricing" component={ViewPricing} />
           <Route path="/logout" component={Logout} />
           <Route path="/login" component={Login} />
+          <Route path="/datasent" component={DataSent} />
           <Route path="/" exact>
             <img style={{ padding: '10px', width: '100px' }} src={logo} />
           </Route>

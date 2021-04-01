@@ -5,6 +5,8 @@ import './InspectionForm.css';
 
 class InspectionForm extends React.Component {
     state = {
+        hasError: false,
+        jobArray: [],
         company: '',
         date: '',
         location: '',
@@ -488,6 +490,7 @@ class InspectionForm extends React.Component {
             this.state.operatorInitals,
             this.state.mechanicInitals
         )
+        this.props.history.push('/datasent');
     }
 
     onSubmit = (event) => {
@@ -514,20 +517,74 @@ class InspectionForm extends React.Component {
         });
     };
 
-    handleDate = (event) => {
-        return evt => {
-            const value = evt._d;
-            this.setState({date: value});
+    validateInput = () => {
+
+        const comp = this.state.company;
+        const loc = this.state.location;
+        const job = this.state.job_num;
+        const equip = this.state.equipment;
+
+        if((comp.trim() == "") || (loc.trim() == "") || (job.trim() == "") || (equip.trim() == "")) {
+
+            this.setState({hasError: true})
+            console.log("error field not filled or id already chosen");
+        } else {
+            this.dataClick();
         }
     }
 
+    checkDatabaseID = (arr, val) => {
+        return arr.some(arrVal => val === arrVal);
+    }
+
+    getInspectionForm_id = () => {
+      axios.get('http://localhost:5000/inspection_id').then((response) => {
+        this.setState({ jobArray: response.data }); // the auto-incremented sql id is included in this response.data object
+
+        console.log(response.data);
+        console.log('successfully retrieved the data');
+      });
+    };
+
+    componentDidMount() {
+      window.addEventListener('load', this.getInspectionForm_id());
+    }
+
+
     render() {
+
+        const infoMessage = () => {
+            if(!this.state.hasError) {
+                return( <div>
+                    <b>Company, Location, Job Number, and Equipment must all be filled out before submitting</b>
+                </div>) }
+        }
+
+        const errorMessage = () => {
+            if(this.state.hasError) {
+               return ( <div>
+                   <font color="red">
+                   <h3>Company, Location, Job Number, and Equipment must all be filled out before submitting</h3>
+                   <h3>And/Or Job Number must be unique</h3>
+                   </font>
+           </div>)
+           }
+        }
+
         return(
 
             <div style={{paddingTop: "20px", paddingBottom: "20px"}}>
                 <form>
-                <h1 style={{paddingLeft: "20px"}}>Equipment Inspection Form</h1>
-                <div className="inspect-info" >
+
+                <div style={{paddingLeft: "20px"}}>
+                <h1>Equipment Inspection Form</h1>
+                {infoMessage()}
+                <br />
+                {errorMessage()}
+                <br />
+                </div>
+
+        <div className="inspect-info" >
                     <input
                         placeholder="Company"
                         name="company"
@@ -1231,7 +1288,7 @@ class InspectionForm extends React.Component {
             <button
               className="submit-button"
               type="submit"
-              onClick={this.dataClick}>
+              onClick={this.validateInput}>
               Submit
             </button>
         </div>

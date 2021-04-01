@@ -5,6 +5,7 @@ import './JSAform.css';
 
 class JSAform extends React.Component {
   state = {
+    hasError: false,
     date: '',
     ticket_num: '',
     company: '',
@@ -79,6 +80,7 @@ class JSAform extends React.Component {
     employee_initals9: '',
     print_name10: '',
     employee_initals10: '',
+    ticketArray: []
   };
 
   onDataSubmit = (
@@ -381,6 +383,8 @@ class JSAform extends React.Component {
       this.state.print_name10,
       this.state.employee_initals10
     );
+
+    this.props.history.push('/datasent');
   };
 
   onSubmit = (event) => {
@@ -407,19 +411,73 @@ class JSAform extends React.Component {
     });
   };
 
-  handleDate = (event) => {
-    return (evt) => {
-      const value = evt._d;
-      this.setState({ date: value });
-    };
-  };
+ validateInput = () => {
+
+     const ticket = this.state.ticket_num;
+     const comp = this.state.company;
+     const rep = this.state.representative;
+     const loc = this.state.location;
+     const well = this.state.well_num;
+     const afe = this.state.afe_num;
+
+     if((ticket.trim() == "") || (comp.trim() == "") || (rep.trim() == "") || (loc.trim() == "") || (well.trim() == "") || (afe.trim() == "")) {
+         this.setState({hasError: true})
+         console.log("Error with input")
+     } else {
+         this.dataClick();
+     }
+ }
+
+ checkDatabaseID = (arr, val) => {
+     return arr.some(arrVal => val === arrVal);
+ }
+
+ getjsaform_id = () => {
+   axios.get('http://localhost:5000/jsaform_ticket').then((response) => {
+     this.setState({ ticketArray: response.data }); // the auto-incremented sql id is included in this response.data object
+
+     console.log('successfully retrieved the data');
+   });
+ };
+
+ componentDidMount() {
+   window.addEventListener('load', this.getjsaform_id());
+ }
+
 
   render() {
+
+      const infoMessage = () => {
+          if(!this.state.hasError) {
+              return( <div>
+                  <b>Ticket Number, Company, Representative, Location, Well Number, and AFE Number must be filled out before submitting</b>
+              </div>) }
+      }
+
+      const errorMessage = () => {
+          if(this.state.hasError) {
+             return ( <div>
+                 <font color="red">
+                 <h3>Ticket Number, Company, Representative, Location, Well Number, and AFE Number must be filled out before submitting</h3>
+                 <h3>And/Or Ticket Number must be unique</h3>
+                 </font>
+         </div>)
+         }
+      }
+
+
     return (
       <div style={{ paddingTop: '20px', paddingBottom: '20px' }}>
         <form>
           <h1 style={{ paddingLeft: '20px' }}>Job Safety Analysis Form</h1>
-
+                     
+              <div style={{paddingLeft: "20px"}}>
+              {infoMessage()}
+              <br />
+              {errorMessage()}
+              <br />
+              </div>
+               
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <div className="jsa-info">
               <div className="jsa-info-input">
@@ -1068,7 +1126,7 @@ class JSAform extends React.Component {
         <button
           className="submit-button"
           type="submit"
-          onClick={this.dataClick}>
+          onClick={this.validateInput}>
           Submit
         </button>
       </div>
