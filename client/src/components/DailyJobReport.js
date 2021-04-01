@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import './DailyJobReport.css';
+import { withRouter } from 'react-router-dom';
 
 class DailyJobReport extends React.Component {
   state = {
+    hasError: false,
     date: '',
     customer: '',
     project: '',
@@ -58,7 +60,7 @@ class DailyJobReport extends React.Component {
     hours7: '',
     jobNumber7: '',
     jobDescription: '',
-
+    contractArray: [],
     dailyJobReport: [],
   };
 
@@ -298,9 +300,44 @@ class DailyJobReport extends React.Component {
       this.state.jobNumber7,
       this.state.jobDescription
     );
+        this.props.history.push('/datasent');
   };
 
-  render() {
+  validateInput = () => {
+
+      const cust = this.state.customer;
+      const proj = this.state.project;
+      const contract = this.state.contractNumber;
+      const lead = this.state.foreman;
+
+      if((cust.trim() == "") || (proj.trim() == "") || (contract.trim() == "") || (lead.trim() == "")) {
+
+          this.setState({hasError: true})
+          console.log("error field not filled or id already chosen");
+          console.log(cust + " - " + proj + " - " + contract + " - " + lead);
+          console.log("check if id already taken: " + !this.checkDatabaseID(this.state.contractArray, contract));
+      } else {
+          this.dataClick();
+      }
+
+  }
+
+  checkDatabaseID = (arr, val) => {
+      return arr.some(arrVal => val === arrVal);
+  }
+
+  getDailyJobReportID = () => {
+    axios.get('http://localhost:5000/dailyjobreport_id').then((response) => {
+      if (response && response.data)
+        this.setState({ contractArray: response.data });
+    });
+  };
+
+  componentDidMount() {
+    window.addEventListener('load', this.getDailyJobReportID());
+  }
+
+render() {
     const date = this.state.date; // this is just so to not have to rewrite
     const customer = this.state.customer;
     const project = this.state.project;
@@ -319,7 +356,23 @@ class DailyJobReport extends React.Component {
     const weatherStart3 = this.state.weatherStart3;
     const weatherEnd3 = this.state.weatherEnd3;
 
-    
+    const infoMessage = () => {
+        if(!this.state.hasError) {
+            return( <div>
+                <b>Customer, Project, Contract Number, and Foreman/Lead must all be filled out before submitting</b>
+            </div>) }
+    }
+
+    const errorMessage = () => {
+        if(this.state.hasError) {
+           return ( <div>
+               <font color="red">
+               <h3>Customer, Project, Contract Number, and Foreman/Lead must all be filled out before submitting</h3>
+               <h3>And/Or Contract Number must be unique</h3>
+               </font>
+       </div>)
+       }
+    }
 
     return (
       // These are JSX instances of each of the components I made to create the complete form
@@ -328,6 +381,14 @@ class DailyJobReport extends React.Component {
           <h1 style={{ paddingLeft: '20px', paddingTop: '20px' }}>
             Daily Job Report
           </h1>
+
+          <div style={{paddingLeft: "20px"}}>
+          {infoMessage()}
+          <br />
+          {errorMessage()}
+          <br />
+          </div>
+
           <form onSubmit={this.onDataSubmit}>
             <div className="job-info-inputs">
               <input
@@ -341,24 +402,31 @@ class DailyJobReport extends React.Component {
                 name="customer"
                 onChange={this.onChange}
                 value={customer}
+                required
               />
               <input
                 placeholder="Project"
                 name="project"
                 onChange={this.onChange}
                 value={project}
+                required
               />
               <input
+                type="number"
+                min={0}
                 placeholder="Contract Number"
                 name="contractNumber"
                 onChange={this.onChange}
                 value={contractNumber}
+
+                required
               />
               <input
                 placeholder="Foreman/Lead Man"
                 name="foreman"
                 onChange={this.onChange}
                 value={foreman}
+                required
               />
             </div>
             {/* ------------------------------------------------------------------------------ */}
@@ -756,7 +824,7 @@ class DailyJobReport extends React.Component {
           <button
             className="submit-button"
             type="submit"
-            onClick={this.dataClick}>
+            onClick={this.validateInput}>
             Submit
           </button>
         </div>
