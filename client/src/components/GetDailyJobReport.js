@@ -152,11 +152,13 @@ class GetDailyJobReport extends React.Component {
             const employeeHours = value.hours;
             const jobNum = value.job_number;
 
+            const date = value.date.substring(0,10);
+
             return (
               <div className="retrieve-report" key={index}>
                 <h1>Daily Job Report</h1>
                 <div>
-                  <b>Date:</b> <br></br> {value.date}
+                  <b>Date:</b> <br></br> {date}
                 </div>
                 <div>
                   <b>Customer:</b>

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import './DailyJobReport.css';
+import DatePicker from 'react-date-picker';
 import { withRouter } from 'react-router-dom';
 
 class DailyJobReport extends React.Component {
@@ -391,12 +392,12 @@ render() {
 
           <form onSubmit={this.onDataSubmit}>
             <div className="job-info-inputs">
-              <input
-                placeholder="Date (MM/DD/YYYY)"
-                name="date"
-                onChange={this.onChange}
-                value={date}
-              />
+                <input
+                    type="date"
+                    name="date"
+                    value={this.state.date}
+                    onChange={event => this.setState({date: event.target.value})}
+                    />
               <input
                 placeholder="Customer"
                 name="customer"

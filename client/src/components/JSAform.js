@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import DatePicker from 'react-date-picker';
 import './JSAform.css';
 
 class JSAform extends React.Component {
@@ -403,14 +402,6 @@ class JSAform extends React.Component {
     });
   };
 
-  handleDateChange = (date) => {
-    let selectedDateFromcalender = date.toUTCString();
-    console.log('date:', date);
-    this.setState({
-      date: selectedDateFromcalender,
-    });
-  };
-
  validateInput = () => {
 
      const ticket = this.state.ticket_num;
@@ -470,14 +461,14 @@ class JSAform extends React.Component {
       <div style={{ paddingTop: '20px', paddingBottom: '20px' }}>
         <form>
           <h1 style={{ paddingLeft: '20px' }}>Job Safety Analysis Form</h1>
-                     
+
               <div style={{paddingLeft: "20px"}}>
               {infoMessage()}
               <br />
               {errorMessage()}
               <br />
               </div>
-               
+
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <div className="jsa-info">
               <div className="jsa-info-input">
@@ -489,12 +480,12 @@ class JSAform extends React.Component {
                   onChange={(event) => this.onChange(event)}
                   value={this.state.value}
                 />
-                <DatePicker
-                  name="date"
-                  selected={this.state.date}
-                  onChange={(date) => this.handleDateChange}
-                  value={this.state.startDate}
-                />
+                <input
+                    type="date"
+                    name="date"
+                    value={this.state.date}
+                    onChange={event => this.setState({date: event.target.value})}
+                    />
                 <input
                   placeholder="Company"
                   name="company"
