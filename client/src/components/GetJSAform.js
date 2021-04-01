@@ -169,6 +169,8 @@ class GetJSAform extends React.Component {
             const employeeName = value.user_id;
             const employeeInitals = value.signatures;
 
+            const date = value.proj_date.substring(0,10);
+
             return (
               <div className="retrieve-report" key={index}>
                 <h1>JSA Form</h1>
@@ -184,7 +186,7 @@ class GetJSAform extends React.Component {
                     </div>
                     <div>
                       <b>Date: </b>
-                      {value.date}
+                      {date}
                     </div>
                     <div>
                       <b>Company: </b>

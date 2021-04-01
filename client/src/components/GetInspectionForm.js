@@ -198,6 +198,7 @@ class GetInspectionForm extends React.Component {
             const column1 = value.column1.split('\n');
             const column2 = value.column2.split('\n');
             const column3 = value.column3.split('\n');
+            const date = value.proj_date.substring(0,10);
 
             const renderRepairs = () => {
               if (String(value.repairsNeeded).toLowerCase() === 'true')
@@ -232,7 +233,7 @@ class GetInspectionForm extends React.Component {
                     <b>Company: </b> {value.company}
                   </div>
                   <div>
-                    <b>Date: </b> {value.date}
+                    <b>Date: </b> {date}
                   </div>
                   <div>
                     <b>Location: </b> {value.location}

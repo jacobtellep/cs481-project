@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-date-picker';
 import './InspectionForm.css';
@@ -509,14 +509,6 @@ class InspectionForm extends React.Component {
         })
     }
 
-    handleDateChange = date => {
-        let selectedDateFromcalender = date.toUTCString();
-        console.log('date:', date);
-        this.setState({
-            date: selectedDateFromcalender,
-        });
-    };
-
     validateInput = () => {
 
         const comp = this.state.company;
@@ -591,11 +583,11 @@ class InspectionForm extends React.Component {
                         onChange={(event) => this.onChange(event)}
                         value={this.state.value}
                         />
-                    <DatePicker
-                        name='date'
-                        selected={this.state.date}
-                        onChange={(date) => this.handleDateChange}
-                        value={this.state.startDate}
+                    <input
+                        type="date"
+                        name="date"
+                        value={this.state.date}
+                        onChange={event => this.setState({date: event.target.value})}
                         />
                     <input
                         placeholder="Locatoin"
