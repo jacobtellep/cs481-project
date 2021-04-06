@@ -141,18 +141,7 @@ class GetJSAform extends React.Component {
       );
     };
     return (
-      <div
-        style={{
-          position: 'absolute',
-          left: '25%',
-          marginLeft: '-120px',
-          marginTop: '10px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          width: '600px',
-          paddingBottom: '10px',
-        }}>
+      <div style={{ marginLeft: '10px' }}>
         <b>Select Ticket Number</b>
         {renderDrop()}
         <button
@@ -190,7 +179,7 @@ class GetJSAform extends React.Component {
             const employeeName = value.user_id;
             const employeeInitals = value.signatures;
 
-            const date = value.proj_date.substring(0,10);
+            const date = value.proj_date.substring(0, 10);
 
             return (
               <div className="retrieve-report border" key={index}>

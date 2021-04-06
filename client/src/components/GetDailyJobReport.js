@@ -110,7 +110,10 @@ class GetDailyJobReport extends React.Component {
   render() {
     const renderDrop = () => {
       return (
-        <select value={this.state.selectValue} onChange={this.handleChange}>
+        <select
+          style={{ marginLeft: '10px' }}
+          value={this.state.selectValue}
+          onChange={this.handleChange}>
           {this.state.contract_nums.map((str) => (
             <option value={str.contract_number}>{str.contract_number}</option>
           ))}
@@ -119,34 +122,25 @@ class GetDailyJobReport extends React.Component {
     };
 
     return (
-      <div
-        style={{
-          position: 'absolute',
-          left: '25%',
-          marginLeft: '-120px',
-          marginTop: '10px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          width: '600px',
-          paddingBottom: '10px',
-        }}>
-        <b>Select Contract Number</b>
-        {renderDrop()}
+      <div>
+        <div style={{ marginLeft: '10px' }}>
+          <b>Select Contract Number</b>
+          {renderDrop()}
 
-        <button
-          onClick={this.getDailyJobReport}
-          className="ui button"
-          type="button"
-          style={{
-            color: 'black',
-            backgroundColor: 'peachpuff',
-            width: '100px',
-            margin: '10px',
-            border: '2px solid black',
-          }}>
-          Retrieve
-        </button>
+          <button
+            onClick={this.getDailyJobReport}
+            className="ui button"
+            type="button"
+            style={{
+              color: 'black',
+              backgroundColor: 'peachpuff',
+              width: '100px',
+              margin: '10px',
+              border: '2px solid black',
+            }}>
+            Retrieve
+          </button>
+        </div>
 
         <br />
         <br />

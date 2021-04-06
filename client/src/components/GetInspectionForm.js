@@ -171,7 +171,10 @@ class GetInspectionForm extends React.Component {
   render() {
     const renderDrop = () => {
       return (
-        <select value={this.state.selectValue} onChange={this.handleChange}>
+        <select
+          style={{ marginLeft: '10px' }}
+          value={this.state.selectValue}
+          onChange={this.handleChange}>
           {this.state.job_numbers.map((str) => (
             <option value={str.job_num}>{str.job_num}</option>
           ))}
@@ -179,12 +182,20 @@ class GetInspectionForm extends React.Component {
       );
     };
     return (
-      <div>
+      <div style={{ marginLeft: '10px' }}>
         <b>Select Job Number</b>
         {renderDrop()}
         <button
+          style={{
+            color: 'black',
+            backgroundColor: 'peachpuff',
+            width: '100px',
+            margin: '10px',
+            marginLeft: '10px',
+            border: '2px solid black',
+          }}
           onClick={this.getInspectionForm}
-          className="retrieve-button"
+          className="ui button"
           type="button">
           Retrieve
         </button>
@@ -198,7 +209,7 @@ class GetInspectionForm extends React.Component {
             const column1 = value.column1.split('\n');
             const column2 = value.column2.split('\n');
             const column3 = value.column3.split('\n');
-            const date = value.proj_date.substring(0,10);
+            const date = value.proj_date.substring(0, 10);
 
             const renderRepairs = () => {
               if (String(value.repairsNeeded).toLowerCase() === 'true')
@@ -223,12 +234,14 @@ class GetInspectionForm extends React.Component {
 
             return (
               <div
-                className="retrieve-report"
+                className="retrieve-report border"
                 key={index}
                 style={{ paddingBottom: '20px' }}>
                 <h1>Inspection Form</h1>
-                <h3>Job Info</h3>
-                <div className="inspection-info">
+                <div
+                  style={{ paddingLeft: '10px' }}
+                  className="inspection-info sub-border">
+                  <h3>Job Info</h3>
                   <div>
                     <b>Company: </b> {value.company}
                   </div>
@@ -253,14 +266,14 @@ class GetInspectionForm extends React.Component {
                 </div>
                 <br />
                 <br />
-                <div className="info">
+                <div className="info sub-border">
                   <b>N/A = NOT APPLICABLE</b>
                   <b className="info">OK = NO REPAIRS NEEDED</b>
                   <b className="info">RR = REQUIRES REPAIR</b>
                 </div>
                 <br />
                 <br />
-                <div className="columns">
+                <div className="columns sub-border">
                   <div classname="column1">
                     <b>Outside</b>
                     <br />
@@ -302,7 +315,7 @@ class GetInspectionForm extends React.Component {
                       flexDirection: 'column',
                       paddingTop: '39px',
                       position: 'relative',
-                      left: '-30px',
+                      left: '-10px',
                     }}>
                     <div>Lights</div>
                     <div>Steps/Hand Rail</div>
@@ -375,7 +388,7 @@ class GetInspectionForm extends React.Component {
                       flexDirection: 'column',
                       paddingTop: '39px',
                       position: 'relative',
-                      left: '-120px',
+                      left: '-75px',
                     }}>
                     <div>Battery Cable</div>
                     <div>Fan Belt</div>
@@ -449,7 +462,7 @@ class GetInspectionForm extends React.Component {
                       flexDirection: 'column',
                       paddingTop: '39px',
                       position: 'relative',
-                      left: '-165px',
+                      left: '-130px',
                     }}>
                     <div>Glass (all sides)</div>
                     <div>Mirror</div>
@@ -467,22 +480,24 @@ class GetInspectionForm extends React.Component {
                 </div>{' '}
                 {/*******end of columns**********/}
                 <br />
-                <div>
+                <div style={{ paddingLeft: '10px' }} className="sub-border">
                   <b>Explain Defects:</b>
                   <br />
                   {value.explain_defects}
                 </div>
                 <br />
-                <div>{renderRepairs()}</div>
+                <div style={{ paddingLeft: '10px' }} className="sub-border">
+                  {renderRepairs()}
+                </div>
                 <br />
                 <br />
                 <div
-                  className="initals"
+                  className="initals sub-border"
                   style={{ display: 'flex', flexDirection: 'column' }}>
-                  <div>
+                  <div style={{ paddingLeft: '10px' }}>
                     <b>Operator's initals: </b> {value.sign_operator}
                   </div>
-                  <div>
+                  <div style={{ paddingLeft: '10px' }}>
                     <b>Mechanic's initals: </b> {value.sign_mech}
                   </div>
                 </div>
