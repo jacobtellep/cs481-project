@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { withAuth0 } from '@auth0/auth0-react';
+import BackButton from './BackButton';
 
 class GetInspectionForm extends React.Component {
   state = {
@@ -182,328 +183,343 @@ class GetInspectionForm extends React.Component {
       );
     };
     return (
-      <div style={{ marginLeft: '10px' }}>
-        <b>Select Job Number</b>
-        {renderDrop()}
-        <button
-          style={{
-            color: 'black',
-            backgroundColor: 'peachpuff',
-            width: '100px',
-            margin: '10px',
-            marginLeft: '10px',
-            border: '2px solid black',
-          }}
-          onClick={this.getInspectionForm}
-          className="ui button"
-          type="button">
-          Retrieve
-        </button>
+      <div>
+        <div>
+          <BackButton path="/viewform" />
+        </div>
+        <div style={{ marginLeft: '10px', marginRight: '10px' }}>
+          <b>Select Job Number</b>
+          {renderDrop()}
+          <button
+            style={{
+              color: 'black',
+              backgroundColor: 'peachpuff',
+              width: '100px',
+              margin: '10px',
+              marginLeft: '10px',
+              border: '2px solid black',
+            }}
+            onClick={this.getInspectionForm}
+            className="ui button"
+            type="button">
+            Retrieve
+          </button>
 
-        <br />
-        <br />
-        <br />
+          <br />
+          <br />
+          <br />
 
-        {this.state.GetInspectionForm &&
-          this.state.GetInspectionForm.map((value, index) => {
-            const column1 = value.column1.split('\n');
-            const column2 = value.column2.split('\n');
-            const column3 = value.column3.split('\n');
-            const date = value.proj_date.substring(0, 10);
+          {this.state.GetInspectionForm &&
+            this.state.GetInspectionForm.map((value, index) => {
+              const column1 = value.column1.split('\n');
+              const column2 = value.column2.split('\n');
+              const column3 = value.column3.split('\n');
+              const date = value.proj_date.substring(0, 10);
 
-            const renderRepairs = () => {
-              if (String(value.repairsNeeded).toLowerCase() === 'true')
+              const renderRepairs = () => {
+                if (String(value.repairsNeeded).toLowerCase() === 'true')
+                  return (
+                    <div>
+                      {' '}
+                      <input type="checkbox" checked={true} /> Repairs or
+                      adjustments needed{' '}
+                      <input type="checkbox" checked={false} /> Repairs or
+                      adjustments NOT needed for safe equipment operation{' '}
+                    </div>
+                  );
                 return (
                   <div>
                     {' '}
-                    <input type="checkbox" checked={true} /> Repairs or
-                    adjustments needed <input type="checkbox" checked={false} />{' '}
+                    <input type="checkbox" checked={false} /> Repairs or
+                    adjustments needed <input type="checkbox" checked={true} />{' '}
                     Repairs or adjustments NOT needed for safe equipment
                     operation{' '}
                   </div>
                 );
+              };
+
               return (
-                <div>
-                  {' '}
-                  <input type="checkbox" checked={false} /> Repairs or
-                  adjustments needed <input type="checkbox" checked={true} />{' '}
-                  Repairs or adjustments NOT needed for safe equipment operation{' '}
-                </div>
-              );
-            };
-
-            return (
-              <div
-                className="retrieve-report border"
-                key={index}
-                style={{ paddingBottom: '20px' }}>
-                <h1>Inspection Form</h1>
                 <div
-                  style={{ paddingLeft: '10px' }}
-                  className="inspection-info sub-border">
-                  <h3>Job Info</h3>
-                  <div>
-                    <b>Company: </b> {value.company}
-                  </div>
-                  <div>
-                    <b>Date: </b> {date}
-                  </div>
-                  <div>
-                    <b>Location: </b> {value.location}
-                  </div>
-                  <div>
-                    <b>Job Number: </b> {value.job_num}
-                  </div>
-                  <div>
-                    <b>Equipment: </b> {value.equip_type}
-                  </div>
-                  <div>
-                    <b>Hour Meter: </b> {value.hour_meter}
-                  </div>
-                  <div>
-                    <b>Mileage: </b> {value.mileage}
-                  </div>
-                </div>
-                <br />
-                <br />
-                <div className="info sub-border">
-                  <b>N/A = NOT APPLICABLE</b>
-                  <b className="info">OK = NO REPAIRS NEEDED</b>
-                  <b className="info">RR = REQUIRES REPAIR</b>
-                </div>
-                <br />
-                <br />
-                <div className="columns sub-border">
-                  <div classname="column1">
-                    <b>Outside</b>
-                    <br />
-                    <b>NA OK RR</b> <br />
-                    {column1.map((str, i) => {
-                      if (i % 3 === 0 && i !== 0) {
-                        if (String(str).toLowerCase() === 'true')
-                          return (
-                            <fragment>
-                              <br /> <input type="checkbox" checked={true} />{' '}
-                            </fragment>
-                          );
-                        return (
-                          <fragment>
-                            <br /> <input type="checkbox" checked={false} />{' '}
-                          </fragment>
-                        );
-                      } else {
-                        if (String(str).toLowerCase() === 'true')
-                          return (
-                            <fragment>
-                              {' '}
-                              <input type="checkbox" checked={true} />{' '}
-                            </fragment>
-                          );
-                        return (
-                          <fragment>
-                            {' '}
-                            <input type="checkbox" checked={false} />{' '}
-                          </fragment>
-                        );
-                      }
-                    })}
-                  </div>
-
+                  className="retrieve-report border"
+                  key={index}
+                  style={{ paddingBottom: '20px' }}>
+                  <h1>Inspection Form</h1>
                   <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      paddingTop: '39px',
-                      position: 'relative',
-                      left: '-10px',
-                    }}>
-                    <div>Lights</div>
-                    <div>Steps/Hand Rail</div>
-                    <div>Tires/Tracks</div>
-                    <div>Exhaust</div>
-                    <div>Fenders</div>
-                    <div>Buckets</div>
-                    <div>Cutting Edge/Teeth</div>
-                    <div>LIfting Mechanism</div>
-                    <div>Hoses</div>
-                    <div>Fittings Greased</div>
-                    <div>Hitch/Coupler</div>
-                    <div>Wipers</div>
+                    style={{ paddingLeft: '10px', paddingRight: '10px' }}
+                    className="inspection-info sub-border">
+                    <h3>Job Info</h3>
+                    <div>
+                      <b>Company: </b> {value.company}
+                      <hr></hr>
+                    </div>
+                    <div>
+                      <b>Date: </b> {date}
+                      <hr></hr>
+                    </div>
+                    <div>
+                      <b>Location: </b> {value.location}
+                      <hr></hr>
+                    </div>
+                    <div>
+                      <b>Job Number: </b> {value.job_num}
+                      <hr></hr>
+                    </div>
+                    <div>
+                      <b>Equipment: </b> {value.equip_type}
+                      <hr></hr>
+                    </div>
+                    <div>
+                      <b>Hour Meter: </b> {value.hour_meter}
+                      <hr></hr>
+                    </div>
+                    <div>
+                      <b>Mileage: </b> {value.mileage}
+                      <hr></hr>
+                    </div>
                   </div>
-
-                  <div>
-                    <b>Engine Compartment</b> <br />
-                    <b>NA OK RR</b> <br />
-                    {column2.map((str, i) => {
-                      if (i === 15) {
-                        if (String(str).toLowerCase() === 'true')
-                          return (
-                            <React.Fragment>
-                              <br /> <b>Inside Cab</b>
-                              <br /> <input
-                                type="checkbox"
-                                checked={true}
-                              />{' '}
-                            </React.Fragment>
-                          );
-                        return (
-                          <React.Fragment>
-                            <br /> <b>Inside Cab</b> <br />{' '}
-                            <input type="checkbox" checked={false} />{' '}
-                          </React.Fragment>
-                        );
-                      } else if (i % 3 === 0 && i !== 0) {
-                        if (String(str).toLowerCase() === 'true')
-                          return (
-                            <React.Fragment>
-                              <br /> <input type="checkbox" checked={true} />{' '}
-                            </React.Fragment>
-                          );
-                        return (
-                          <React.Fragment>
-                            <br /> <input type="checkbox" checked={false} />{' '}
-                          </React.Fragment>
-                        );
-                      } else {
-                        if (String(str).toLowerCase() === 'true')
-                          return (
-                            <React.Fragment>
-                              {' '}
-                              <input type="checkbox" checked={true} />{' '}
-                            </React.Fragment>
-                          );
-                        return (
-                          <React.Fragment>
-                            {' '}
-                            <input type="checkbox" checked={false} />{' '}
-                          </React.Fragment>
-                        );
-                      }
-                    })}
-                  </div>
-
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      paddingTop: '39px',
-                      position: 'relative',
-                      left: '-75px',
-                    }}>
-                    <div>Battery Cable</div>
-                    <div>Fan Belt</div>
-                    <div>Hoses</div>
-                    <div>Air Filter</div>
-                    <div>Guards</div>
-                    <br />
-                    <div>Brakes Service</div>
-                    <div>Brakes Parking</div>
-                    <div>Backup Alarm</div>
-                    <div>Fire Extinguisher</div>
-                    <div>Gauges</div>
-                    <div>Horn</div>
-                    <div>Hydraulic Controls</div>
-                  </div>
-
-                  <div style={{ position: 'relative', left: '-80px' }}>
-                    <b>Inside Cab (cont.)</b> <br />
-                    <b>NA OK RR</b> <br />
-                    {column3.map((str, i) => {
-                      if (i === 15) {
-                        if (String(str).toLowerCase() === 'true')
-                          return (
-                            <React.Fragment>
-                              <br /> <b>Fluids</b>
-                              <br /> <input
-                                type="checkbox"
-                                checked={true}
-                              />{' '}
-                            </React.Fragment>
-                          );
-                        return (
-                          <React.Fragment>
-                            <br /> <b>Fluids</b> <br />{' '}
-                            <input type="checkbox" checked={false} />{' '}
-                          </React.Fragment>
-                        );
-                      } else if (i % 3 === 0 && i !== 0) {
-                        if (String(str).toLowerCase() === 'true')
-                          return (
-                            <React.Fragment>
-                              <br /> <input type="checkbox" checked={true} />{' '}
-                            </React.Fragment>
-                          );
-                        return (
-                          <React.Fragment>
-                            <br /> <input type="checkbox" checked={false} />{' '}
-                          </React.Fragment>
-                        );
-                      } else {
-                        if (String(str).toLowerCase() === 'true')
-                          return (
-                            <React.Fragment>
-                              {' '}
-                              <input type="checkbox" checked={true} />{' '}
-                            </React.Fragment>
-                          );
-                        return (
-                          <React.Fragment>
-                            {' '}
-                            <input type="checkbox" checked={false} />{' '}
-                          </React.Fragment>
-                        );
-                      }
-                    })}
-                  </div>
-
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      paddingTop: '39px',
-                      position: 'relative',
-                      left: '-130px',
-                    }}>
-                    <div>Glass (all sides)</div>
-                    <div>Mirror</div>
-                    <div>Roll Over Protection</div>
-                    <div>Seat Belt/Seat</div>
-                    <div>Steering</div>
-                    <br />
-                    <div>Visible Leaks</div>
-                    <div>Oil Level/Pressure</div>
-                    <div>Coolant Level</div>
-                    <div>Hydraulic Oil Level</div>
-                    <div>Transmission Fluid Level</div>
-                    <div>Fuel Level</div>
-                  </div>
-                </div>{' '}
-                {/*******end of columns**********/}
-                <br />
-                <div style={{ paddingLeft: '10px' }} className="sub-border">
-                  <b>Explain Defects:</b>
                   <br />
-                  {value.explain_defects}
-                </div>
-                <br />
-                <div style={{ paddingLeft: '10px' }} className="sub-border">
-                  {renderRepairs()}
-                </div>
-                <br />
-                <br />
-                <div
-                  className="initals sub-border"
-                  style={{ display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ paddingLeft: '10px' }}>
-                    <b>Operator's initals: </b> {value.sign_operator}
+                  <br />
+                  <div className="info sub-border">
+                    <b>N/A = NOT APPLICABLE</b>
+                    <b className="info">OK = NO REPAIRS NEEDED</b>
+                    <b className="info">RR = REQUIRES REPAIR</b>
                   </div>
-                  <div style={{ paddingLeft: '10px' }}>
-                    <b>Mechanic's initals: </b> {value.sign_mech}
+                  <br />
+                  <br />
+                  <div className="columns sub-border">
+                    <div classname="column1">
+                      <b>Outside</b>
+                      <br />
+                      <b>NA OK RR</b> <br />
+                      {column1.map((str, i) => {
+                        if (i % 3 === 0 && i !== 0) {
+                          if (String(str).toLowerCase() === 'true')
+                            return (
+                              <fragment>
+                                <br /> <input type="checkbox" checked={true} />{' '}
+                              </fragment>
+                            );
+                          return (
+                            <fragment>
+                              <br /> <input type="checkbox" checked={false} />{' '}
+                            </fragment>
+                          );
+                        } else {
+                          if (String(str).toLowerCase() === 'true')
+                            return (
+                              <fragment>
+                                {' '}
+                                <input type="checkbox" checked={true} />{' '}
+                              </fragment>
+                            );
+                          return (
+                            <fragment>
+                              {' '}
+                              <input type="checkbox" checked={false} />{' '}
+                            </fragment>
+                          );
+                        }
+                      })}
+                    </div>
+
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        paddingTop: '39px',
+                        position: 'relative',
+                        left: '-10px',
+                      }}>
+                      <div>Lights</div>
+                      <div>Steps/Hand Rail</div>
+                      <div>Tires/Tracks</div>
+                      <div>Exhaust</div>
+                      <div>Fenders</div>
+                      <div>Buckets</div>
+                      <div>Cutting Edge/Teeth</div>
+                      <div>LIfting Mechanism</div>
+                      <div>Hoses</div>
+                      <div>Fittings Greased</div>
+                      <div>Hitch/Coupler</div>
+                      <div>Wipers</div>
+                    </div>
+
+                    <div>
+                      <b>Engine Compartment</b> <br />
+                      <b>NA OK RR</b> <br />
+                      {column2.map((str, i) => {
+                        if (i === 15) {
+                          if (String(str).toLowerCase() === 'true')
+                            return (
+                              <React.Fragment>
+                                <br /> <b>Inside Cab</b>
+                                <br /> <input
+                                  type="checkbox"
+                                  checked={true}
+                                />{' '}
+                              </React.Fragment>
+                            );
+                          return (
+                            <React.Fragment>
+                              <br /> <b>Inside Cab</b> <br />{' '}
+                              <input type="checkbox" checked={false} />{' '}
+                            </React.Fragment>
+                          );
+                        } else if (i % 3 === 0 && i !== 0) {
+                          if (String(str).toLowerCase() === 'true')
+                            return (
+                              <React.Fragment>
+                                <br /> <input type="checkbox" checked={true} />{' '}
+                              </React.Fragment>
+                            );
+                          return (
+                            <React.Fragment>
+                              <br /> <input type="checkbox" checked={false} />{' '}
+                            </React.Fragment>
+                          );
+                        } else {
+                          if (String(str).toLowerCase() === 'true')
+                            return (
+                              <React.Fragment>
+                                {' '}
+                                <input type="checkbox" checked={true} />{' '}
+                              </React.Fragment>
+                            );
+                          return (
+                            <React.Fragment>
+                              {' '}
+                              <input type="checkbox" checked={false} />{' '}
+                            </React.Fragment>
+                          );
+                        }
+                      })}
+                    </div>
+
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        paddingTop: '39px',
+                        position: 'relative',
+                        left: '-75px',
+                      }}>
+                      <div>Battery Cable</div>
+                      <div>Fan Belt</div>
+                      <div>Hoses</div>
+                      <div>Air Filter</div>
+                      <div>Guards</div>
+                      <br />
+                      <div>Brakes Service</div>
+                      <div>Brakes Parking</div>
+                      <div>Backup Alarm</div>
+                      <div>Fire Extinguisher</div>
+                      <div>Gauges</div>
+                      <div>Horn</div>
+                      <div>Hydraulic Controls</div>
+                    </div>
+
+                    <div style={{ position: 'relative', left: '-80px' }}>
+                      <b>Inside Cab (cont.)</b> <br />
+                      <b>NA OK RR</b> <br />
+                      {column3.map((str, i) => {
+                        if (i === 15) {
+                          if (String(str).toLowerCase() === 'true')
+                            return (
+                              <React.Fragment>
+                                <br /> <b>Fluids</b>
+                                <br /> <input
+                                  type="checkbox"
+                                  checked={true}
+                                />{' '}
+                              </React.Fragment>
+                            );
+                          return (
+                            <React.Fragment>
+                              <br /> <b>Fluids</b> <br />{' '}
+                              <input type="checkbox" checked={false} />{' '}
+                            </React.Fragment>
+                          );
+                        } else if (i % 3 === 0 && i !== 0) {
+                          if (String(str).toLowerCase() === 'true')
+                            return (
+                              <React.Fragment>
+                                <br /> <input type="checkbox" checked={true} />{' '}
+                              </React.Fragment>
+                            );
+                          return (
+                            <React.Fragment>
+                              <br /> <input type="checkbox" checked={false} />{' '}
+                            </React.Fragment>
+                          );
+                        } else {
+                          if (String(str).toLowerCase() === 'true')
+                            return (
+                              <React.Fragment>
+                                {' '}
+                                <input type="checkbox" checked={true} />{' '}
+                              </React.Fragment>
+                            );
+                          return (
+                            <React.Fragment>
+                              {' '}
+                              <input type="checkbox" checked={false} />{' '}
+                            </React.Fragment>
+                          );
+                        }
+                      })}
+                    </div>
+
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        paddingTop: '39px',
+                        position: 'relative',
+                        left: '-130px',
+                      }}>
+                      <div>Glass (all sides)</div>
+                      <div>Mirror</div>
+                      <div>Roll Over Protection</div>
+                      <div>Seat Belt/Seat</div>
+                      <div>Steering</div>
+                      <br />
+                      <div>Visible Leaks</div>
+                      <div>Oil Level/Pressure</div>
+                      <div>Coolant Level</div>
+                      <div>Hydraulic Oil Level</div>
+                      <div>Transmission Fluid Level</div>
+                      <div>Fuel Level</div>
+                    </div>
+                  </div>{' '}
+                  {/*******end of columns**********/}
+                  <br />
+                  <div style={{ paddingLeft: '10px' }} className="sub-border">
+                    <b>Explain Defects:</b>
+                    <br />
+                    {value.explain_defects}
                   </div>
-                </div>
-              </div> //**************end of return
-            );
-          })}
+                  <br />
+                  <div style={{ paddingLeft: '10px' }} className="sub-border">
+                    {renderRepairs()}
+                  </div>
+                  <br />
+                  <br />
+                  <div
+                    className="initals sub-border"
+                    style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
+                      <b>Operator's initals: </b> {value.sign_operator}
+                      <hr></hr>
+                    </div>
+                    <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
+                      <b>Mechanic's initals: </b> {value.sign_mech}
+                      <hr></hr>
+                    </div>
+                  </div>
+                </div> //**************end of return
+              );
+            })}
+        </div>
       </div>
     );
   }

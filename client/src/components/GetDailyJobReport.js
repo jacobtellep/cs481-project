@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { withAuth0 } from '@auth0/auth0-react';
 import './GetDailyJobReport.css';
+import BackButton from './BackButton';
 
 class GetDailyJobReport extends React.Component {
   state = {
@@ -123,7 +124,14 @@ class GetDailyJobReport extends React.Component {
 
     return (
       <div>
-        <div style={{ marginLeft: '10px' }}>
+        <div>
+          <BackButton path="viewform" />
+        </div>
+        <div
+          style={{
+            marginLeft: '10px',
+            marginRight: '10px',
+          }}>
           <b>Select Contract Number</b>
           {renderDrop()}
 
