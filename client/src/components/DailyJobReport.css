@@ -1,3 +1,11 @@
+.border {
+  border: 2px solid black;
+  margin: 10px;
+  width: 600px;
+  box-shadow: black;
+  border-radius: 5px;
+}
+
 .job-info-inputs {
   align-items: left;
   justify-content: left;
@@ -20,15 +28,15 @@
 }
 
 .weather-notes {
-  width: 500px;
+  width: 350px;
 }
 
 .weather-start {
-  width: 160px;
+  width: 100px;
 }
 
 .weather-end {
-  width: 160px;
+  width: 100px;
 }
 
 .project-delay-inputs {
@@ -44,15 +52,15 @@
 }
 
 .project-notes {
-  width: 500px;
+  width: 350px;
 }
 
 .project-start {
-  width: 160px;
+  width: 100px;
 }
 
 .project-end {
-  width: 160px;
+  width: 100px;
 }
 
 .bid-work-inputs {
@@ -68,27 +76,28 @@
 }
 
 .employee-name {
-  width: 500px;
+  width: 350px;
 }
 
 .hours {
-  width: 160px;
+  width: 100px;
 }
 
 .job-number {
-  width: 160px;
+  width: 100px;
 }
 
 .job-description-input {
   margin-top: 20px;
   margin-left: 20px;
-  width: 820px;
+  width: 550px;
   height: 75px;
 }
 
 .submit-button {
   margin-top: 20px;
   margin-left: 20px;
+  margin-bottom: 5px;
 }
 
 .retrieve-button {

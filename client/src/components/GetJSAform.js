@@ -130,7 +130,10 @@ class GetJSAform extends React.Component {
   render() {
     const renderDrop = () => {
       return (
-        <select value={this.state.selectValue} onChange={this.handleChange}>
+        <select
+          style={{ marginLeft: '10px' }}
+          value={this.state.selectValue}
+          onChange={this.handleChange}>
           {this.state.ticket_numbers.map((str) => (
             <option value={str.ticket_num}>{str.ticket_num}</option>
           ))}
@@ -138,12 +141,30 @@ class GetJSAform extends React.Component {
       );
     };
     return (
-      <div>
+      <div
+        style={{
+          position: 'absolute',
+          left: '25%',
+          marginLeft: '-120px',
+          marginTop: '10px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          width: '600px',
+          paddingBottom: '10px',
+        }}>
         <b>Select Ticket Number</b>
         {renderDrop()}
         <button
+          style={{
+            color: 'black',
+            backgroundColor: 'peachpuff',
+            width: '100px',
+            margin: '10px',
+            border: '2px solid black',
+          }}
           onClick={this.getjsaform}
-          className="retrieve-button"
+          className="ui button"
           type="button">
           Retrieve
         </button>
@@ -170,12 +191,12 @@ class GetJSAform extends React.Component {
             const employeeInitals = value.signatures;
 
             return (
-              <div className="retrieve-report" key={index}>
+              <div className="retrieve-report border" key={index}>
                 <h1>JSA Form</h1>
 
                 <h3>Job Info</h3>
                 <div
-                  className="jsa-info-weather"
+                  className="jsa-info-weather sub-border"
                   style={{ display: 'flex', flexDirection: 'row' }}>
                   <div>
                     <div>
@@ -247,7 +268,7 @@ class GetJSAform extends React.Component {
                   </div>
                 </div>
                 <br />
-                <div className="jsa-gps-medical">
+                <div className="jsa-gps-medical sub-border">
                   <div>
                     <b>Medical Facility: </b>
                     {value.gps_location}
@@ -258,105 +279,110 @@ class GetJSAform extends React.Component {
                   </div>
                 </div>
                 <br />
-                <h3>Hazards</h3>
-                <div
-                  className="hazardCheck"
-                  style={{ display: 'flex', flexDirection: 'row' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    {hazard_1.map((str) => {
-                      if (String(str).toLowerCase() == 'true')
-                        return (
-                          <div style={{ paddingBottom: '1px' }}>
-                            <input type="checkbox" checked={true} />
-                          </div>
-                        );
-                      return (
-                        <div style={{ paddingBottom: '1px' }}>
-                          <input type="checkbox" checked={false} />
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div>Confined Space</div>
-                    <div>Fall Protection</div>
-                    <div>Sharp/Hot/Cold Surfaces</div>
-                    <div>Electric Shock Hazard</div>
-                    <div>Irritants-Respiratory/Skin</div>
-                    <div>Environment Extremes</div>
-                  </div>
-
+                <div className="sub-border" style={{ paddingLeft: '10px' }}>
+                  <h3>Hazards</h3>
                   <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      paddingLeft: '20px',
-                    }}>
-                    {hazard_2.map((str) => {
-                      if (String(str).toLowerCase() == 'true')
+                    className="hazardCheck"
+                    style={{ display: 'flex', flexDirection: 'row' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      {hazard_1.map((str) => {
+                        if (String(str).toLowerCase() == 'true')
+                          return (
+                            <div style={{ paddingBottom: '1px' }}>
+                              <input type="checkbox" checked={true} />
+                            </div>
+                          );
                         return (
                           <div style={{ paddingBottom: '1px' }}>
-                            <input type="checkbox" checked={true} />
+                            <input type="checkbox" checked={false} />
                           </div>
                         );
-                      return (
-                        <div style={{ paddingBottom: '1px' }}>
-                          <input type="checkbox" checked={false} />
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div>Pinch/Crush/Strike Hazard</div>
-                    <div>Lifting Hazard</div>
-                    <div>Short Services Employees</div>
-                    <div>Fore or Explosion Potential</div>
-                    <div>Potential Release of Energy</div>
-                    <div>
-                      We ALL have the right and obligation to STOP WORK if
-                      unsafe conditions or acts are present
+                      })}
                     </div>
-                  </div>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <div>Confined Space</div>
+                      <div>Fall Protection</div>
+                      <div>Sharp/Hot/Cold Surfaces</div>
+                      <div>Electric Shock Hazard</div>
+                      <div>Irritants-Respiratory/Skin</div>
+                      <div>Environment Extremes</div>
+                    </div>
 
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      position: 'relative',
-                      left: '-450px',
-                    }}>
-                    {hazard_3.map((str) => {
-                      if (String(str).toLowerCase() == 'true')
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        paddingLeft: '20px',
+                      }}>
+                      {hazard_2.map((str) => {
+                        if (String(str).toLowerCase() == 'true')
+                          return (
+                            <div style={{ paddingBottom: '1px' }}>
+                              <input type="checkbox" checked={true} />
+                            </div>
+                          );
                         return (
                           <div style={{ paddingBottom: '1px' }}>
-                            <input type="checkbox" checked={true} />
+                            <input type="checkbox" checked={false} />
                           </div>
                         );
-                      return (
-                        <div style={{ paddingBottom: '1px' }}>
-                          <input type="checkbox" checked={false} />
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      position: 'relative',
-                      left: '-450px',
-                    }}>
-                    <div>Elevated Work Load</div>
-                    <div>Excavation</div>
-                    <div>Hazardous Chemical Exposure</div>
-                    <div>High Noise Level</div>
-                    <div>Water or Drowning Hazard</div>
+                      })}
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <div>Pinch/Crush/Strike Hazard</div>
+                      <div>Lifting Hazard</div>
+                      <div>Short Services Employees</div>
+                      <div>Fore or Explosion Potential</div>
+                      <div>Potential Release of Energy</div>
+                      <div>
+                        We ALL have the right and obligation to STOP WORK if
+                        unsafe conditions or acts are present
+                      </div>
+                    </div>
+
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        position: 'relative',
+                      }}>
+                      {hazard_3.map((str) => {
+                        if (String(str).toLowerCase() == 'true')
+                          return (
+                            <div style={{ paddingBottom: '1px' }}>
+                              <input type="checkbox" checked={true} />
+                            </div>
+                          );
+                        return (
+                          <div style={{ paddingBottom: '1px' }}>
+                            <input type="checkbox" checked={false} />
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        position: 'relative',
+                      }}>
+                      <div>Elevated Work Load</div>
+                      <div>Excavation</div>
+                      <div>Hazardous Chemical Exposure</div>
+                      <div>High Noise Level</div>
+                      <div>Water or Drowning Hazard</div>
+                    </div>
                   </div>
                 </div>
                 <br />
                 <div
-                  className="steps-Consquences-remove"
-                  style={{ display: 'flex', flexDirection: 'row' }}>
+                  className="steps-Consquences-remove sub-border"
+                  style={{
+                    display: 'flex',
+
+                    flexDirection: 'row',
+                    paddingLeft: '10px',
+                  }}>
                   <div>
                     <h3>Major Steps</h3>
                     <div
@@ -366,7 +392,10 @@ class GetJSAform extends React.Component {
                         paddingLeft: '20px',
                       }}>
                       {majorSteps.split('\n').map((str) => (
-                        <p>{str}</p>
+                        <p>
+                          {str}
+                          <hr></hr>
+                        </p>
                       ))}
                     </div>
                   </div>
@@ -380,7 +409,10 @@ class GetJSAform extends React.Component {
                         paddingLeft: '20px',
                       }}>
                       {potentialHazard.split('\n').map((str) => (
-                        <p>{str}</p>
+                        <p>
+                          {str}
+                          <hr></hr>
+                        </p>
                       ))}
                     </div>
                   </div>
@@ -394,13 +426,16 @@ class GetJSAform extends React.Component {
                         paddingLeft: '20px',
                       }}>
                       {recommHazard.split('\n').map((str) => (
-                        <p>{str}</p>
+                        <p>
+                          {str}
+                          <hr></hr>
+                        </p>
                       ))}
                     </div>
                   </div>
                 </div>
 
-                <h3>
+                <h3 className="sub-border">
                   All Contractors and/or Personnel must read and sign this JSA
                   form to work on or around G L Services area of Operations.{' '}
                   <br /> DO NOT sign this form if you have not read and FULLY
@@ -410,7 +445,7 @@ class GetJSAform extends React.Component {
                 </h3>
 
                 <div
-                  className="employeesAndInitials"
+                  className="employeesAndInitials sub-border"
                   style={{ display: 'flex', flexDirection: 'row' }}>
                   <div
                     style={{
@@ -420,7 +455,10 @@ class GetJSAform extends React.Component {
                     }}>
                     <h3>Employee Name</h3>
                     {employeeName.split('\n').map((str) => (
-                      <p>{str}</p>
+                      <p>
+                        {str}
+                        <hr></hr>
+                      </p>
                     ))}
                   </div>
                   <div
@@ -431,7 +469,10 @@ class GetJSAform extends React.Component {
                     }}>
                     <h3>Employee Initals</h3>
                     {employeeInitals.split('\n').map((str) => (
-                      <p>{str}</p>
+                      <p>
+                        {str}
+                        <hr></hr>
+                      </p>
                     ))}
                   </div>
                 </div>

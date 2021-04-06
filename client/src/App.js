@@ -51,7 +51,16 @@ const App = () => {
           <Route path="/logout" component={Logout} />
           <Route path="/login" component={Login} />
           <Route path="/" exact>
-            <img style={{ padding: '10px', width: '100px' }} src={logo} />
+            <img
+              style={{
+                marginTop: '10px',
+                position: 'absolute',
+                left: '50%',
+                marginLeft: '-75px',
+                width: '200px',
+              }}
+              src={logo}
+            />
           </Route>
         </Switch>
       </Router>
