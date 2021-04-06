@@ -7,25 +7,54 @@ const Forms = () => {
 
   return (
     isAuthenticated && (
-      <div>
+      <div
+        style={{
+          backgroundColor: 'ghostwhite',
+          position: 'absolute',
+          left: '50%',
+          marginLeft: '-100px',
+          marginTop: '10px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          border: '2px solid black',
+          paddingBottom: '10px',
+        }}>
         <h1>Create Forms:</h1>
-        <ul>
-          <li className="ui button">
-            <h1>
-              <Link to="/createdailyjobreport">DailyJobReport</Link>
-            </h1>
-          </li>
-          <li className="ui button">
-            <h1>
-              <Link to="/createjobsafetyanalysis">Job Safety Analysis</Link>
-            </h1>
-          </li>
-          <li className="ui button">
-            <h1>
-              <Link to="/createinspection">Equipment Inspection</Link>
-            </h1>
-          </li>
-        </ul>
+
+        <h1
+          className="ui button"
+          style={{
+            backgroundColor: 'peachpuff',
+            width: '200px',
+            margin: '10px',
+            border: '2px solid black',
+          }}>
+          <Link to="/createdailyjobreport">DailyJobReport</Link>
+        </h1>
+
+        <h1
+          className="ui button"
+          style={{
+            backgroundColor: 'peachpuff',
+            width: '200px',
+            marginLeft: '10px',
+            marginRight: '10px',
+            border: '2px solid black',
+          }}>
+          <Link to="/createjobsafetyanalysis">Job Safety Analysis</Link>
+        </h1>
+
+        <h1
+          className="ui button"
+          style={{
+            backgroundColor: 'peachpuff',
+            width: '200px',
+            margin: '10px',
+            border: '2px solid black',
+          }}>
+          <Link to="/createinspection">Equipment Inspection</Link>
+        </h1>
       </div>
     )
   );

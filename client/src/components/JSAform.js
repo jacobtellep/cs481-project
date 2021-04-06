@@ -458,7 +458,9 @@ class JSAform extends React.Component {
 
 
     return (
-      <div style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+      <div
+        className="border"
+        style={{ paddingTop: '20px', paddingBottom: '20px' }}>
         <form>
           <h1 style={{ paddingLeft: '20px' }}>Job Safety Analysis Form</h1>
 
@@ -499,7 +501,7 @@ class JSAform extends React.Component {
                   value={this.state.value}
                 />
                 <input
-                  placeholder="Locatoin"
+                  placeholder="Location"
                   name="location"
                   onChange={(event) => this.onChange(event)}
                   value={this.state.value}
@@ -735,7 +737,7 @@ class JSAform extends React.Component {
                     style={{ whiteSpace: 'nowrap' }}>
                     {' '}
                     We ALL have the right and obligation to STOP WORK if unsafe
-                    conditions or acts are present
+                    conditions <br></br> or acts are present
                   </label>
                 </div>
               </div>
@@ -796,7 +798,7 @@ class JSAform extends React.Component {
           </div>
           <br />
           <div className="hazard-steps">
-            <div className="hazardColumn">
+            <div className="hazardColumn" style={{ width: '170px' }}>
               <input
                 className="textbox"
                 placeholder="Major Job Steps"
@@ -847,7 +849,7 @@ class JSAform extends React.Component {
                 value={this.state.value}
               />
             </div>
-            <div className="hazardColumn">
+            <div className="hazardColumn" style={{ width: '210px' }}>
               <input
                 className="textbox"
                 placeholder="Potential Hazards/Consquences"
@@ -1115,7 +1117,14 @@ class JSAform extends React.Component {
         </form>
 
         <button
-          className="submit-button"
+          style={{
+            color: 'black',
+            backgroundColor: 'peachpuff',
+            width: '100px',
+            margin: '10px',
+            border: '2px solid black',
+          }}
+          className="ui button"
           type="submit"
           onClick={this.validateInput}>
           Submit
