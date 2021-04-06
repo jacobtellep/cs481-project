@@ -16,6 +16,7 @@ const Forms = () => {
         alignItems: 'center',
         border: '2px solid black',
         paddingBottom: '10px',
+        borderRadius: '5px',
       }}>
       <h1>Create Forms:</h1>
 
