@@ -1,11 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import './Forms.css';
 import BackButton from './BackButton';
+import axios from 'axios';
 
 const Forms = () => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  let history = useHistory();
+
+  const getForms = async () => {
+    const token = await getAccessTokenSilently({
+      audience: 'http://localhost:5000/',
+      scope: 'view:forms',
+    });
+
+    axios
+      .get('http://localhost:5000/getforms', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        // console.log(response.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          history.push('/wrongpermissions');
+        }
+      });
+  };
 
   return (
     isAuthenticated && (
@@ -52,7 +76,9 @@ const Forms = () => {
               // fontSize: 'x-large',
               border: '2px solid black',
             }}>
-            <Link to="/viewform">View Form</Link>
+            <Link onClick={getForms} to="/viewform">
+              View Form
+            </Link>
           </h1>
         </div>
       </div>

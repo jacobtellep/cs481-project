@@ -183,6 +183,10 @@ app.post('/inspectionform', (req, res) => {
   );
 });
 
+app.get('/getforms', checkJwt, checkScopes, (req, res) => {
+  //res.send({ message: 'User does not have the needed permissions' });
+});
+
 //get---------------------------------------------get
 
 //in client side call app.get('url', {params: {id:this.state.value}})
