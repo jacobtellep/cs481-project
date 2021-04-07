@@ -52,8 +52,11 @@ const App = () => {
           <ProtectedRoute path="/viewpricing" component={ViewPricing} />
           <Route path="/logout" component={Logout} />
           <Route path="/login" component={Login} />
-          <Route path="/datasent" component={DataSent} />
-          <Route path="/wrongpermissions" component={WrongPermissions} />
+          <ProtectedRoute path="/datasent" component={DataSent} />
+          <ProtectedRoute
+            path="/wrongpermissions"
+            component={WrongPermissions}
+          />
           <Route path="/" exact>
             <img
               style={{
