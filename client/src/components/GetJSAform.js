@@ -132,7 +132,15 @@ class GetJSAform extends React.Component {
     const renderDrop = () => {
       return (
         <select
-          style={{ marginLeft: '10px' }}
+          className="ui select"
+          style={{
+            marginLeft: '10px',
+            color: 'black',
+            backgroundColor: 'white',
+            width: '100px',
+            border: '2px solid black',
+            borderRadius: '4px',
+          }}
           value={this.state.selectValue}
           onChange={this.handleChange}>
           {this.state.ticket_numbers.map((str) => (
@@ -146,22 +154,40 @@ class GetJSAform extends React.Component {
         <div>
           <BackButton path="viewform" />
         </div>
-        <div style={{ marginLeft: '10px' }}>
-          <b>Select Ticket Number</b>
-          {renderDrop()}
-          <button
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <h1>View Job Safety Analysis Form</h1>
+          <div
+            className="border"
             style={{
-              color: 'black',
-              backgroundColor: 'peachpuff',
-              width: '100px',
-              margin: '10px',
-              border: '2px solid black',
-            }}
-            onClick={this.getjsaform}
-            className="ui button"
-            type="button">
-            Retrieve
-          </button>
+              display: 'flex',
+              marginLeft: '10px',
+              marginRight: '10px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '700px',
+            }}>
+            <b>Select Ticket Number</b>
+            {renderDrop()}
+            <button
+              style={{
+                color: 'black',
+                backgroundColor: 'peachpuff',
+                width: '100px',
+                margin: '10px',
+                border: '2px solid black',
+              }}
+              onClick={this.getjsaform}
+              className="ui button"
+              type="button">
+              Retrieve
+            </button>
+          </div>
 
           <br />
           <br />
@@ -187,7 +213,10 @@ class GetJSAform extends React.Component {
               const date = value.proj_date.substring(0, 10);
 
               return (
-                <div className="retrieve-report border" key={index}>
+                <div
+                  style={{ width: '700px' }}
+                  className="retrieve-report border"
+                  key={index}>
                   <h1>JSA Form</h1>
 
                   <h3>Job Info</h3>

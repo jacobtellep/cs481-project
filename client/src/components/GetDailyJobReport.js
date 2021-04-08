@@ -112,7 +112,15 @@ class GetDailyJobReport extends React.Component {
     const renderDrop = () => {
       return (
         <select
-          style={{ marginLeft: '10px' }}
+          className="ui select"
+          style={{
+            marginLeft: '10px',
+            color: 'black',
+            backgroundColor: 'white',
+            width: '100px',
+            border: '2px solid black',
+            borderRadius: '4px',
+          }}
           value={this.state.selectValue}
           onChange={this.handleChange}>
           {this.state.contract_nums.map((str) => (
@@ -127,204 +135,219 @@ class GetDailyJobReport extends React.Component {
         <div>
           <BackButton path="viewform" />
         </div>
+
         <div
           style={{
-            marginLeft: '10px',
-            marginRight: '10px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
-          <b>Select Contract Number</b>
-          {renderDrop()}
-
-          <button
-            onClick={this.getDailyJobReport}
-            className="ui button"
-            type="button"
+          <h1> View Daily Job Report</h1>
+          <div
+            className="border"
             style={{
-              color: 'black',
-              backgroundColor: 'peachpuff',
-              width: '100px',
-              margin: '10px',
-              border: '2px solid black',
+              display: 'flex',
+              marginLeft: '10px',
+              marginRight: '10px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '700px',
             }}>
-            Retrieve
-          </button>
-        </div>
+            <b>Select Contract Number</b>
+            {renderDrop()}
 
-        <br />
-        <br />
-        <br />
-        {/* && operator, kind of like using an if statement, will ignore any null values and stills render */}
-        {this.state.GetDailyJobReport &&
-          this.state.GetDailyJobReport.map((value, index) => {
-            {
-              /* Created variables to help format and split*/
-            }
-            const weatherNotes = value.weather_delay_notes;
-            const weatherStart = value.weather_delay_start;
-            const weatherEnd = value.weather_delay_end;
+            <button
+              onClick={this.getDailyJobReport}
+              className="ui button"
+              type="button"
+              style={{
+                color: 'black',
+                backgroundColor: 'peachpuff',
+                width: '100px',
+                margin: '10px',
+                border: '2px solid black',
+              }}>
+              Retrieve
+            </button>
+          </div>
 
-            const projectNotes = value.project_delay_notes;
-            const projectStart = value.project_delay_start;
-            const projectEnd = value.project_delay_end;
+          <br />
+          <br />
+          <br />
+          {/* && operator, kind of like using an if statement, will ignore any null values and stills render */}
+          {this.state.GetDailyJobReport &&
+            this.state.GetDailyJobReport.map((value, index) => {
+              {
+                /* Created variables to help format and split*/
+              }
+              const weatherNotes = value.weather_delay_notes;
+              const weatherStart = value.weather_delay_start;
+              const weatherEnd = value.weather_delay_end;
 
-            const employeeName = value.employee_name;
-            const employeeHours = value.hours;
-            const jobNum = value.job_number;
+              const projectNotes = value.project_delay_notes;
+              const projectStart = value.project_delay_start;
+              const projectEnd = value.project_delay_end;
 
-            const date = value.date.substring(0, 10);
+              const employeeName = value.employee_name;
+              const employeeHours = value.hours;
+              const jobNum = value.job_number;
 
-            return (
-              <div
-                style={{ backgroundColor: 'ghostwhite' }}
-                className="retrieve-report border"
-                key={index}>
-                <h1>Daily Job Report</h1>
+              const date = value.date.substring(0, 10);
+
+              return (
                 <div
-                  style={{
-                    paddingLeft: '10px',
-                    backgroundColor: 'white',
-                    paddingRight: '10px',
-                  }}
-                  className="sub-border">
-                  <div>
-                    <b>Date:</b> <br></br> {date}
+                  style={{ backgroundColor: 'ghostwhite', width: '700px' }}
+                  className="retrieve-report border"
+                  key={index}>
+                  <h1>Daily Job Report</h1>
+                  <div
+                    style={{
+                      paddingLeft: '10px',
+                      backgroundColor: 'white',
+                      paddingRight: '10px',
+                    }}
+                    className="sub-border">
+                    <div>
+                      <b>Date:</b> <br></br> {date}
+                    </div>
+                    <div>
+                      <b>Customer:</b>
+                      <br></br> {value.customer}
+                    </div>
+                    <div>
+                      <b>Project:</b>
+                      <br></br> {value.project}
+                    </div>
+                    <div>
+                      <b>Contract Number:</b>
+                      <br></br> {value.contract_number}
+                    </div>
+                    <div>
+                      <b>Foreman:</b>
+                      <br></br> {value.foreman}
+                    </div>
+                    <br />
                   </div>
-                  <div>
-                    <b>Customer:</b>
-                    <br></br> {value.customer}
-                  </div>
-                  <div>
-                    <b>Project:</b>
-                    <br></br> {value.project}
-                  </div>
-                  <div>
-                    <b>Contract Number:</b>
-                    <br></br> {value.contract_number}
-                  </div>
-                  <div>
-                    <b>Foreman:</b>
-                    <br></br> {value.foreman}
-                  </div>
-                  <br />
-                </div>
 
-                <h3>Weather Delay</h3>
-                <div
-                  style={{ backgroundColor: 'white' }}
-                  className="return sub-border">
-                  {/* Used for all database responses that have to split
+                  <h3>Weather Delay</h3>
+                  <div
+                    style={{ backgroundColor: 'white' }}
+                    className="return sub-border">
+                    {/* Used for all database responses that have to split
                     name.split('\n').map(str => <p>{str}</p>)
                     Puts each entry on a new line
                     Styling to split attr up so they're not on top of each other*/}
-                  <div style={{ width: '300px' }}>
-                    {weatherNotes.split('\n').map((str) => (
-                      <p>
-                        <b>Notes: </b>
-                        {str}
-                        <hr></hr>
-                      </p>
-                    ))}
+                    <div style={{ width: '300px' }}>
+                      {weatherNotes.split('\n').map((str) => (
+                        <p>
+                          <b>Notes: </b>
+                          {str}
+                          <hr></hr>
+                        </p>
+                      ))}
+                    </div>
+                    <div style={{ width: '120px' }}>
+                      {weatherStart.split('\n').map((str) => (
+                        <p>
+                          <b>Start:</b> {str}
+                          <hr></hr>
+                        </p>
+                      ))}
+                    </div>
+                    <div style={{ width: '120px' }}>
+                      {weatherEnd.split('\n').map((str) => (
+                        <p>
+                          <b>End:</b> {str}
+                          <hr></hr>
+                        </p>
+                      ))}
+                    </div>
                   </div>
-                  <div style={{ width: '120px' }}>
-                    {weatherStart.split('\n').map((str) => (
-                      <p>
-                        <b>Start:</b> {str}
-                        <hr></hr>
-                      </p>
-                    ))}
+
+                  <br />
+                  <h3>Project Delay</h3>
+                  <div
+                    style={{ backgroundColor: 'white' }}
+                    className="return sub-border">
+                    <div style={{ width: '300px' }}>
+                      {projectNotes.split('\n').map((str) => (
+                        <p>
+                          <b>Notes: </b>
+                          {str} <hr></hr>
+                        </p>
+                      ))}
+                    </div>
+                    <div style={{ width: '120px' }}>
+                      {projectStart.split('\n').map((str) => (
+                        <p>
+                          <b>Start:</b> {str}
+                          <hr></hr>
+                        </p>
+                      ))}
+                    </div>
+                    <div style={{ width: '120px' }}>
+                      {projectEnd.split('\n').map((str) => (
+                        <p>
+                          <b>End:</b> {str}
+                          <hr></hr>
+                        </p>
+                      ))}
+                    </div>
                   </div>
-                  <div style={{ width: '120px' }}>
-                    {weatherEnd.split('\n').map((str) => (
-                      <p>
-                        <b>End:</b> {str}
-                        <hr></hr>
-                      </p>
-                    ))}
+
+                  <br />
+                  <h3>Employees and Hours</h3>
+                  <div
+                    style={{ backgroundColor: 'white' }}
+                    className="return sub-border">
+                    <div style={{ width: '300px' }}>
+                      {employeeName.split('\n').map((str) => (
+                        <p>
+                          <b>Name: </b>
+                          {str}
+                          <hr></hr>
+                        </p>
+                      ))}
+                    </div>
+                    <div style={{ width: '120px' }}>
+                      {employeeHours.split('\n').map((str) => (
+                        <p>
+                          <b>Hours:</b> {str}
+                          <hr></hr>
+                        </p>
+                      ))}
+                    </div>
+                    <div style={{ width: '120px' }}>
+                      {jobNum.split('\n').map((str) => (
+                        <p>
+                          <b>Job Number:</b> {str}
+                          <hr></hr>
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+
+                  <br />
+                  <h3>Job Description</h3>
+                  <div
+                    style={{
+                      paddingBottom: '20px',
+                      paddingLeft: '10px',
+                      paddingTop: '10px',
+                      backgroundColor: 'white',
+                    }}
+                    className="sub-border">
+                    {value.job_description}
                   </div>
                 </div>
+              );
+            })}
 
-                <br />
-                <h3>Project Delay</h3>
-                <div
-                  style={{ backgroundColor: 'white' }}
-                  className="return sub-border">
-                  <div style={{ width: '300px' }}>
-                    {projectNotes.split('\n').map((str) => (
-                      <p>
-                        <b>Notes: </b>
-                        {str} <hr></hr>
-                      </p>
-                    ))}
-                  </div>
-                  <div style={{ width: '120px' }}>
-                    {projectStart.split('\n').map((str) => (
-                      <p>
-                        <b>Start:</b> {str}
-                        <hr></hr>
-                      </p>
-                    ))}
-                  </div>
-                  <div style={{ width: '120px' }}>
-                    {projectEnd.split('\n').map((str) => (
-                      <p>
-                        <b>End:</b> {str}
-                        <hr></hr>
-                      </p>
-                    ))}
-                  </div>
-                </div>
-
-                <br />
-                <h3>Employees and Hours</h3>
-                <div
-                  style={{ backgroundColor: 'white' }}
-                  className="return sub-border">
-                  <div style={{ width: '300px' }}>
-                    {employeeName.split('\n').map((str) => (
-                      <p>
-                        <b>Name: </b>
-                        {str}
-                        <hr></hr>
-                      </p>
-                    ))}
-                  </div>
-                  <div style={{ width: '120px' }}>
-                    {employeeHours.split('\n').map((str) => (
-                      <p>
-                        <b>Hours:</b> {str}
-                        <hr></hr>
-                      </p>
-                    ))}
-                  </div>
-                  <div style={{ width: '120px' }}>
-                    {jobNum.split('\n').map((str) => (
-                      <p>
-                        <b>Job Number:</b> {str}
-                        <hr></hr>
-                      </p>
-                    ))}
-                  </div>
-                </div>
-
-                <br />
-                <h3>Job Description</h3>
-                <div
-                  style={{
-                    paddingBottom: '20px',
-                    paddingLeft: '10px',
-                    paddingTop: '10px',
-                    backgroundColor: 'white',
-                  }}
-                  className="sub-border">
-                  {value.job_description}
-                </div>
-              </div>
-            );
-          })}
-
-        <br />
-        <br />
-        <br />
+          <br />
+          <br />
+          <br />
+        </div>
       </div>
     );
   }

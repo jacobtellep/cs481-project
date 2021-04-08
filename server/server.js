@@ -37,6 +37,7 @@ const db = mysql.createConnection({
   host: 'localhost',
   password: '',
   database: 'formsdb',
+  port: 3309,
 });
 
 app.post('/dailyjobreport', (req, res) => {
@@ -251,6 +252,30 @@ app.get('/inspection', checkJwt, checkScopes, (req, res) => {
 
 app.get('/inspection_id', (req, res) => {
   db.query('SELECT job_num FROM inspection', (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get('/viewpricing', (req, res) => {
+  var value = req.query.partGroup;
+  var sql = 'SELECT * FROM material_pricing WHERE part_group = ?';
+  db.query(sql, [value], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get('/pricing', (req, res) => {
+  var value = req.query.partGroup;
+  var sql = 'SELECT * FROM material_pricing WHERE part_group = ?';
+  db.query(sql, [value], (err, result) => {
     if (err) {
       console.log(err);
     } else {
