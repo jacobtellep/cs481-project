@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './pricing.css';
 
@@ -14,9 +13,6 @@ const Pricing = () => {
       })
       .then((response) => {
         setPricing(response.data);
-
-        console.log(response.data);
-        console.log('successfully retrieved the data');
       });
   };
 
@@ -45,6 +41,7 @@ const Pricing = () => {
         }}>
         <b>Select Part Group</b>
         <select
+          placeholder="Select Part Group"
           className="ui select"
           style={{
             marginTop: '10px',
@@ -57,7 +54,6 @@ const Pricing = () => {
           }}
           value={selectValue}
           onChange={handleChange}>
-          <option defaultValue> Select Part Group</option>
           <option value="arrestor">Arrestor</option>
           <option value="bolts_nuts_screws">Bolt, Nut, Screw</option>
           <option value="breakers">Breaker</option>
@@ -83,23 +79,27 @@ const Pricing = () => {
       <div>
         <div>
           <table>
-            <tr>
-              <th>Part Name</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Cost</th>
-              <th>Part Group</th>
-            </tr>
-
-            {pricing.map((str) => (
+            <thead>
               <tr>
-                <td>{str.part_name}</td>
-                <td>{str.description}</td>
-                <td>${str.price}</td>
-                <td>${str.cost}</td>
-                <td>{str.part_group}</td>
+                <th>Part</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Cost</th>
+                <th>Part Group</th>
               </tr>
-            ))}
+
+              {pricing.map((str) => (
+                <tr key={str.part_id}>
+                  <td>{str.part_name}</td>
+                  <td>{str.description}</td>
+                  <td style={{ color: 'red', fontWeight: 'bold' }}>
+                    ${str.price}
+                  </td>
+                  <td>${str.cost}</td>
+                  <td>{str.part_group}</td>
+                </tr>
+              ))}
+            </thead>
           </table>
         </div>
       </div>
