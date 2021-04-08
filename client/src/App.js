@@ -15,8 +15,10 @@ import JSAform from './components/JSAform';
 import GetJSAform from './components/GetJSAform';
 import Inspection from './components/InspectionForm';
 import GetInspection from './components/GetInspectionForm';
+import DataSent from './components/DataSent';
 import { useAuth0 } from '@auth0/auth0-react';
 import Loading from './components/Loading';
+import WrongPermissions from './components/WrongPermissions';
 import logo from './HGCARTE.jpg';
 
 const App = () => {
@@ -50,6 +52,11 @@ const App = () => {
           <ProtectedRoute path="/viewpricing" component={ViewPricing} />
           <Route path="/logout" component={Logout} />
           <Route path="/login" component={Login} />
+          <ProtectedRoute path="/datasent" component={DataSent} />
+          <ProtectedRoute
+            path="/wrongpermissions"
+            component={WrongPermissions}
+          />
           <Route path="/" exact>
             <img
               style={{

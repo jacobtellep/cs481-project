@@ -2,7 +2,7 @@
   background-color: white;
   border: 2px solid black;
   box-shadow: black;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 
 .border {
@@ -12,14 +12,14 @@
   padding: 10px;
   width: 600px;
   box-shadow: black;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 
 .sub-border {
   background-color: white;
   border: 2px solid black;
   box-shadow: black;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 
 .retrieve-report {
