@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { withAuth0 } from '@auth0/auth0-react';
 import BackButton from './BackButton';
+import html2canvas from 'html2canvas';
+import { jsPDF } from "jspdf";
 
 class GetJSAform extends React.Component {
   state = {
@@ -128,19 +130,49 @@ class GetJSAform extends React.Component {
     this.getjsaform(this.state.GetJSAform);
   };
 
+  export = (name) => {
+
+      const HTML_Width = this.divElement.clientWidth;
+      const HTML_Height = this.divElement.clientHeight;
+      const top_left_margin = 15;
+      const PDF_Width = HTML_Width + (top_left_margin);
+      const PDF_Height = HTML_Height + (top_left_margin*2);
+      const canvas_image_width = 500;
+      const canvas_image_height = 500;
+
+      const totalPDFPages = Math.ceil(HTML_Height/1252)-2;
+        console.log("html height: " + HTML_Height + " HTML_Width width: " + HTML_Width + "Pages: " + totalPDFPages);
+
+      html2canvas(document.querySelector(`#capture`)).then(canvas => {
+          canvas.getContext('2d');
+      let dataURL = canvas.toDataURL('image/png');
+
+
+        const pdf = new jsPDF({
+          orientation: "p",
+          unit: "cm",
+          format: [PDF_Height, PDF_Width]
+      });
+
+        pdf.addImage(dataURL, 'PNG', 3, 0.5, canvas_image_width,canvas_image_height);
+
+        for (var i = 1; i <= totalPDFPages; i++) {
+              pdf.addPage([PDF_Height, PDF_Width], "p");
+              pdf.addImage(dataURL, 'PNG', 3, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+          }
+
+        pdf.save(`${name}.pdf`);
+
+    });
+
+  };
+
+
   render() {
     const renderDrop = () => {
       return (
         <select
-          className="ui select"
-          style={{
-            marginLeft: '10px',
-            color: 'black',
-            backgroundColor: 'white',
-            width: '100px',
-            border: '2px solid black',
-            borderRadius: '4px',
-          }}
+          style={{ marginLeft: '10px' }}
           value={this.state.selectValue}
           onChange={this.handleChange}>
           {this.state.ticket_numbers.map((str) => (
@@ -154,46 +186,41 @@ class GetJSAform extends React.Component {
         <div>
           <BackButton path="viewform" />
         </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <h1>View Job Safety Analysis Form</h1>
-          <div
-            className="border"
+        <div style={{ marginLeft: '10px' }}>
+          <b>Select Ticket Number</b>
+          {renderDrop()}
+          <button
             style={{
-              display: 'flex',
-              marginLeft: '10px',
-              marginRight: '10px',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '700px',
-            }}>
-            <b>Select Ticket Number</b>
-            {renderDrop()}
-            <button
+              color: 'black',
+              backgroundColor: 'peachpuff',
+              width: '100px',
+              margin: '10px',
+              border: '2px solid black',
+            }}
+            onClick={this.getjsaform}
+            className="ui button"
+            type="button">
+            Retrieve
+          </button>
+
+          <button
+              onClick={()=>this.export("TicketNumber"+this.state.selectValue)}
+              className="ui button"
+              type="button"
               style={{
                 color: 'black',
                 backgroundColor: 'peachpuff',
                 width: '100px',
                 margin: '10px',
                 border: '2px solid black',
-              }}
-              onClick={this.getjsaform}
-              className="ui button"
-              type="button">
-              Retrieve
-            </button>
-          </div>
+              }}>Download</button>
 
           <br />
           <br />
           <br />
 
           {/* && operator, kind of like using an if statement, will ignore any null values and stills render */}
+          <div id={`capture`}  ref={ (divElement) => { this.divElement = divElement }} >
           {this.state.GetJSAform &&
             this.state.GetJSAform.map((value, index) => {
               /* Created variables to help format and split*/
@@ -213,10 +240,7 @@ class GetJSAform extends React.Component {
               const date = value.proj_date.substring(0, 10);
 
               return (
-                <div
-                  style={{ width: '700px' }}
-                  className="retrieve-report border"
-                  key={index}>
+                <div className="retrieve-report border" key={index}>
                   <h1>JSA Form</h1>
 
                   <h3>Job Info</h3>
@@ -503,7 +527,7 @@ class GetJSAform extends React.Component {
                   </div>
                 </div>
               );
-            })}
+          })} </div>
         </div>
       </div>
     );
