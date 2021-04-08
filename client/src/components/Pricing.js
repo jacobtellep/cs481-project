@@ -54,9 +54,13 @@ const Pricing = () => {
           }}
           value={selectValue}
           onChange={handleChange}>
-          <option value="arrestor">Arrestor</option>
+          <option value="arrestor">Arrestors</option>
           <option value="bolts_nuts_screws">Bolt, Nut, Screw</option>
-          <option value="breakers">Breaker</option>
+          <option value="breakers">Breakers</option>
+          <option value="bushings">Bushings</option>
+          <option value="cadweld">Cadwelds</option>
+          <option value="disconnects">Disconnects</option>
+          <option value="fuses">Fuses</option>
         </select>
         <button
           style={{
