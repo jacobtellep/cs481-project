@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import './JSAform.css';
+import BackButton from './BackButton';
 
 class JSAform extends React.Component {
   state = {
@@ -79,7 +80,7 @@ class JSAform extends React.Component {
     employee_initals9: '',
     print_name10: '',
     employee_initals10: '',
-    ticketArray: []
+    ticketArray: [],
   };
 
   onDataSubmit = (
@@ -402,724 +403,771 @@ class JSAform extends React.Component {
     });
   };
 
- validateInput = () => {
+  validateInput = () => {
+    const ticket = this.state.ticket_num;
+    const comp = this.state.company;
+    const rep = this.state.representative;
+    const loc = this.state.location;
+    const well = this.state.well_num;
+    const afe = this.state.afe_num;
 
-     const ticket = this.state.ticket_num;
-     const comp = this.state.company;
-     const rep = this.state.representative;
-     const loc = this.state.location;
-     const well = this.state.well_num;
-     const afe = this.state.afe_num;
+    if (
+      ticket.trim() == '' ||
+      comp.trim() == '' ||
+      rep.trim() == '' ||
+      loc.trim() == '' ||
+      well.trim() == '' ||
+      afe.trim() == ''
+    ) {
+      this.setState({ hasError: true });
+      console.log('Error with input');
+    } else {
+      this.dataClick();
+    }
+  };
 
-     if((ticket.trim() == "") || (comp.trim() == "") || (rep.trim() == "") || (loc.trim() == "") || (well.trim() == "") || (afe.trim() == "")) {
-         this.setState({hasError: true})
-         console.log("Error with input")
-     } else {
-         this.dataClick();
-     }
- }
+  checkDatabaseID = (arr, val) => {
+    return arr.some((arrVal) => val === arrVal);
+  };
 
- checkDatabaseID = (arr, val) => {
-     return arr.some(arrVal => val === arrVal);
- }
+  getjsaform_id = () => {
+    axios.get('http://localhost:5000/jsaform_ticket').then((response) => {
+      this.setState({ ticketArray: response.data }); // the auto-incremented sql id is included in this response.data object
 
- getjsaform_id = () => {
-   axios.get('http://localhost:5000/jsaform_ticket').then((response) => {
-     this.setState({ ticketArray: response.data }); // the auto-incremented sql id is included in this response.data object
+      console.log('successfully retrieved the data');
+    });
+  };
 
-     console.log('successfully retrieved the data');
-   });
- };
-
- componentDidMount() {
-   window.addEventListener('load', this.getjsaform_id());
- }
-
+  componentDidMount() {
+    window.addEventListener('load', this.getjsaform_id());
+  }
 
   render() {
-
-      const infoMessage = () => {
-          if(!this.state.hasError) {
-              return( <div>
-                  <b>Ticket Number, Company, Representative, Location, Well Number, and AFE Number must be filled out before submitting</b>
-              </div>) }
+    const infoMessage = () => {
+      if (!this.state.hasError) {
+        return (
+          <div>
+            <b>
+              Ticket Number, Company, Representative, Location, Well Number, and
+              AFE Number must be filled out before submitting
+            </b>
+          </div>
+        );
       }
+    };
 
-      const errorMessage = () => {
-          if(this.state.hasError) {
-             return ( <div>
-                 <font color="red">
-                 <h3>Ticket Number, Company, Representative, Location, Well Number, and AFE Number must be filled out before submitting</h3>
-                 <h3>And/Or Ticket Number must be unique</h3>
-                 </font>
-         </div>)
-         }
+    const errorMessage = () => {
+      if (this.state.hasError) {
+        return (
+          <div>
+            <font color="red">
+              <h3>
+                Ticket Number, Company, Representative, Location, Well Number,
+                and AFE Number must be filled out before submitting
+              </h3>
+              <h3>And/Or Ticket Number must be unique</h3>
+            </font>
+          </div>
+        );
       }
-
+    };
 
     return (
-      <div style={{ paddingTop: '20px', paddingBottom: '20px' }}>
-        <form>
-          <h1 style={{ paddingLeft: '20px' }}>Job Safety Analysis Form</h1>
-
-              <div style={{paddingLeft: "20px"}}>
-              {infoMessage()}
-              <br />
-              {errorMessage()}
-              <br />
-              </div>
-
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <div className="jsa-info">
-              <div className="jsa-info-input">
-                <input
-                  type="number"
-                  min={0}
-                  placeholder="Ticket Number"
-                  name="ticket_num"
-                  onChange={(event) => this.onChange(event)}
-                  value={this.state.value}
-                />
-                <input
-                    type="date"
-                    name="date"
-                    value={this.state.date}
-                    onChange={event => this.setState({date: event.target.value})}
-                    />
-                <input
-                  placeholder="Company"
-                  name="company"
-                  onChange={(event) => this.onChange(event)}
-                  value={this.state.value}
-                />
-                <input
-                  placeholder="Representative"
-                  name="representative"
-                  onChange={(event) => this.onChange(event)}
-                  value={this.state.value}
-                />
-                <input
-                  placeholder="Locatoin"
-                  name="location"
-                  onChange={(event) => this.onChange(event)}
-                  value={this.state.value}
-                />
-                <input
-                  type="number"
-                  min={0}
-                  placeholder="Well Number"
-                  name="well_num"
-                  onChange={(event) => this.onChange(event)}
-                  value={this.state.value}
-                />
-                <input
-                  type="number"
-                  min={0}
-                  placeholder="AFE Number"
-                  name="afe_num"
-                  onChange={(event) => this.onChange(event)}
-                  value={this.state.value}
-                />
-              </div>
-            </div>
-            <div className="jsa-weather">
-              <h3 style={{ position: 'relative', top: '20px' }}>Weather</h3>
-              <div className="jsa-weather-input">
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="weather_sun"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label> Sun</label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="weather_rain"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label> Rain</label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="weather_overcast"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label> Overcast</label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="weather_windy"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label> Windy</label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="weather_hail"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label> Hail</label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="weather_snow"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label> Snow</label>
-                </div>
-
-                <input
-                  type="number"
-                  placeholder="Current Temp"
-                  name="jsa_current_temp"
-                  onChange={(event) => this.onChange(event)}
-                  value={this.state.value}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="jsa-hazards">
-            <div className="jsa-hazards-input-text">
-              <textarea
-                className="jsa-hazard-textbox"
-                placeholder="911 Address/GPS Location"
-                name="emergencyAddress"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <textarea
-                className="jsa-hazard-textbox"
-                placeholder="Nearest Medical Facility"
-                name="medicalFacility"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-            </div>
-            <div className="jsa-hazards-input-checkbox">
-              <div className="column1">
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_confinedSpace"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked"> Confined Space</label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_fall"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked"> Fall Protection</label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_sharp"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked"> Sharp/Hot/Cold Surfaces</label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_electric"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked"> Electric Shock Hazard</label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_irritants"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked">
-                    {' '}
-                    Irritants-Respiratory/Skin
-                  </label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_extremes"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked"> Environment Extremes</label>
-                </div>
-              </div>
-
-              <div className="column2">
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_pinch_crush"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked">
-                    {' '}
-                    Pinch/Crush/Strike Hazard
-                  </label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_lifting"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked"> Lifting Hazard</label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_shortService"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked">
-                    {' '}
-                    Short Services Employees
-                  </label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_explosion"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked">
-                    {' '}
-                    Fore or Explosion Potential
-                  </label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_energy"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked">
-                    {' '}
-                    Potential Release of Energy
-                  </label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_stop"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label
-                    for="defaultUnchecked"
-                    style={{ whiteSpace: 'nowrap' }}>
-                    {' '}
-                    We ALL have the right and obligation to STOP WORK if unsafe
-                    conditions or acts are present
-                  </label>
-                </div>
-              </div>
-
-              <div className="column3">
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_elevated"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked"> Elevated Work Load</label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_excavation"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked"> Excavation</label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_chemical"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked">
-                    {' '}
-                    Hazardous Chemical Exposure
-                  </label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_noise"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked"> High Noise Level</label>
-                </div>
-
-                <div className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="hazard_water"
-                    onChange={(event) => this.handleCheck(event)}
-                  />
-                  <label for="defaultUnchecked">
-                    {' '}
-                    Water or Drowning Hazard
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br />
-          <div className="hazard-steps">
-            <div className="hazardColumn">
-              <input
-                className="textbox"
-                placeholder="Major Job Steps"
-                name="major_steps1"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Major Job Steps"
-                name="major_steps2"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Major Job Steps"
-                name="major_steps3"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Major Job Steps"
-                name="major_steps4"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Major Job Steps"
-                name="major_steps5"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Major Job Steps"
-                name="major_steps6"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Major Job Steps"
-                name="major_steps7"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-            </div>
-            <div className="hazardColumn">
-              <input
-                className="textbox"
-                placeholder="Potential Hazards/Consquences"
-                name="potential_hazards1"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Potential Hazards/Consquences"
-                name="potential_hazards2"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Potential Hazards/Consquences"
-                name="potential_hazards3"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Potential Hazards/Consquences"
-                name="potential_hazards4"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Potential Hazards/Consquences"
-                name="potential_hazards5"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Potential Hazards/Consquences"
-                name="potential_hazards6"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Potential Hazards/Consquences"
-                name="potential_hazards7"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-            </div>
-            <div className="hazardColumn">
-              <input
-                className="textbox"
-                placeholder="Recommendations to Remove Hazard"
-                name="recommendations1"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Recommendations to Remove Hazard"
-                name="recommendations2"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Recommendations to Remove Hazard"
-                name="recommendations3"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Recommendations to Remove Hazard"
-                name="recommendations4"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Recommendations to Remove Hazard"
-                name="recommendations5"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Recommendations to Remove Hazard"
-                name="recommendations6"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="textbox"
-                placeholder="Recommendations to Remove Hazard"
-                name="recommendations7"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-            </div>
-          </div>
-          <br />
-
-          <h3 style={{ paddingLeft: '20px' }}>
-            All Contractors and/or Personnel must read and sign this JSA form to
-            work on or around G L Services area of Operations. <br /> DO NOT
-            sign this form if you have not read and FULLY understand the
-            activities that G L Services is engaged in
-            <br />
-            and that you are participating in.
-          </h3>
-
+      <div>
+        <div>
+          <BackButton path="createform" />
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              paddingBottom: '20px',
-            }}>
-            <div className="JSABidwork-name">
-              <input
-                className="employee-name"
-                placeholder="Print Name"
-                name="print_name1"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="employee-name"
-                placeholder="Print Name"
-                name="print_name2"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="employee-name"
-                placeholder="Print Name"
-                name="print_name3"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="employee-name"
-                placeholder="Print Name"
-                name="print_name4"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="employee-name"
-                placeholder="Print Name"
-                name="print_name5"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="employee-name"
-                placeholder="Print Name"
-                name="print_name6"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="employee-name"
-                placeholder="Print Name"
-                name="print_name7"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="employee-name"
-                placeholder="Print Name"
-                name="print_name8"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="employee-name"
-                placeholder="Print Name"
-                name="print_name9"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="employee-name"
-                placeholder="Print Name"
-                name="print_name10"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-            </div>
-            <div className="JSABidwork-initals">
-              <input
-                className="initals"
-                placeholder="Enter Initals"
-                name="employee_initals1"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="initals"
-                placeholder="Enter Initals"
-                name="employee_initals2"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="initals"
-                placeholder="Enter Initals"
-                name="employee_initals3"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="initals"
-                placeholder="Enter Initals"
-                name="employee_initals4"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="initals"
-                placeholder="Enter Initals"
-                name="employee_initals5"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="initals"
-                placeholder="Enter Initals"
-                name="employee_initals6"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="initals"
-                placeholder="Enter Initals"
-                name="employee_initals7"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="initals"
-                placeholder="Enter Initals"
-                name="employee_initals8"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="initals"
-                placeholder="Enter Initals"
-                name="employee_initals9"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-              <input
-                className="initals"
-                placeholder="Enter Initals"
-                name="employee_initals10"
-                onChange={(event) => this.onChange(event)}
-                value={this.state.value}
-              />
-            </div>
-          </div>
-        </form>
+            className="border"
+            style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+            <form>
+              <h1 style={{ paddingLeft: '20px' }}>Job Safety Analysis Form</h1>
 
-        <button
-          className="submit-button"
-          type="submit"
-          onClick={this.validateInput}>
-          Submit
-        </button>
+              <div style={{ paddingLeft: '20px' }}>
+                {infoMessage()}
+                <br />
+                {errorMessage()}
+                <br />
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <div className="jsa-info">
+                  <div className="jsa-info-input">
+                    <input
+                      type="number"
+                      min={0}
+                      placeholder="Ticket Number"
+                      name="ticket_num"
+                      onChange={(event) => this.onChange(event)}
+                      value={this.state.value}
+                    />
+                    <input
+                      type="date"
+                      name="date"
+                      value={this.state.date}
+                      onChange={(event) =>
+                        this.setState({ date: event.target.value })
+                      }
+                    />
+                    <input
+                      placeholder="Company"
+                      name="company"
+                      onChange={(event) => this.onChange(event)}
+                      value={this.state.value}
+                    />
+                    <input
+                      placeholder="Representative"
+                      name="representative"
+                      onChange={(event) => this.onChange(event)}
+                      value={this.state.value}
+                    />
+                    <input
+                      placeholder="Location"
+                      name="location"
+                      onChange={(event) => this.onChange(event)}
+                      value={this.state.value}
+                    />
+                    <input
+                      type="number"
+                      min={0}
+                      placeholder="Well Number"
+                      name="well_num"
+                      onChange={(event) => this.onChange(event)}
+                      value={this.state.value}
+                    />
+                    <input
+                      type="number"
+                      min={0}
+                      placeholder="AFE Number"
+                      name="afe_num"
+                      onChange={(event) => this.onChange(event)}
+                      value={this.state.value}
+                    />
+                  </div>
+                </div>
+                <div className="jsa-weather">
+                  <h3 style={{ position: 'relative', top: '20px' }}>Weather</h3>
+                  <div className="jsa-weather-input">
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="weather_sun"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label> Sun</label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="weather_rain"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label> Rain</label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="weather_overcast"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label> Overcast</label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="weather_windy"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label> Windy</label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="weather_hail"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label> Hail</label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="weather_snow"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label> Snow</label>
+                    </div>
+
+                    <input
+                      type="number"
+                      placeholder="Current Temp"
+                      name="jsa_current_temp"
+                      onChange={(event) => this.onChange(event)}
+                      value={this.state.value}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="jsa-hazards">
+                <div className="jsa-hazards-input-text">
+                  <textarea
+                    className="jsa-hazard-textbox"
+                    placeholder="911 Address/GPS Location"
+                    name="emergencyAddress"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <textarea
+                    className="jsa-hazard-textbox"
+                    placeholder="Nearest Medical Facility"
+                    name="medicalFacility"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                </div>
+                <div className="jsa-hazards-input-checkbox">
+                  <div className="column1">
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_confinedSpace"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked"> Confined Space</label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_fall"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked"> Fall Protection</label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_sharp"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked">
+                        {' '}
+                        Sharp/Hot/Cold Surfaces
+                      </label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_electric"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked">
+                        {' '}
+                        Electric Shock Hazard
+                      </label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_irritants"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked">
+                        {' '}
+                        Irritants-Respiratory/Skin
+                      </label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_extremes"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked">
+                        {' '}
+                        Environment Extremes
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="column2">
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_pinch_crush"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked">
+                        {' '}
+                        Pinch/Crush/Strike Hazard
+                      </label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_lifting"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked"> Lifting Hazard</label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_shortService"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked">
+                        {' '}
+                        Short Services Employees
+                      </label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_explosion"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked">
+                        {' '}
+                        Fore or Explosion Potential
+                      </label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_energy"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked">
+                        {' '}
+                        Potential Release of Energy
+                      </label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_stop"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label
+                        for="defaultUnchecked"
+                        style={{ whiteSpace: 'nowrap' }}>
+                        {' '}
+                        We ALL have the right and obligation to STOP WORK if
+                        unsafe conditions <br></br> or acts are present
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="column3">
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_elevated"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked"> Elevated Work Load</label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_excavation"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked"> Excavation</label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_chemical"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked">
+                        {' '}
+                        Hazardous Chemical Exposure
+                      </label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_noise"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked"> High Noise Level</label>
+                    </div>
+
+                    <div className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="hazard_water"
+                        onChange={(event) => this.handleCheck(event)}
+                      />
+                      <label for="defaultUnchecked">
+                        {' '}
+                        Water or Drowning Hazard
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div className="hazard-steps">
+                <div className="hazardColumn" style={{ width: '170px' }}>
+                  <input
+                    className="textbox"
+                    placeholder="Major Job Steps"
+                    name="major_steps1"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Major Job Steps"
+                    name="major_steps2"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Major Job Steps"
+                    name="major_steps3"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Major Job Steps"
+                    name="major_steps4"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Major Job Steps"
+                    name="major_steps5"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Major Job Steps"
+                    name="major_steps6"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Major Job Steps"
+                    name="major_steps7"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                </div>
+                <div className="hazardColumn" style={{ width: '210px' }}>
+                  <input
+                    className="textbox"
+                    placeholder="Potential Hazards/Consquences"
+                    name="potential_hazards1"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Potential Hazards/Consquences"
+                    name="potential_hazards2"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Potential Hazards/Consquences"
+                    name="potential_hazards3"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Potential Hazards/Consquences"
+                    name="potential_hazards4"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Potential Hazards/Consquences"
+                    name="potential_hazards5"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Potential Hazards/Consquences"
+                    name="potential_hazards6"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Potential Hazards/Consquences"
+                    name="potential_hazards7"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                </div>
+                <div className="hazardColumn">
+                  <input
+                    className="textbox"
+                    placeholder="Recommendations to Remove Hazard"
+                    name="recommendations1"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Recommendations to Remove Hazard"
+                    name="recommendations2"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Recommendations to Remove Hazard"
+                    name="recommendations3"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Recommendations to Remove Hazard"
+                    name="recommendations4"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Recommendations to Remove Hazard"
+                    name="recommendations5"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Recommendations to Remove Hazard"
+                    name="recommendations6"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="textbox"
+                    placeholder="Recommendations to Remove Hazard"
+                    name="recommendations7"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                </div>
+              </div>
+              <br />
+
+              <h3 style={{ paddingLeft: '20px' }}>
+                All Contractors and/or Personnel must read and sign this JSA
+                form to work on or around G L Services area of Operations.{' '}
+                <br /> DO NOT sign this form if you have not read and FULLY
+                understand the activities that G L Services is engaged in
+                <br />
+                and that you are participating in.
+              </h3>
+
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  paddingBottom: '20px',
+                }}>
+                <div className="JSABidwork-name">
+                  <input
+                    className="employee-name"
+                    placeholder="Print Name"
+                    name="print_name1"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="employee-name"
+                    placeholder="Print Name"
+                    name="print_name2"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="employee-name"
+                    placeholder="Print Name"
+                    name="print_name3"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="employee-name"
+                    placeholder="Print Name"
+                    name="print_name4"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="employee-name"
+                    placeholder="Print Name"
+                    name="print_name5"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="employee-name"
+                    placeholder="Print Name"
+                    name="print_name6"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="employee-name"
+                    placeholder="Print Name"
+                    name="print_name7"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="employee-name"
+                    placeholder="Print Name"
+                    name="print_name8"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="employee-name"
+                    placeholder="Print Name"
+                    name="print_name9"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="employee-name"
+                    placeholder="Print Name"
+                    name="print_name10"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                </div>
+                <div className="JSABidwork-initals">
+                  <input
+                    className="initals"
+                    placeholder="Enter Initals"
+                    name="employee_initals1"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="initals"
+                    placeholder="Enter Initals"
+                    name="employee_initals2"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="initals"
+                    placeholder="Enter Initals"
+                    name="employee_initals3"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="initals"
+                    placeholder="Enter Initals"
+                    name="employee_initals4"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="initals"
+                    placeholder="Enter Initals"
+                    name="employee_initals5"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="initals"
+                    placeholder="Enter Initals"
+                    name="employee_initals6"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="initals"
+                    placeholder="Enter Initals"
+                    name="employee_initals7"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="initals"
+                    placeholder="Enter Initals"
+                    name="employee_initals8"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="initals"
+                    placeholder="Enter Initals"
+                    name="employee_initals9"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                  <input
+                    className="initals"
+                    placeholder="Enter Initals"
+                    name="employee_initals10"
+                    onChange={(event) => this.onChange(event)}
+                    value={this.state.value}
+                  />
+                </div>
+              </div>
+            </form>
+
+            <button
+              style={{
+                color: 'black',
+                backgroundColor: 'peachpuff',
+                width: '100px',
+                margin: '10px',
+                border: '2px solid black',
+              }}
+              className="ui button"
+              type="submit"
+              onClick={this.validateInput}>
+              Submit
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

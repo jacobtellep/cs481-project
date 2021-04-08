@@ -7,23 +7,24 @@ import LoginButton from './LoginButton';
 const NavBar = () => {
   return (
     <div>
-      <nav className="menu button">
-        <Link to="/" className="link">
-          Home{' '}
-        </Link>
+      <nav className="menu">
+        <div className="menu button">
+          <Link to="/" className="link">
+            Home{' '}
+          </Link>
 
-        <Link to="/forms" className="link">
-          Forms{' '}
-        </Link>
+          <Link to="/forms" className="link">
+            Forms{' '}
+          </Link>
 
-        <Link to="/pricing" className="link">
-          Pricing{' '}
-        </Link>
-        <div className="log">
-          <LogoutButton />
+          <Link to="/pricing" className="link">
+            Pricing{' '}
+          </Link>
         </div>
-
-        <LoginButton />
+        <div className="menu button">
+          <LogoutButton />
+          <LoginButton />
+        </div>
       </nav>
       <div className="log menu"></div>
     </div>

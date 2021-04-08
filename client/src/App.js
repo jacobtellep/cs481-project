@@ -18,6 +18,7 @@ import GetInspection from './components/GetInspectionForm';
 import DataSent from './components/DataSent';
 import { useAuth0 } from '@auth0/auth0-react';
 import Loading from './components/Loading';
+import WrongPermissions from './components/WrongPermissions';
 import logo from './HGCARTE.jpg';
 
 const App = () => {
@@ -51,9 +52,22 @@ const App = () => {
           <ProtectedRoute path="/viewpricing" component={ViewPricing} />
           <Route path="/logout" component={Logout} />
           <Route path="/login" component={Login} />
-          <Route path="/datasent" component={DataSent} />
+          <ProtectedRoute path="/datasent" component={DataSent} />
+          <ProtectedRoute
+            path="/wrongpermissions"
+            component={WrongPermissions}
+          />
           <Route path="/" exact>
-            <img style={{ padding: '10px', width: '100px' }} src={logo} />
+            <img
+              style={{
+                marginTop: '10px',
+                position: 'absolute',
+                left: '50%',
+                marginLeft: '-75px',
+                width: '200px',
+              }}
+              src={logo}
+            />
           </Route>
         </Switch>
       </Router>

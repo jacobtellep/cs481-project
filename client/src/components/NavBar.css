@@ -12,6 +12,7 @@ a:hover {
 
 .menu {
   background-color: black;
+  justify-content: space-between;
 }
 
 .link {
@@ -28,12 +29,6 @@ a:hover {
   cursor: pointer;
   font-size: larger;
   font-weight: bold;
-}
-
-.log {
-  display: flex;
-  justify-content: right;
-  float: right;
 }
 
 .menu-items {

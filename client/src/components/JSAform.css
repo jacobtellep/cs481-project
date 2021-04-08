@@ -1,90 +1,107 @@
-.jsa-info{
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: left;
+.border {
+  background-color: ghostwhite;
+  border: 2px solid black;
+  margin: 10px;
+  padding: 10px;
+  width: 700px;
+  box-shadow: black;
+  border-radius: 5px;
 }
 
-.jsa-info-input{
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-}
-.jsa-weather{
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    position: relative;
-    top: -30px;
+.sub-border {
+  background-color: white;
+  border: 2px solid black;
+  box-shadow: black;
+  border-radius: 5px;
 }
 
-.jsa-weather-input{
-    display: flex;
-    flex-direction: column;
-    padding-top: 10px;
+.jsa-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
 }
 
-.checkbox-label{
-    display: flex;
-    flexDirection: row;
+.jsa-info-input {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
 }
-.jsa-hazards{
-    display: flex;
-    flex-direction: column;
-    padding-left: 20px;
-    justify-content: left;
-    align-items: left;
-}
-.jsa-hazard-textbox{
-    width: 400px;
-    height: 50px;
+.jsa-weather {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  position: relative;
+  top: -30px;
 }
 
-.jsa-hazards-input-checkbox{
-    display: flex;
-    flex-direction: row;
-    padding-top: 20px;
-    paddding-bottom: 20px;
+.jsa-weather-input {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
 }
 
-.checkbox-label{
-    display: flex;
-    flexDirection: row;
+.checkbox-label {
+  display: flex;
+  flex-direction: row;
+}
+.jsa-hazards {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  justify-content: left;
+  align-items: left;
+}
+.jsa-hazard-textbox {
+  width: 400px;
+  height: 50px;
 }
 
-.column1{
-    white-space: nowrap;
+.jsa-hazards-input-checkbox {
+  display: flex;
+  flex-direction: row;
+  padding-top: 20px;
+  paddding-bottom: 20px;
 }
 
-.column2{
-    padding-left: 10px;
+.checkbox-label {
+  display: flex;
+  flexdirection: row;
 }
 
-.column3{
-    position: relative;
-    left: -370px;
-    white-space: nowrap;
+.column1 {
+  white-space: nowrap;
 }
-.hazard-steps{
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: left;
+
+.column2 {
+  padding-left: 10px;
+}
+
+.column3 {
+  position: relative;
+  left: -250px;
+  white-space: nowrap;
+}
+.hazard-steps {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: left;
 }
 
 .hazardColumn {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: left;
-    padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  padding-left: 20px;
 }
 
-.textbox{
-    height: 50px;
-    width: 267px;
+.textbox {
+  height: 50px;
+  width: 267px;
 }
 
 .JSABidwork-name {
@@ -96,10 +113,10 @@
   white-space: nowrap;
 }
 .JSABidwork-initals {
-    display: flex;
-    flex-direction: column;
-    padding-left: 20px;
-    justify-content: left;
-    align-items: left;
-    white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  justify-content: left;
+  align-items: left;
+  white-space: nowrap;
 }
