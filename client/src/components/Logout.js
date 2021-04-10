@@ -2,16 +2,23 @@ import React from 'react';
 
 const Logout = () => {
   return (
-    <div>
+    <div
+      style={{
+        margin: '30px',
+        width: '650px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
       <h1
-        className="border"
         style={{
-          alignContent: 'center',
-          position: 'absolute',
-          width: '300px',
-          left: '190px',
           margin: '30px',
-        }}>
+          width: '650px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        className="border">
         You have been logged out
       </h1>
     </div>
