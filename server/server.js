@@ -307,6 +307,17 @@ app.get('/pricing', checkJwt, checkScopes, (req, res) => {
   });
 });
 
+app.get('/viewtask', (req, res) => {
+  let sql = 'SELECT * FROM task_sharing';
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 app.listen(5000, () => {
   console.log('Server running on port 5000');
 });

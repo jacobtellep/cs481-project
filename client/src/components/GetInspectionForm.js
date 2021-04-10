@@ -268,21 +268,6 @@ class GetInspectionForm extends React.Component {
               Retrieve
             </button>
 
-            <button
-              style={{
-                color: 'black',
-                backgroundColor: 'peachpuff',
-                width: '100px',
-                margin: '10px',
-                marginLeft: '10px',
-                border: '2px solid black',
-              }}
-              onClick={() => this.export('JobNumber' + this.state.selectValue)}
-              className="ui button"
-              type="button">
-              Download
-            </button>
-
             <br />
             <br />
             <br />
@@ -622,6 +607,22 @@ class GetInspectionForm extends React.Component {
                           <hr></hr>
                         </div>
                       </div>
+                      <button
+                        style={{
+                          color: 'black',
+                          backgroundColor: 'peachpuff',
+                          width: '100px',
+                          margin: '10px',
+                          marginLeft: '10px',
+                          border: '2px solid black',
+                        }}
+                        onClick={() =>
+                          this.export('JobNumber' + this.state.selectValue)
+                        }
+                        className="ui button"
+                        type="button">
+                        Download
+                      </button>
                     </div> //**************end of return
                   );
                 })}{' '}

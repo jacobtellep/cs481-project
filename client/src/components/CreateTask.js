@@ -44,16 +44,15 @@ const CreateTask = () => {
       <div style={{}}>
         <BackButton path="/tasksharing" />
       </div>
-      <div>
-        <form
-          className="border"
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: '50px',
-          }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: '50px',
+        }}>
+        <form className="border">
           <h1>Create Task</h1>
 
           <div className="sub-border" style={{ padding: '10px' }}>
@@ -66,7 +65,7 @@ const CreateTask = () => {
                 value={date}
                 onChange={(event) => setDate(event.target.value)}
                 style={{
-                  width: '500px',
+                  width: '200px',
                   resize: 'none',
                   padding: '5px',
                   marginBottom: '5px',
@@ -84,7 +83,7 @@ const CreateTask = () => {
                 onChange={(event) => setContractNumber(event.target.value)}
                 value={contractNumber}
                 style={{
-                  width: '500px',
+                  width: '200px',
                   resize: 'none',
                   padding: '5px',
                   marginBottom: '5px',
@@ -102,7 +101,7 @@ const CreateTask = () => {
                 onChange={(event) => setTitle(event.target.value)}
                 value={title}
                 style={{
-                  width: '500px',
+                  width: '650px',
                   resize: 'none',
                   padding: '5px',
                   marginBottom: '5px',
@@ -119,7 +118,7 @@ const CreateTask = () => {
                 onChange={(event) => setBody(event.target.value)}
                 value={body}
                 style={{
-                  width: '500px',
+                  width: '650px',
                   height: '100px',
                   resize: 'none',
                   padding: '5px',

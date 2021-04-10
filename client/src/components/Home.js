@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import BackButton from './BackButton';
 
-const ViewTask = () => {
+const Home = () => {
   const [tasks, setTasks] = useState([]);
 
   const getTasks = async () => {
@@ -17,15 +16,13 @@ const ViewTask = () => {
 
   return (
     <div>
-      <div>
-        <BackButton path="/tasksharing" />
-      </div>
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          marginTop: '20px',
         }}>
         <h1>Tasks</h1>
         {tasks
@@ -58,4 +55,4 @@ const ViewTask = () => {
   );
 };
 
-export default ViewTask;
+export default Home;

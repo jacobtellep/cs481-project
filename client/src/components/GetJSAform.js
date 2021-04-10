@@ -226,22 +226,6 @@ class GetJSAform extends React.Component {
               Retrieve
             </button>
 
-            <button
-              onClick={() =>
-                this.export('TicketNumber' + this.state.selectValue)
-              }
-              className="ui button"
-              type="button"
-              style={{
-                color: 'black',
-                backgroundColor: 'peachpuff',
-                width: '100px',
-                margin: '10px',
-                border: '2px solid black',
-              }}>
-              Download
-            </button>
-
             <br />
             <br />
             <br />
@@ -575,6 +559,21 @@ class GetJSAform extends React.Component {
                           ))}
                         </div>
                       </div>
+                      <button
+                        onClick={() =>
+                          this.export('TicketNumber' + this.state.selectValue)
+                        }
+                        className="ui button"
+                        type="button"
+                        style={{
+                          color: 'black',
+                          backgroundColor: 'peachpuff',
+                          width: '100px',
+                          margin: '10px',
+                          border: '2px solid black',
+                        }}>
+                        Download
+                      </button>
                     </div>
                   );
                 })}{' '}

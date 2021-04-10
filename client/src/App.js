@@ -22,6 +22,8 @@ import WrongPermissions from './components/WrongPermissions';
 import logo from './HGCARTE.jpg';
 import TaskSharing from './components/TaskSharing';
 import CreateTask from './components/CreateTask';
+import Home from './components/Home';
+import ViewTask from './components/ViewTask';
 
 const App = () => {
   const { isLoading } = useAuth0();
@@ -61,18 +63,8 @@ const App = () => {
           />
           <ProtectedRoute path="/tasksharing" component={TaskSharing} />
           <ProtectedRoute path="/createtask" component={CreateTask} />
-          <Route path="/" exact>
-            <img
-              style={{
-                marginTop: '10px',
-                position: 'absolute',
-                left: '50%',
-                marginLeft: '-75px',
-                width: '200px',
-              }}
-              src={logo}
-            />
-          </Route>
+          <ProtectedRoute path="/viewtask" component={ViewTask} />
+          <Route path="/" exact component={Home}></Route>
         </Switch>
       </Router>
     </div>

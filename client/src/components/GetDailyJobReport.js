@@ -210,22 +210,6 @@ class GetDailyJobReport extends React.Component {
               }}>
               Retrieve
             </button>
-
-            <button
-              onClick={() =>
-                this.export('Contract Num' + this.state.selectValue)
-              }
-              className="ui button"
-              type="button"
-              style={{
-                color: 'black',
-                backgroundColor: 'peachpuff',
-                width: '100px',
-                margin: '10px',
-                border: '2px solid black',
-              }}>
-              Download
-            </button>
           </div>
 
           <br />
@@ -402,6 +386,21 @@ class GetDailyJobReport extends React.Component {
                       className="sub-border">
                       {value.job_description}
                     </div>
+                    <button
+                      onClick={() =>
+                        this.export('Contract Num' + this.state.selectValue)
+                      }
+                      className="ui button"
+                      type="button"
+                      style={{
+                        color: 'black',
+                        backgroundColor: 'peachpuff',
+                        width: '100px',
+                        margin: '10px',
+                        border: '2px solid black',
+                      }}>
+                      Download
+                    </button>
                   </div>
                 );
               })}
