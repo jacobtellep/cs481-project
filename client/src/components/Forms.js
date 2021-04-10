@@ -21,9 +21,6 @@ const Forms = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => {
-        // console.log(response.data);
-      })
       .catch((error) => {
         if (error.response) {
           history.push('/wrongpermissions');

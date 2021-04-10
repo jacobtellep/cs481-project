@@ -67,6 +67,14 @@ CREATE TABLE material_pricing (
     part_group VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE `formsdb`.`task_sharing` ( 
+    `id` INT NOT NULL AUTO_INCREMENT ,
+    `date` VARCHAR(255) NOT NULL ,
+    `title` LONGTEXT NOT NULL ,
+    `body` LONGTEXT NOT NULL ,
+    PRIMARY KEY (`id`)
+    );
+
 material_pricing data inserts:
 
 INSERT INTO `material_pricing` (`part_id`, `part_name`, `type`, `price`, `cost`, `part_group`) VALUES (NULL, '15KV Lightning Arrestor', '15 KV Lightning Arrestor', '61.61', '58.10', 'arrestor'), (NULL, '27 KV Lightning Arrestor', '27 KV Lightning Arrestor', '126.58', '100.00', 'arrestor')

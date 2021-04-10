@@ -1,18 +1,33 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 import './pricing.css';
 
 const Pricing = () => {
   const [selectValue, setSelectValue] = useState('');
   const [pricing, setPricing] = useState([]);
+  const history = useHistory();
+  const { getAccessTokenSilently } = useAuth0();
 
-  const getPricing = () => {
+  const getPricing = async () => {
+    const token = await getAccessTokenSilently({
+      audience: 'http://localhost:5000/',
+      scope: 'view:forms',
+    });
+
     axios
       .get('http://localhost:5000/pricing', {
         params: { partGroup: selectValue },
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
         setPricing(response.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          history.push('/wrongpermissions');
+        }
       });
   };
 

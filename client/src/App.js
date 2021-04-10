@@ -20,6 +20,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Loading from './components/Loading';
 import WrongPermissions from './components/WrongPermissions';
 import logo from './HGCARTE.jpg';
+import TaskSharing from './components/TaskSharing';
+import CreateTask from './components/CreateTask';
 
 const App = () => {
   const { isLoading } = useAuth0();
@@ -57,6 +59,8 @@ const App = () => {
             path="/wrongpermissions"
             component={WrongPermissions}
           />
+          <ProtectedRoute path="/tasksharing" component={TaskSharing} />
+          <ProtectedRoute path="/createtask" component={CreateTask} />
           <Route path="/" exact>
             <img
               style={{

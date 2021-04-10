@@ -8,9 +8,13 @@ const WrongPermissions = () => {
           color: 'red',
           margin: '30px',
           width: '650px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
         className="border">
-        You do not have the correct permissions to view any forms.
+        You do not have the correct permissions.
       </h1>
     </div>
   );
