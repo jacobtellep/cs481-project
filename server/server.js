@@ -34,10 +34,10 @@ app.use(express.json()); // you need to use the json() function to so that the d
 
 const db = mysql.createConnection({
   user: 'root',
-  host: 'localhost',
-  password: '',
+  host: 'hgcartedb.cw3ytiqozqgt.us-east-1.rds.amazonaws.com',
+  password: 'hgcarte123!',
   database: 'formsdb',
-  port: 3309,
+  port: 3308,
 });
 
 app.post('/dailyjobreport', (req, res) => {
