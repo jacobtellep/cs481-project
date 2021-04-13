@@ -34,10 +34,10 @@ app.use(express.json()); // you need to use the json() function to so that the d
 
 const db = mysql.createConnection({
   user: 'root',
-  host: 'localhost',
-  password: '',
+  host: 'hgcartedb.cw3ytiqozqgt.us-east-1.rds.amazonaws.com',
+  password: 'hgcarte123!',
   database: 'formsdb',
-  port: 3309,
+  port: 3308,
 });
 
 app.post('/dailyjobreport', (req, res) => {
@@ -184,9 +184,32 @@ app.post('/inspectionform', (req, res) => {
   );
 });
 
+app.post('/createtask', checkJwt, checkScopes, (req, res) => {
+  const date = req.body.date;
+  const contractNumber = req.body.contractNumber;
+  const title = req.body.title;
+  const body = req.body.body;
+
+  db.query(
+    'INSERT INTO task_sharing (date, contract_number, title, body) VALUES (?, ?, ?, ?)',
+    [date, contractNumber, title, body],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send('Task inserted');
+      }
+    }
+  );
+});
+
 app.get('/getforms', checkJwt, checkScopes, (req, res) => {
   //res.send({ message: 'User does not have the needed permissions' });
 });
+
+app.get('/createtask', checkJwt, checkScopes, (req, res) => {});
+
+app.get('/tasksharing', checkJwt, checkScopes, (req, res) => {});
 
 //get---------------------------------------------get
 
@@ -260,7 +283,7 @@ app.get('/inspection_id', (req, res) => {
   });
 });
 
-app.get('/viewpricing', (req, res) => {
+app.get('/viewpricing', checkJwt, checkScopes, (req, res) => {
   var value = req.query.partGroup;
   var sql = 'SELECT * FROM material_pricing WHERE part_group = ?';
   db.query(sql, [value], (err, result) => {
@@ -272,10 +295,21 @@ app.get('/viewpricing', (req, res) => {
   });
 });
 
-app.get('/pricing', (req, res) => {
+app.get('/pricing', checkJwt, checkScopes, (req, res) => {
   var value = req.query.partGroup;
   var sql = 'SELECT * FROM material_pricing WHERE part_group = ?';
   db.query(sql, [value], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get('/viewtask', (req, res) => {
+  let sql = 'SELECT * FROM task_sharing';
+  db.query(sql, (err, result) => {
     if (err) {
       console.log(err);
     } else {

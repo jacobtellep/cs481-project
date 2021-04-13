@@ -58,6 +58,23 @@ CREATE TABLE inspection(
     PRIMARY KEY (job_num)
 );
 
+CREATE TABLE material_pricing (
+    part_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    part_name VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    price VARCHAR(15) NOT NULL,
+    cost VARCHAR(15) NOT NULL,
+    part_group VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE `formsdb`.`task_sharing` ( 
+    `id` INT NOT NULL AUTO_INCREMENT ,
+    `date` VARCHAR(255) NOT NULL ,
+    `title` LONGTEXT NOT NULL ,
+    `body` LONGTEXT NOT NULL ,
+    PRIMARY KEY (`id`)
+    );
+
 material_pricing data inserts:
 
 INSERT INTO `material_pricing` (`part_id`, `part_name`, `type`, `price`, `cost`, `part_group`) VALUES (NULL, '15KV Lightning Arrestor', '15 KV Lightning Arrestor', '61.61', '58.10', 'arrestor'), (NULL, '27 KV Lightning Arrestor', '27 KV Lightning Arrestor', '126.58', '100.00', 'arrestor')
@@ -81,5 +98,3 @@ INSERT INTO `material_pricing` (`part_id`, `part_name`, `description`, `price`, 
 
 
 INSERT INTO `material_pricing` (`part_id`, `part_name`, `description`, `price`, `cost`, `part_group`) VALUES (NULL, 'BUSKTK-1', '600V Midget Fuse', '3.24', '2.75', 'fuses'), (NULL, 'BUSKTK-10', '600V Midget Fuse', '2.48', '2.10', 'fuses'), (NULL, 'BUSKTK-5', '5 AMP 600V Midget Fuse', '3.87', '3.06', 'fuses'), (NULL, 'EF20TCCIR', '20 Amp HV Fuse Link', '2.11', '1.67', 'fuses'), (NULL, 'EF30TCCIR', '30 Amp HV Fuse Link', '2.12', '1.67', 'fuses'), (NULL, 'EF3TNCCIR', '3 Amp HV Fuse Link', '2.12', '1.67', 'fuses'), (NULL, 'IDSR030', 'L-F IDSR030 30A fuse 600V ', '7.32', '5.78', 'fuses'), (NULL, 'IDSR100', 'IDSR 100 600 Volt Fuse ', '32.13', '25.38', 'fuses'), (NULL, 'IDSR100', 'IDSR 100 600 Volt Fuse', '32.13', '25.38', 'fuses'), (NULL, 'IDSR300', '300A 600V Time Delay Fuse', '133.66', '105.59', 'fuses')
-
-

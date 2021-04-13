@@ -28,7 +28,7 @@
 }
 
 .weather-notes {
-  width: 350px;
+  width: 435px;
 }
 
 .weather-start {
@@ -52,7 +52,7 @@
 }
 
 .project-notes {
-  width: 350px;
+  width: 435px;
 }
 
 .project-start {
@@ -76,7 +76,7 @@
 }
 
 .employee-name {
-  width: 350px;
+  width: 435px;
 }
 
 .hours {
@@ -90,8 +90,9 @@
 .job-description-input {
   margin-top: 20px;
   margin-left: 20px;
-  width: 550px;
+  width: 635px;
   height: 75px;
+  resize: none;
 }
 
 .submit-button {
