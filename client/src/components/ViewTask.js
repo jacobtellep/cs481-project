@@ -6,7 +6,7 @@ const ViewTask = () => {
   const [tasks, setTasks] = useState([]);
 
   const getTasks = async () => {
-    axios.get('http://localhost:5000/viewtask', {}).then((response) => {
+    axios.get('http://34.229.169.195:5000/viewtask', {}).then((response) => {
       setTasks(response.data);
     });
   };

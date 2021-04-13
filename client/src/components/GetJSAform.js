@@ -92,12 +92,12 @@ class GetJSAform extends React.Component {
   getjsaform = async () => {
     const { getAccessTokenSilently } = this.props.auth0;
     const token = await getAccessTokenSilently({
-      audience: 'http://localhost:5000/',
+      audience: 'http://34.229.169.195:5000/',
       scope: 'view:forms',
     });
 
     axios
-      .get('http://localhost:5000/jsaform', {
+      .get('http://34.229.169.195:5000/jsaform', {
         params: { id: this.state.selectValue },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -111,7 +111,7 @@ class GetJSAform extends React.Component {
   };
 
   getjsaform_id = () => {
-    axios.get('http://localhost:5000/jsaform_ticket').then((response) => {
+    axios.get('http://34.229.169.195:5000/jsaform_ticket').then((response) => {
       this.setState({ ticket_numbers: response.data }); // the auto-incremented sql id is included in this response.data object
 
       console.log('successfully retrieved the data');

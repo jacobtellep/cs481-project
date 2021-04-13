@@ -71,12 +71,12 @@ class GetDailyJobReport extends React.Component {
   getDailyJobReport = async () => {
     const { getAccessTokenSilently } = this.props.auth0;
     const token = await getAccessTokenSilently({
-      audience: 'http://localhost:5000/',
+      audience: 'http://34.229.169.195:5000/',
       scope: 'view:forms',
     });
 
     axios
-      .get('http://localhost:5000/dailyjobreport', {
+      .get('http://34.229.169.195:5000/dailyjobreport', {
         params: { id: this.state.selectValue },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -91,7 +91,7 @@ class GetDailyJobReport extends React.Component {
   };
 
   getDailyJobReportID = () => {
-    axios.get('http://localhost:5000/dailyjobreport_id').then((response) => {
+    axios.get('http://34.229.169.195:5000/dailyjobreport_id').then((response) => {
       if (response && response.data)
         this.setState({ contract_nums: response.data });
     });
@@ -116,7 +116,7 @@ class GetDailyJobReport extends React.Component {
     const PDF_Width = HTML_Width + top_left_margin;
     const PDF_Height = HTML_Height + top_left_margin * 2;
     const canvas_image_width = 500;
-    const canvas_image_height = 500;
+    const canvas_image_height = 300;
 
     const totalPDFPages = Math.ceil(HTML_Height / 1252) - 2;
     console.log(
@@ -141,8 +141,8 @@ class GetDailyJobReport extends React.Component {
       pdf.addImage(
         dataURL,
         'PNG',
-        3,
-        0.5,
+        0,
+        0,
         canvas_image_width,
         canvas_image_height
       );

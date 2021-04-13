@@ -17,11 +17,11 @@ const CreateTask = () => {
     const task = { date, contractNumber, title, body };
 
     const token = await getAccessTokenSilently({
-      audience: 'http://localhost:5000/',
+      audience: 'http://34.229.169.195:5000/',
       scope: 'view:forms',
     });
     axios
-      .post('http://localhost:5000/createtask', task, {
+      .post('http://34.229.169.195:5000/createtask', task, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => {

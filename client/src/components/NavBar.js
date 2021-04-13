@@ -12,12 +12,12 @@ const NavBar = () => {
 
   const protectPricing = async () => {
     const token = await getAccessTokenSilently({
-      audience: 'http://localhost:5000/',
+      audience: 'http://34.229.169.195:5000/',
       scope: 'view:forms',
     });
 
     axios
-      .get('http://localhost:5000/pricing', {
+      .get('http://34.229.169.195:5000/pricing', {
         headers: { Authorization: `Bearer ${token}` },
       })
       .catch((error) => {
@@ -29,12 +29,12 @@ const NavBar = () => {
 
   const protectTasks = async () => {
     const token = await getAccessTokenSilently({
-      audience: 'http://localhost:5000/',
+      audience: 'http://34.229.169.195:5000/',
       scope: 'view:forms',
     });
 
     axios
-      .get('http://localhost:5000/tasksharing', {
+      .get('http://34.229.169.195:5000/tasksharing', {
         headers: { Authorization: `Bearer ${token}` },
       })
       .catch((error) => {

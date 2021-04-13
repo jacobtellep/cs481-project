@@ -11,12 +11,12 @@ const Forms = () => {
 
   const getForms = async () => {
     const token = await getAccessTokenSilently({
-      audience: 'http://localhost:5000/',
+      audience: 'http://34.229.169.195:5000/',
       scope: 'view:forms',
     });
 
     axios
-      .get('http://localhost:5000/getforms', {
+      .get('http://34.229.169.195:5000/getforms', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
