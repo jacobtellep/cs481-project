@@ -22,7 +22,7 @@ const checkJwt = jwt({
   }),
 
   // Validate the audience and the issuer.
-  audience: 'http://localhost:5000/',
+  audience: 'http://34.229.169.195:5000/',
   issuer: `https://dev-s6qumqdd.us.auth0.com/`,
   algorithms: ['RS256'],
 });
