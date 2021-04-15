@@ -1,71 +1,75 @@
-import React from 'react';
-import axios from 'axios';
-import './DailyJobReport.css';
-import DatePicker from 'react-date-picker';
-import { withRouter } from 'react-router-dom';
-import BackButton from './BackButton';
+import React from "react";
+import axios from "axios";
+import "./DailyJobReport.css";
+import DatePicker from "react-date-picker";
+import { withRouter } from "react-router-dom";
+import BackButton from "./BackButton";
 
 class DailyJobReport extends React.Component {
+  // this is how state is handled in class based components
+  // the state has a field that corresponds to every piece of data inside of the daily job report form.
   state = {
     hasError: false,
-    date: '',
-    customer: '',
-    project: '',
-    contractNumber: '',
-    foreman: '',
-    weatherNotes: '',
-    weatherStart: '',
-    weatherEnd: '',
-    weatherNotes1: '',
-    weatherStart1: '',
-    weatherEnd1: '',
-    weatherNotes2: '',
-    weatherStart2: '',
-    weatherEnd2: '',
-    weatherNotes3: '',
-    weatherStart3: '',
-    weatherEnd3: '',
-    projectNotes: '',
-    projectStart: '',
-    projectEnd: '',
-    projectNotes1: '',
-    projectStart1: '',
-    projectEnd1: '',
-    projectNotes2: '',
-    projectStart2: '',
-    projectEnd2: '',
-    projectNotes3: '',
-    projectStart3: '',
-    projectEnd3: '',
-    employeeName: '',
-    hours: '',
-    jobNumber: '',
-    employeeName1: '',
-    hours1: '',
-    jobNumber1: '',
-    employeeName2: '',
-    hours2: '',
-    jobNumber2: '',
-    employeeName3: '',
-    hours3: '',
-    jobNumber3: '',
-    employeeName4: '',
-    hours4: '',
-    jobNumber4: '',
-    employeeName5: '',
-    hours5: '',
-    jobNumber5: '',
-    employeeName6: '',
-    hours6: '',
-    jobNumber6: '',
-    employeeName7: '',
-    hours7: '',
-    jobNumber7: '',
-    jobDescription: '',
+    date: "",
+    customer: "",
+    project: "",
+    contractNumber: "",
+    foreman: "",
+    weatherNotes: "",
+    weatherStart: "",
+    weatherEnd: "",
+    weatherNotes1: "",
+    weatherStart1: "",
+    weatherEnd1: "",
+    weatherNotes2: "",
+    weatherStart2: "",
+    weatherEnd2: "",
+    weatherNotes3: "",
+    weatherStart3: "",
+    weatherEnd3: "",
+    projectNotes: "",
+    projectStart: "",
+    projectEnd: "",
+    projectNotes1: "",
+    projectStart1: "",
+    projectEnd1: "",
+    projectNotes2: "",
+    projectStart2: "",
+    projectEnd2: "",
+    projectNotes3: "",
+    projectStart3: "",
+    projectEnd3: "",
+    employeeName: "",
+    hours: "",
+    jobNumber: "",
+    employeeName1: "",
+    hours1: "",
+    jobNumber1: "",
+    employeeName2: "",
+    hours2: "",
+    jobNumber2: "",
+    employeeName3: "",
+    hours3: "",
+    jobNumber3: "",
+    employeeName4: "",
+    hours4: "",
+    jobNumber4: "",
+    employeeName5: "",
+    hours5: "",
+    jobNumber5: "",
+    employeeName6: "",
+    hours6: "",
+    jobNumber6: "",
+    employeeName7: "",
+    hours7: "",
+    jobNumber7: "",
+    jobDescription: "",
     contractArray: [],
     dailyJobReport: [],
+    // the contractArray ad dailyJobReport are two arrays that recieve data incoming from the backend
   };
 
+  // this function takes all of the state values corresponding to the daily job report fields, and sends them to the backend
   onDataSubmit = (
     date,
     customer,
@@ -124,7 +128,7 @@ class DailyJobReport extends React.Component {
   ) => {
     // this is where the data is sent to the backend
     axios
-      .post('http://localhost:5000/dailyjobreport', {
+      .post("http://localhost:5000/dailyjobreport", {
         date: date,
         customer: customer,
         project: project,
@@ -132,104 +136,104 @@ class DailyJobReport extends React.Component {
         foreman: foreman,
         weatherNotes:
           weatherNotes +
-          '\n' +
+          "\n" +
           weatherNotes1 +
-          '\n' +
+          "\n" +
           weatherNotes2 +
-          '\n' +
+          "\n" +
           weatherNotes3,
         weatherStart:
           weatherStart +
-          '\n' +
+          "\n" +
           weatherStart1 +
-          '\n' +
+          "\n" +
           weatherStart2 +
-          '\n' +
+          "\n" +
           weatherStart3,
         weatherEnd:
           weatherEnd +
-          '\n' +
+          "\n" +
           weatherEnd1 +
-          '\n' +
+          "\n" +
           weatherEnd2 +
-          '\n' +
+          "\n" +
           weatherEnd3,
         projectNotes:
           projectNotes +
-          '\n' +
+          "\n" +
           projectNotes1 +
-          '\n' +
+          "\n" +
           projectNotes2 +
-          '\n' +
+          "\n" +
           projectNotes3,
         projectStart:
           projectStart +
-          '\n' +
+          "\n" +
           projectStart1 +
-          '\n' +
+          "\n" +
           projectStart2 +
-          '\n' +
+          "\n" +
           projectStart3,
         projectEnd:
           projectEnd +
-          '\n' +
+          "\n" +
           projectEnd1 +
-          '\n' +
+          "\n" +
           projectEnd2 +
-          '\n' +
+          "\n" +
           projectEnd3,
         employeeName:
           employeeName +
-          '\n' +
+          "\n" +
           employeeName1 +
-          '\n' +
+          "\n" +
           employeeName2 +
-          '\n' +
+          "\n" +
           employeeName3 +
-          '\n' +
+          "\n" +
           employeeName4 +
-          '\n' +
+          "\n" +
           employeeName5 +
-          '\n' +
+          "\n" +
           employeeName6 +
-          '\n' +
+          "\n" +
           employeeName7,
         hours:
           hours +
-          '\n' +
+          "\n" +
           hours1 +
-          '\n' +
+          "\n" +
           hours2 +
-          '\n' +
+          "\n" +
           hours3 +
-          '\n' +
+          "\n" +
           hours4 +
-          '\n' +
+          "\n" +
           hours5 +
-          '\n' +
+          "\n" +
           hours6 +
-          '\n' +
+          "\n" +
           hours7,
         jobNumber:
           jobNumber +
-          '\n' +
+          "\n" +
           jobNumber1 +
-          '\n' +
+          "\n" +
           jobNumber2 +
-          '\n' +
+          "\n" +
           jobNumber3 +
-          '\n' +
+          "\n" +
           jobNumber4 +
-          '\n' +
+          "\n" +
           jobNumber5 +
-          '\n' +
+          "\n" +
           jobNumber6 +
-          '\n' +
+          "\n" +
           jobNumber7,
         jobDescription: jobDescription,
       })
       .then(() => {
-        console.log('successfully sent the data');
+        console.log("successfully sent the data");
       });
   }; // end of onDataSubmit
 
@@ -302,26 +306,28 @@ class DailyJobReport extends React.Component {
       this.state.jobNumber7,
       this.state.jobDescription
     );
-    this.props.history.push('/datasent');
+    // when the data is successully sent to the backend the app is routed to the /datasent page
+    this.props.history.push("/datasent");
   };
 
   validateInput = () => {
+    // this function checks input and ensures that customer, project, contractNumber and foreman have values
     const cust = this.state.customer;
     const proj = this.state.project;
     const contract = this.state.contractNumber;
     const lead = this.state.foreman;
 
     if (
-      cust.trim() == '' ||
-      proj.trim() == '' ||
-      contract.trim() == '' ||
-      lead.trim() == ''
+      cust.trim() == "" ||
+      proj.trim() == "" ||
+      contract.trim() == "" ||
+      lead.trim() == ""
     ) {
       this.setState({ hasError: true });
-      console.log('error field not filled or id already chosen');
-      console.log(cust + ' - ' + proj + ' - ' + contract + ' - ' + lead);
+      console.log("error field not filled or id already chosen");
+      console.log(cust + " - " + proj + " - " + contract + " - " + lead);
       console.log(
-        'check if id already taken: ' +
+        "check if id already taken: " +
           !this.checkDatabaseID(this.state.contractArray, contract)
       );
     } else {
@@ -329,19 +335,22 @@ class DailyJobReport extends React.Component {
     }
   };
 
+  // function checks if the id already exists in the database
   checkDatabaseID = (arr, val) => {
     return arr.some((arrVal) => val === arrVal);
   };
 
+  // function retrieves all of the contractNumbers from the backend and stores them in state
   getDailyJobReportID = () => {
-    axios.get('http://localhost:5000/dailyjobreport_id').then((response) => {
+    axios.get("http://localhost:5000/dailyjobreport_id").then((response) => {
       if (response && response.data)
         this.setState({ contractArray: response.data });
     });
   };
 
+  // componentDydMount is a function provided by react that loads upon initial render
   componentDidMount() {
-    window.addEventListener('load', this.getDailyJobReportID());
+    window.addEventListener("load", this.getDailyJobReportID());
   }
 
   render() {
@@ -363,6 +372,7 @@ class DailyJobReport extends React.Component {
     const weatherStart3 = this.state.weatherStart3;
     const weatherEnd3 = this.state.weatherEnd3;
 
+    // displays what fields need to be filled out to successfully submit a form
     const infoMessage = () => {
       if (!this.state.hasError) {
         return (
@@ -376,6 +386,7 @@ class DailyJobReport extends React.Component {
       }
     };
 
+    // displays an error message that the contract number must also be unique
     const errorMessage = () => {
       if (this.state.hasError) {
         return (
@@ -400,17 +411,18 @@ class DailyJobReport extends React.Component {
         </div>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <div className="border" style={{ width: '700px' }}>
-            <h1 style={{ paddingLeft: '20px', paddingTop: '20px' }}>
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div className="border" style={{ width: "700px" }}>
+            <h1 style={{ paddingLeft: "20px", paddingTop: "20px" }}>
               Daily Job Report
             </h1>
 
-            <div style={{ paddingLeft: '20px' }}>
+            <div style={{ paddingLeft: "20px" }}>
               {infoMessage()}
               <br />
               {errorMessage()}
@@ -852,15 +864,16 @@ class DailyJobReport extends React.Component {
 
             <button
               style={{
-                color: 'black',
-                backgroundColor: 'peachpuff',
-                width: '100px',
-                margin: '10px',
-                border: '2px solid black',
+                color: "black",
+                backgroundColor: "peachpuff",
+                width: "100px",
+                margin: "10px",
+                border: "2px solid black",
               }}
               className="ui button"
               type="submit"
-              onClick={this.validateInput}>
+              onClick={this.validateInput}
+            >
               Submit
             </button>
           </div>
