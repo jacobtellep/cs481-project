@@ -1,103 +1,103 @@
-import React from 'react';
-import axios from 'axios';
-import { withAuth0 } from '@auth0/auth0-react';
-import BackButton from './BackButton';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
+import React from "react";
+import axios from "axios";
+import { withAuth0 } from "@auth0/auth0-react";
+import BackButton from "./BackButton";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 
 class GetJSAform extends React.Component {
   state = {
-    ticket_num: '',
-    date: '',
-    company: '',
-    representative: '',
-    location: '',
-    well_num: '',
-    afe_num: '',
-    weahter: '',
-    jsa_current_temp: '',
-    weather_sun: 'false',
-    weather_rain: 'false',
-    weather_overcast: 'false',
-    weather_windy: 'false',
-    weather_hail: 'false',
-    weather_snow: 'false',
-    major_steps1: '',
-    major_steps2: '',
-    major_steps3: '',
-    major_steps4: '',
-    major_steps5: '',
-    major_steps6: '',
-    major_steps7: '',
-    potential_hazards1: '',
-    potential_hazards2: '',
-    potential_hazards3: '',
-    potential_hazards4: '',
-    potential_hazards5: '',
-    potential_hazards6: '',
-    potential_hazards7: '',
-    recommendations1: '',
-    recommendations2: '',
-    recommendations3: '',
-    recommendations4: '',
-    recommendations5: '',
-    recommendations6: '',
-    recommendations7: '',
-    emergencyAddress: '',
-    medicalFacility: '',
-    hazard_1: '',
-    hazard_2: '',
-    hazard_3: '',
-    hazard_confinedSpace: 'false',
-    hazard_fall: 'false',
-    hazard_sharp: 'false',
-    hazard_electric: 'false',
-    hazard_irritants: 'false',
-    hazard_extremes: 'false',
-    hazard_pinch_crush: 'false',
-    hazard_lifting: 'false',
-    hazard_shortService: 'false',
-    hazard_explosion: 'false',
-    hazard_energy: 'false',
-    hazard_stop: 'false',
-    hazard_elevated: 'false',
-    hazard_excavation: 'false',
-    hazard_chemical: 'false',
-    hazard_noise: 'false',
-    hazard_water: 'false',
-    print_name1: '',
-    employee_initals1: '',
-    print_name2: '',
-    employee_initals2: '',
-    print_name3: '',
-    employee_initals3: '',
-    print_name4: '',
-    employee_initals4: '',
-    print_name5: '',
-    employee_initals5: '',
-    print_name6: '',
-    employee_initals6: '',
-    print_name7: '',
-    employee_initals7: '',
-    print_name8: '',
-    employee_initals8: '',
-    print_name9: '',
-    employee_initals9: '',
-    print_name10: '',
-    employee_initals10: '',
+    ticket_num: "",
+    date: "",
+    company: "",
+    representative: "",
+    location: "",
+    well_num: "",
+    afe_num: "",
+    weahter: "",
+    jsa_current_temp: "",
+    weather_sun: "false",
+    weather_rain: "false",
+    weather_overcast: "false",
+    weather_windy: "false",
+    weather_hail: "false",
+    weather_snow: "false",
+    major_steps1: "",
+    major_steps2: "",
+    major_steps3: "",
+    major_steps4: "",
+    major_steps5: "",
+    major_steps6: "",
+    major_steps7: "",
+    potential_hazards1: "",
+    potential_hazards2: "",
+    potential_hazards3: "",
+    potential_hazards4: "",
+    potential_hazards5: "",
+    potential_hazards6: "",
+    potential_hazards7: "",
+    recommendations1: "",
+    recommendations2: "",
+    recommendations3: "",
+    recommendations4: "",
+    recommendations5: "",
+    recommendations6: "",
+    recommendations7: "",
+    emergencyAddress: "",
+    medicalFacility: "",
+    hazard_1: "",
+    hazard_2: "",
+    hazard_3: "",
+    hazard_confinedSpace: "false",
+    hazard_fall: "false",
+    hazard_sharp: "false",
+    hazard_electric: "false",
+    hazard_irritants: "false",
+    hazard_extremes: "false",
+    hazard_pinch_crush: "false",
+    hazard_lifting: "false",
+    hazard_shortService: "false",
+    hazard_explosion: "false",
+    hazard_energy: "false",
+    hazard_stop: "false",
+    hazard_elevated: "false",
+    hazard_excavation: "false",
+    hazard_chemical: "false",
+    hazard_noise: "false",
+    hazard_water: "false",
+    print_name1: "",
+    employee_initals1: "",
+    print_name2: "",
+    employee_initals2: "",
+    print_name3: "",
+    employee_initals3: "",
+    print_name4: "",
+    employee_initals4: "",
+    print_name5: "",
+    employee_initals5: "",
+    print_name6: "",
+    employee_initals6: "",
+    print_name7: "",
+    employee_initals7: "",
+    print_name8: "",
+    employee_initals8: "",
+    print_name9: "",
+    employee_initals9: "",
+    print_name10: "",
+    employee_initals10: "",
     ticket_numbers: [],
-    selectValue: '',
+    selectValue: "",
   };
 
   getjsaform = async () => {
     const { getAccessTokenSilently } = this.props.auth0;
     const token = await getAccessTokenSilently({
-      audience: 'http://localhost:5000/',
-      scope: 'view:forms',
+      audience: "http://localhost:5000/",
+      scope: "view:forms",
     });
 
     axios
-      .get('http://localhost:5000/jsaform', {
+      .get("http://localhost:5000/jsaform", {
         params: { id: this.state.selectValue },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -106,20 +106,20 @@ class GetJSAform extends React.Component {
       .then((response) => {
         this.setState({ GetJSAform: response.data }); // the auto-incremented sql id is included in this response.data object
 
-        console.log('successfully retrieved the data');
+        console.log("successfully retrieved the data");
       });
   };
 
   getjsaform_id = () => {
-    axios.get('http://localhost:5000/jsaform_ticket').then((response) => {
+    axios.get("http://localhost:5000/jsaform_ticket").then((response) => {
       this.setState({ ticket_numbers: response.data }); // the auto-incremented sql id is included in this response.data object
 
-      console.log('successfully retrieved the data');
+      console.log("successfully retrieved the data");
     });
   };
 
   componentDidMount() {
-    window.addEventListener('load', this.getjsaform_id());
+    window.addEventListener("load", this.getjsaform_id());
   }
 
   handleChange = (event) => {
@@ -141,27 +141,27 @@ class GetJSAform extends React.Component {
 
     const totalPDFPages = Math.ceil(HTML_Height / 1252) - 2;
     console.log(
-      'html height: ' +
+      "html height: " +
         HTML_Height +
-        ' HTML_Width width: ' +
+        " HTML_Width width: " +
         HTML_Width +
-        'Pages: ' +
+        "Pages: " +
         totalPDFPages
     );
 
     html2canvas(document.querySelector(`#capture`)).then((canvas) => {
-      canvas.getContext('2d');
-      let dataURL = canvas.toDataURL('image/png');
+      canvas.getContext("2d");
+      let dataURL = canvas.toDataURL("image/png");
 
       const pdf = new jsPDF({
-        orientation: 'p',
-        unit: 'cm',
+        orientation: "p",
+        unit: "cm",
         format: [PDF_Height, PDF_Width],
       });
 
       pdf.addImage(
         dataURL,
-        'PNG',
+        "PNG",
         3,
         0.5,
         canvas_image_width,
@@ -169,10 +169,10 @@ class GetJSAform extends React.Component {
       );
 
       for (var i = 1; i <= totalPDFPages; i++) {
-        pdf.addPage([PDF_Height, PDF_Width], 'p');
+        pdf.addPage([PDF_Height, PDF_Width], "p");
         pdf.addImage(
           dataURL,
-          'PNG',
+          "PNG",
           3,
           -(PDF_Height * i) + top_left_margin * 4,
           canvas_image_width,
@@ -188,9 +188,11 @@ class GetJSAform extends React.Component {
     const renderDrop = () => {
       return (
         <select
-          style={{ marginLeft: '10px' }}
+          style={{ marginLeft: "10px" }}
           value={this.state.selectValue}
-          onChange={this.handleChange}>
+          onChange={this.handleChange}
+        >
+          <option></option>
           {this.state.ticket_numbers.map((str) => (
             <option value={str.ticket_num}>{str.ticket_num}</option>
           ))}
@@ -204,25 +206,27 @@ class GetJSAform extends React.Component {
         </div>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <div style={{ marginLeft: '10px' }}>
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ marginLeft: "10px" }}>
             <b>Select Ticket Number</b>
             {renderDrop()}
             <button
               style={{
-                color: 'black',
-                backgroundColor: 'peachpuff',
-                width: '100px',
-                margin: '10px',
-                border: '2px solid black',
+                color: "black",
+                backgroundColor: "peachpuff",
+                width: "100px",
+                margin: "10px",
+                border: "2px solid black",
               }}
               onClick={this.getjsaform}
               className="ui button"
-              type="button">
+              type="button"
+            >
               Retrieve
             </button>
 
@@ -235,15 +239,16 @@ class GetJSAform extends React.Component {
               id={`capture`}
               ref={(divElement) => {
                 this.divElement = divElement;
-              }}>
+              }}
+            >
               {this.state.GetJSAform &&
                 this.state.GetJSAform.map((value, index) => {
                   /* Created variables to help format and split*/
-                  const weather = value.weather_id.split('\n');
+                  const weather = value.weather_id.split("\n");
 
-                  const hazard_1 = value.hazard_1.split('\n');
-                  const hazard_2 = value.hazard_2.split('\n');
-                  const hazard_3 = value.hazard_3.split('\n');
+                  const hazard_1 = value.hazard_1.split("\n");
+                  const hazard_2 = value.hazard_2.split("\n");
+                  const hazard_3 = value.hazard_3.split("\n");
 
                   const majorSteps = value.major_steps;
                   const potentialHazard = value.potential_hazard;
@@ -261,8 +266,9 @@ class GetJSAform extends React.Component {
                       <h3>Job Info</h3>
                       <div
                         className="jsa-info-weather sub-border"
-                        style={{ display: 'flex', flexDirection: 'row' }}>
-                        <div style={{ marginLeft: '10px' }}>
+                        style={{ display: "flex", flexDirection: "row" }}
+                      >
+                        <div style={{ marginLeft: "10px" }}>
                           <div>
                             <b>Ticket Number: </b>
                             {value.ticket_num}
@@ -294,54 +300,56 @@ class GetJSAform extends React.Component {
                         </div>
                         <div
                           style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            paddingLeft: '100px',
-                          }}>
+                            display: "flex",
+                            flexDirection: "column",
+                            paddingLeft: "100px",
+                          }}
+                        >
                           {weather.map((str) => {
-                            if (String(str).toLowerCase() == 'true')
+                            if (String(str).toLowerCase() == "true")
                               return (
-                                <div style={{ paddingBottom: '1px' }}>
-                                  {' '}
+                                <div style={{ paddingBottom: "1px" }}>
+                                  {" "}
                                   <input type="checkbox" checked={true} />
                                 </div>
                               );
                             else if (
-                              String(str).toLowerCase() == 'true' ||
-                              String(str).toLowerCase() != 'false'
+                              String(str).toLowerCase() == "true" ||
+                              String(str).toLowerCase() != "false"
                             )
                               return (
-                                <div style={{ paddingBottom: '1px' }}>
-                                  {' '}
+                                <div style={{ paddingBottom: "1px" }}>
+                                  {" "}
                                   {str}
                                 </div>
                               );
                             return (
-                              <div style={{ paddingBottom: '1px' }}>
-                                {' '}
+                              <div style={{ paddingBottom: "1px" }}>
+                                {" "}
                                 <input type="checkbox" checked={false} />
                               </div>
                             );
                           })}
                         </div>
                         <div
-                          style={{ display: 'flex', flexDirection: 'column' }}>
+                          style={{ display: "flex", flexDirection: "column" }}
+                        >
                           <div>Sun</div>
                           <div>Rain</div>
                           <div>Overcast</div>
                           <div>Windy</div>
                           <div>Hail</div>
-                          <div style={{ paddingBottom: '1px' }}>Snow</div>
-                          <div style={{ paddingTop: '3px' }}>F Temp</div>
+                          <div style={{ paddingBottom: "1px" }}>Snow</div>
+                          <div style={{ paddingTop: "3px" }}>F Temp</div>
                         </div>
                       </div>
                       <br />
                       <div className="jsa-gps-medical sub-border">
-                        <div style={{ marginLeft: '10px' }}>
+                        <div style={{ marginLeft: "10px" }}>
                           <b>Medical Facility: </b>
                           {value.gps_location}
                         </div>
-                        <div style={{ marginLeft: '10px' }}>
+                        <div style={{ marginLeft: "10px" }}>
                           <b>Emergency Address GPS: </b>
                           {value.emergency_address}
                         </div>
@@ -349,25 +357,28 @@ class GetJSAform extends React.Component {
                       <br />
                       <div
                         className="sub-border"
-                        style={{ paddingLeft: '10px' }}>
+                        style={{ paddingLeft: "10px" }}
+                      >
                         <h3>Hazards</h3>
                         <div
                           className="hazardCheck"
-                          style={{ display: 'flex', flexDirection: 'row' }}>
+                          style={{ display: "flex", flexDirection: "row" }}
+                        >
                           <div
                             style={{
-                              display: 'flex',
-                              flexDirection: 'column',
-                            }}>
+                              display: "flex",
+                              flexDirection: "column",
+                            }}
+                          >
                             {hazard_1.map((str) => {
-                              if (String(str).toLowerCase() == 'true')
+                              if (String(str).toLowerCase() == "true")
                                 return (
-                                  <div style={{ paddingBottom: '1px' }}>
+                                  <div style={{ paddingBottom: "1px" }}>
                                     <input type="checkbox" checked={true} />
                                   </div>
                                 );
                               return (
-                                <div style={{ paddingBottom: '1px' }}>
+                                <div style={{ paddingBottom: "1px" }}>
                                   <input type="checkbox" checked={false} />
                                 </div>
                               );
@@ -375,9 +386,10 @@ class GetJSAform extends React.Component {
                           </div>
                           <div
                             style={{
-                              display: 'flex',
-                              flexDirection: 'column',
-                            }}>
+                              display: "flex",
+                              flexDirection: "column",
+                            }}
+                          >
                             <div>Confined Space</div>
                             <div>Fall Protection</div>
                             <div>Sharp/Hot/Cold Surfaces</div>
@@ -388,19 +400,20 @@ class GetJSAform extends React.Component {
 
                           <div
                             style={{
-                              display: 'flex',
-                              flexDirection: 'column',
-                              paddingLeft: '20px',
-                            }}>
+                              display: "flex",
+                              flexDirection: "column",
+                              paddingLeft: "20px",
+                            }}
+                          >
                             {hazard_2.map((str) => {
-                              if (String(str).toLowerCase() == 'true')
+                              if (String(str).toLowerCase() == "true")
                                 return (
-                                  <div style={{ paddingBottom: '1px' }}>
+                                  <div style={{ paddingBottom: "1px" }}>
                                     <input type="checkbox" checked={true} />
                                   </div>
                                 );
                               return (
-                                <div style={{ paddingBottom: '1px' }}>
+                                <div style={{ paddingBottom: "1px" }}>
                                   <input type="checkbox" checked={false} />
                                 </div>
                               );
@@ -408,9 +421,10 @@ class GetJSAform extends React.Component {
                           </div>
                           <div
                             style={{
-                              display: 'flex',
-                              flexDirection: 'column',
-                            }}>
+                              display: "flex",
+                              flexDirection: "column",
+                            }}
+                          >
                             <div>Pinch/Crush/Strike Hazard</div>
                             <div>Lifting Hazard</div>
                             <div>Short Services Employees</div>
@@ -424,19 +438,20 @@ class GetJSAform extends React.Component {
 
                           <div
                             style={{
-                              display: 'flex',
-                              flexDirection: 'column',
-                              position: 'relative',
-                            }}>
+                              display: "flex",
+                              flexDirection: "column",
+                              position: "relative",
+                            }}
+                          >
                             {hazard_3.map((str) => {
-                              if (String(str).toLowerCase() == 'true')
+                              if (String(str).toLowerCase() == "true")
                                 return (
-                                  <div style={{ paddingBottom: '1px' }}>
+                                  <div style={{ paddingBottom: "1px" }}>
                                     <input type="checkbox" checked={true} />
                                   </div>
                                 );
                               return (
-                                <div style={{ paddingBottom: '1px' }}>
+                                <div style={{ paddingBottom: "1px" }}>
                                   <input type="checkbox" checked={false} />
                                 </div>
                               );
@@ -444,10 +459,11 @@ class GetJSAform extends React.Component {
                           </div>
                           <div
                             style={{
-                              display: 'flex',
-                              flexDirection: 'column',
-                              position: 'relative',
-                            }}>
+                              display: "flex",
+                              flexDirection: "column",
+                              position: "relative",
+                            }}
+                          >
                             <div>Elevated Work Load</div>
                             <div>Excavation</div>
                             <div>Hazardous Chemical Exposure</div>
@@ -460,20 +476,22 @@ class GetJSAform extends React.Component {
                       <div
                         className="steps-Consquences-remove sub-border"
                         style={{
-                          display: 'flex',
+                          display: "flex",
 
-                          flexDirection: 'row',
-                          paddingLeft: '10px',
-                        }}>
+                          flexDirection: "row",
+                          paddingLeft: "10px",
+                        }}
+                      >
                         <div>
                           <h3>Major Steps</h3>
                           <div
                             style={{
-                              display: 'flex',
-                              flexDirection: 'column',
-                              paddingLeft: '20px',
-                            }}>
-                            {majorSteps.split('\n').map((str) => (
+                              display: "flex",
+                              flexDirection: "column",
+                              paddingLeft: "20px",
+                            }}
+                          >
+                            {majorSteps.split("\n").map((str) => (
                               <p>
                                 {str}
                                 <hr></hr>
@@ -482,15 +500,16 @@ class GetJSAform extends React.Component {
                           </div>
                         </div>
 
-                        <div style={{ paddingLeft: '20px' }}>
+                        <div style={{ paddingLeft: "20px" }}>
                           <h3>Potential Hazards/Consquences</h3>
                           <div
                             style={{
-                              display: 'flex',
-                              flexDirection: 'column',
-                              paddingLeft: '20px',
-                            }}>
-                            {potentialHazard.split('\n').map((str) => (
+                              display: "flex",
+                              flexDirection: "column",
+                              paddingLeft: "20px",
+                            }}
+                          >
+                            {potentialHazard.split("\n").map((str) => (
                               <p>
                                 {str}
                                 <hr></hr>
@@ -499,15 +518,16 @@ class GetJSAform extends React.Component {
                           </div>
                         </div>
 
-                        <div style={{ paddingLeft: '20px' }}>
+                        <div style={{ paddingLeft: "20px" }}>
                           <h3>Recommendations to Remove Hazard</h3>
                           <div
                             style={{
-                              display: 'flex',
-                              flexDirection: 'column',
-                              paddingLeft: '20px',
-                            }}>
-                            {recommHazard.split('\n').map((str) => (
+                              display: "flex",
+                              flexDirection: "column",
+                              paddingLeft: "20px",
+                            }}
+                          >
+                            {recommHazard.split("\n").map((str) => (
                               <p>
                                 {str}
                                 <hr></hr>
@@ -529,15 +549,17 @@ class GetJSAform extends React.Component {
 
                       <div
                         className="employeesAndInitials sub-border"
-                        style={{ display: 'flex', flexDirection: 'row' }}>
+                        style={{ display: "flex", flexDirection: "row" }}
+                      >
                         <div
                           style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            paddingLeft: '20px',
-                          }}>
+                            display: "flex",
+                            flexDirection: "column",
+                            paddingLeft: "20px",
+                          }}
+                        >
                           <h3>Employee Name</h3>
-                          {employeeName.split('\n').map((str) => (
+                          {employeeName.split("\n").map((str) => (
                             <p>
                               {str}
                               <hr></hr>
@@ -546,12 +568,13 @@ class GetJSAform extends React.Component {
                         </div>
                         <div
                           style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            paddingLeft: '20px',
-                          }}>
+                            display: "flex",
+                            flexDirection: "column",
+                            paddingLeft: "20px",
+                          }}
+                        >
                           <h3>Employee Initals</h3>
-                          {employeeInitals.split('\n').map((str) => (
+                          {employeeInitals.split("\n").map((str) => (
                             <p>
                               {str}
                               <hr></hr>
@@ -561,22 +584,23 @@ class GetJSAform extends React.Component {
                       </div>
                       <button
                         onClick={() =>
-                          this.export('TicketNumber' + this.state.selectValue)
+                          this.export("TicketNumber" + this.state.selectValue)
                         }
                         className="ui button"
                         type="button"
                         style={{
-                          color: 'black',
-                          backgroundColor: 'peachpuff',
-                          width: '100px',
-                          margin: '10px',
-                          border: '2px solid black',
-                        }}>
+                          color: "black",
+                          backgroundColor: "peachpuff",
+                          width: "100px",
+                          margin: "10px",
+                          border: "2px solid black",
+                        }}
+                      >
                         Download
                       </button>
                     </div>
                   );
-                })}{' '}
+                })}{" "}
             </div>
           </div>
         </div>
