@@ -1,69 +1,70 @@
-import React from 'react';
-import axios from 'axios';
-import { withAuth0 } from '@auth0/auth0-react';
-import './GetDailyJobReport.css';
-import BackButton from './BackButton';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
+import React from "react";
+import axios from "axios";
+import { withAuth0 } from "@auth0/auth0-react";
+import "./GetDailyJobReport.css";
+import BackButton from "./BackButton";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 
 class GetDailyJobReport extends React.Component {
   state = {
-    date: '',
-    customer: '',
-    project: '',
-    contractNumber: '',
-    foreman: '',
-    weatherNotes: '',
-    weatherStart: '',
-    weatherEnd: '',
-    weatherNotes1: '',
-    weatherStart1: '',
-    weatherEnd1: '',
-    weatherNotes2: '',
-    weatherStart2: '',
-    weatherEnd2: '',
-    weatherNotes3: '',
-    weatherStart3: '',
-    weatherEnd3: '',
-    projectNotes: '',
-    projectStart: '',
-    projectEnd: '',
-    projectNotes1: '',
-    projectStart1: '',
-    projectEnd1: '',
-    projectNotes2: '',
-    projectStart2: '',
-    projectEnd2: '',
-    projectNotes3: '',
-    projectStart3: '',
-    projectEnd3: '',
-    employeeName: '',
-    hours: '',
-    jobNumber: '',
-    employeeName1: '',
-    hours1: '',
-    jobNumber1: '',
-    employeeName2: '',
-    hours2: '',
-    jobNumber2: '',
-    employeeName3: '',
-    hours3: '',
-    jobNumber3: '',
-    employeeName4: '',
-    hours4: '',
-    jobNumber4: '',
-    employeeName5: '',
-    hours5: '',
-    jobNumber5: '',
-    employeeName6: '',
-    hours6: '',
-    jobNumber6: '',
-    employeeName7: '',
-    hours7: '',
-    jobNumber7: '',
-    jobDescription: '',
-    selectValue: '',
+    date: "",
+    customer: "",
+    project: "",
+    contractNumber: "",
+    foreman: "",
+    weatherNotes: "",
+    weatherStart: "",
+    weatherEnd: "",
+    weatherNotes1: "",
+    weatherStart1: "",
+    weatherEnd1: "",
+    weatherNotes2: "",
+    weatherStart2: "",
+    weatherEnd2: "",
+    weatherNotes3: "",
+    weatherStart3: "",
+    weatherEnd3: "",
+    projectNotes: "",
+    projectStart: "",
+    projectEnd: "",
+    projectNotes1: "",
+    projectStart1: "",
+    projectEnd1: "",
+    projectNotes2: "",
+    projectStart2: "",
+    projectEnd2: "",
+    projectNotes3: "",
+    projectStart3: "",
+    projectEnd3: "",
+    employeeName: "",
+    hours: "",
+    jobNumber: "",
+    employeeName1: "",
+    hours1: "",
+    jobNumber1: "",
+    employeeName2: "",
+    hours2: "",
+    jobNumber2: "",
+    employeeName3: "",
+    hours3: "",
+    jobNumber3: "",
+    employeeName4: "",
+    hours4: "",
+    jobNumber4: "",
+    employeeName5: "",
+    hours5: "",
+    jobNumber5: "",
+    employeeName6: "",
+    hours6: "",
+    jobNumber6: "",
+    employeeName7: "",
+    hours7: "",
+    jobNumber7: "",
+    jobDescription: "",
+    selectValue: "",
     contract_nums: [],
+    retrieved: false,
     dailyJobReport: [],
   };
 
@@ -71,12 +72,12 @@ class GetDailyJobReport extends React.Component {
   getDailyJobReport = async () => {
     const { getAccessTokenSilently } = this.props.auth0;
     const token = await getAccessTokenSilently({
-      audience: 'http://localhost:5000/',
-      scope: 'view:forms',
+      audience: "http://localhost:5000/",
+      scope: "view:forms",
     });
 
     axios
-      .get('http://localhost:5000/dailyjobreport', {
+      .get("http://localhost:5000/dailyjobreport", {
         params: { id: this.state.selectValue },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -86,19 +87,20 @@ class GetDailyJobReport extends React.Component {
         this.setState({ GetDailyJobReport: response.data }); // the auto-incremented sql id is included in this response.data object
 
         console.log(response.data);
-        console.log('successfully retrieved the data');
+        console.log("successfully retrieved the data");
+         this.setState({retrieved: true});
       });
   };
 
   getDailyJobReportID = () => {
-    axios.get('http://localhost:5000/dailyjobreport_id').then((response) => {
+    axios.get("http://localhost:5000/dailyjobreport_id").then((response) => {
       if (response && response.data)
         this.setState({ contract_nums: response.data });
     });
   };
 
   componentDidMount() {
-    window.addEventListener('load', this.getDailyJobReportID());
+    window.addEventListener("load", this.getDailyJobReportID());
   }
 
   handleChange = (event) => {
@@ -120,27 +122,27 @@ class GetDailyJobReport extends React.Component {
 
     const totalPDFPages = Math.ceil(HTML_Height / 1252) - 2;
     console.log(
-      'html height: ' +
+      "html height: " +
         HTML_Height +
-        ' HTML_Width width: ' +
+        " HTML_Width width: " +
         HTML_Width +
-        'Pages: ' +
+        "Pages: " +
         totalPDFPages
     );
 
     html2canvas(document.querySelector(`#capture`)).then((canvas) => {
-      canvas.getContext('2d');
-      let dataURL = canvas.toDataURL('image/png');
+      canvas.getContext("2d");
+      let dataURL = canvas.toDataURL("image/png");
 
       const pdf = new jsPDF({
-        orientation: 'p',
-        unit: 'cm',
+        orientation: "p",
+        unit: "cm",
         format: [PDF_Height, PDF_Width],
       });
 
       pdf.addImage(
         dataURL,
-        'PNG',
+        "PNG",
         3,
         0.5,
         canvas_image_width,
@@ -148,10 +150,10 @@ class GetDailyJobReport extends React.Component {
       );
 
       for (var i = 1; i <= totalPDFPages; i++) {
-        pdf.addPage([PDF_Height, PDF_Width], 'p');
+        pdf.addPage([PDF_Height, PDF_Width], "p");
         pdf.addImage(
           dataURL,
-          'PNG',
+          "PNG",
           3,
           -(PDF_Height * i) + top_left_margin * 4,
           canvas_image_width,
@@ -164,18 +166,44 @@ class GetDailyJobReport extends React.Component {
   };
 
   render() {
+
     const renderDrop = () => {
       return (
         <select
-          style={{ marginLeft: '10px' }}
+          style={{ marginLeft: "10px" }}
           value={this.state.selectValue}
-          onChange={this.handleChange}>
+          onChange={this.handleChange}
+        >
+          <option></option>
           {this.state.contract_nums.map((str) => (
             <option value={str.contract_number}>{str.contract_number}</option>
           ))}
         </select>
       );
     };
+
+    const downloadButton = () => {
+        console.log(this.state.retrieved);
+        if(this.state.retrieved === true) {
+            return(
+            <button
+              onClick={() =>
+                this.export("Contract Num" + this.state.selectValue)
+              }
+              className="ui button"
+              type="button"
+              style={{
+                color: "black",
+                backgroundColor: "peachpuff",
+                width: "100px",
+                margin: "10px",
+                border: "2px solid black",
+              }}
+            >
+              Download
+            </button>
+        )}
+    }
 
     return (
       <div>
@@ -184,16 +212,18 @@ class GetDailyJobReport extends React.Component {
         </div>
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <div
             style={{
-              marginLeft: '10px',
-              marginRight: '10px',
-            }}>
+              marginLeft: "10px",
+              marginRight: "10px",
+            }}
+          >
             <b>Select Contract Number</b>
             {renderDrop()}
 
@@ -202,14 +232,17 @@ class GetDailyJobReport extends React.Component {
               className="ui button"
               type="button"
               style={{
-                color: 'black',
-                backgroundColor: 'peachpuff',
-                width: '100px',
-                margin: '10px',
-                border: '2px solid black',
-              }}>
+                color: "black",
+                backgroundColor: "peachpuff",
+                width: "100px",
+                margin: "10px",
+                border: "2px solid black",
+              }}
+            >
               Retrieve
             </button>
+
+            {downloadButton()}
           </div>
 
           <br />
@@ -221,9 +254,11 @@ class GetDailyJobReport extends React.Component {
             id={`capture`}
             ref={(divElement) => {
               this.divElement = divElement;
-            }}>
+            }}
+          >
             {this.state.GetDailyJobReport &&
               this.state.GetDailyJobReport.map((value, index) => {
+
                 {
                   /* Created variables to help format and split*/
                 }
@@ -243,17 +278,19 @@ class GetDailyJobReport extends React.Component {
 
                 return (
                   <div
-                    style={{ backgroundColor: 'ghostwhite' }}
+                    style={{ backgroundColor: "ghostwhite" }}
                     className="retrieve-report border"
-                    key={index}>
+                    key={index}
+                  >
                     <h1>Daily Job Report</h1>
                     <div
                       style={{
-                        paddingLeft: '10px',
-                        backgroundColor: 'white',
-                        paddingRight: '10px',
+                        paddingLeft: "10px",
+                        backgroundColor: "white",
+                        paddingRight: "10px",
                       }}
-                      className="sub-border">
+                      className="sub-border"
+                    >
                       <div>
                         <b>Date:</b> <br></br> {date}
                       </div>
@@ -278,14 +315,15 @@ class GetDailyJobReport extends React.Component {
 
                     <h3>Weather Delay</h3>
                     <div
-                      style={{ backgroundColor: 'white' }}
-                      className="return sub-border">
+                      style={{ backgroundColor: "white" }}
+                      className="return sub-border"
+                    >
                       {/* Used for all database responses that have to split
                     name.split('\n').map(str => <p>{str}</p>)
                     Puts each entry on a new line
                     Styling to split attr up so they're not on top of each other*/}
-                      <div style={{ width: '300px' }}>
-                        {weatherNotes.split('\n').map((str) => (
+                      <div style={{ width: "300px" }}>
+                        {weatherNotes.split("\n").map((str) => (
                           <p>
                             <b>Notes: </b>
                             {str}
@@ -293,16 +331,16 @@ class GetDailyJobReport extends React.Component {
                           </p>
                         ))}
                       </div>
-                      <div style={{ width: '120px' }}>
-                        {weatherStart.split('\n').map((str) => (
+                      <div style={{ width: "120px" }}>
+                        {weatherStart.split("\n").map((str) => (
                           <p>
                             <b>Start:</b> {str}
                             <hr></hr>
                           </p>
                         ))}
                       </div>
-                      <div style={{ width: '120px' }}>
-                        {weatherEnd.split('\n').map((str) => (
+                      <div style={{ width: "120px" }}>
+                        {weatherEnd.split("\n").map((str) => (
                           <p>
                             <b>End:</b> {str}
                             <hr></hr>
@@ -314,26 +352,27 @@ class GetDailyJobReport extends React.Component {
                     <br />
                     <h3>Project Delay</h3>
                     <div
-                      style={{ backgroundColor: 'white' }}
-                      className="return sub-border">
-                      <div style={{ width: '300px' }}>
-                        {projectNotes.split('\n').map((str) => (
+                      style={{ backgroundColor: "white" }}
+                      className="return sub-border"
+                    >
+                      <div style={{ width: "300px" }}>
+                        {projectNotes.split("\n").map((str) => (
                           <p>
                             <b>Notes: </b>
                             {str} <hr></hr>
                           </p>
                         ))}
                       </div>
-                      <div style={{ width: '120px' }}>
-                        {projectStart.split('\n').map((str) => (
+                      <div style={{ width: "120px" }}>
+                        {projectStart.split("\n").map((str) => (
                           <p>
                             <b>Start:</b> {str}
                             <hr></hr>
                           </p>
                         ))}
                       </div>
-                      <div style={{ width: '120px' }}>
-                        {projectEnd.split('\n').map((str) => (
+                      <div style={{ width: "120px" }}>
+                        {projectEnd.split("\n").map((str) => (
                           <p>
                             <b>End:</b> {str}
                             <hr></hr>
@@ -345,10 +384,11 @@ class GetDailyJobReport extends React.Component {
                     <br />
                     <h3>Employees and Hours</h3>
                     <div
-                      style={{ backgroundColor: 'white' }}
-                      className="return sub-border">
-                      <div style={{ width: '300px' }}>
-                        {employeeName.split('\n').map((str) => (
+                      style={{ backgroundColor: "white" }}
+                      className="return sub-border"
+                    >
+                      <div style={{ width: "300px" }}>
+                        {employeeName.split("\n").map((str) => (
                           <p>
                             <b>Name: </b>
                             {str}
@@ -356,16 +396,16 @@ class GetDailyJobReport extends React.Component {
                           </p>
                         ))}
                       </div>
-                      <div style={{ width: '120px' }}>
-                        {employeeHours.split('\n').map((str) => (
+                      <div style={{ width: "120px" }}>
+                        {employeeHours.split("\n").map((str) => (
                           <p>
                             <b>Hours:</b> {str}
                             <hr></hr>
                           </p>
                         ))}
                       </div>
-                      <div style={{ width: '120px' }}>
-                        {jobNum.split('\n').map((str) => (
+                      <div style={{ width: "120px" }}>
+                        {jobNum.split("\n").map((str) => (
                           <p>
                             <b>Job Number:</b> {str}
                             <hr></hr>
@@ -378,29 +418,16 @@ class GetDailyJobReport extends React.Component {
                     <h3>Job Description</h3>
                     <div
                       style={{
-                        paddingBottom: '20px',
-                        paddingLeft: '10px',
-                        paddingTop: '10px',
-                        backgroundColor: 'white',
+                        paddingBottom: "20px",
+                        paddingLeft: "10px",
+                        paddingTop: "10px",
+                        backgroundColor: "white",
                       }}
-                      className="sub-border">
+                      className="sub-border"
+                    >
                       {value.job_description}
                     </div>
-                    <button
-                      onClick={() =>
-                        this.export('Contract Num' + this.state.selectValue)
-                      }
-                      className="ui button"
-                      type="button"
-                      style={{
-                        color: 'black',
-                        backgroundColor: 'peachpuff',
-                        width: '100px',
-                        margin: '10px',
-                        border: '2px solid black',
-                      }}>
-                      Download
-                    </button>
+
                   </div>
                 );
               })}
