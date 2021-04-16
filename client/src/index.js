@@ -8,7 +8,7 @@ ReactDOM.render(
     domain="dev-s6qumqdd.us.auth0.com"
     clientId="bVDFna4XkNQIW3uOT5dvBgIdI3j0Xy6U"
     redirectUri={window.location.origin}
-    audience="http://localhost:5000/"
+    audience="http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/"
     scope="view:forms">
     <App />
   </Auth0Provider>,
