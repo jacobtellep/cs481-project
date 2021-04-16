@@ -124,7 +124,7 @@ class DailyJobReport extends React.Component {
   ) => {
     // this is where the data is sent to the backend
     axios
-      .post('http://34.229.169.195:5000/dailyjobreport', {
+      .post('http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/dailyjobreport', {
         date: date,
         customer: customer,
         project: project,
@@ -334,7 +334,7 @@ class DailyJobReport extends React.Component {
   };
 
   getDailyJobReportID = () => {
-    axios.get('http://34.229.169.195:5000/dailyjobreport_id').then((response) => {
+    axios.get('http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/dailyjobreport_id').then((response) => {
       if (response && response.data)
         this.setState({ contractArray: response.data });
     });

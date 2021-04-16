@@ -7,7 +7,7 @@ const LogoutButton = () => {
   return (
     isAuthenticated && (
       <a
-        onClick={() => logout({ returnTo: 'http://34.229.169.195:3000/logout' })}
+        onClick={() => logout({ returnTo: 'http://ec2-54-89-63-156.compute-1.amazonaws.com:3000/logout' })}
         className="button">
         Logout
       </a>

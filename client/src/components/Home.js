@@ -5,7 +5,7 @@ const Home = () => {
   const [tasks, setTasks] = useState([]);
 
   const getTasks = async () => {
-    axios.get('http://34.229.169.195:5000/viewtask', {}).then((response) => {
+    axios.get('http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/viewtask', {}).then((response) => {
       setTasks(response.data);
     });
   };

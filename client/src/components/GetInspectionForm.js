@@ -131,12 +131,12 @@ class GetInspectionForm extends React.Component {
   getInspectionForm = async () => {
     const { getAccessTokenSilently } = this.props.auth0;
     const token = await getAccessTokenSilently({
-      audience: 'http://34.229.169.195:5000/',
+      audience: 'http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/',
       scope: 'view:forms',
     });
 
     axios
-      .get('http://34.229.169.195:5000/inspection', {
+      .get('http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/inspection', {
         params: { id: this.state.selectValue },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -151,7 +151,7 @@ class GetInspectionForm extends React.Component {
   };
 
   getInspectionForm_id = () => {
-    axios.get('http://34.229.169.195:5000/inspection_id').then((response) => {
+    axios.get('http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/inspection_id').then((response) => {
       this.setState({ job_numbers: response.data }); // the auto-incremented sql id is included in this response.data object
 
       console.log(response.data);

@@ -8,7 +8,7 @@ const ViewPricing = () => {
 
   const getPricing = () => {
     axios
-      .get('http://34.229.169.195:5000/viewpricing', {
+      .get('http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/viewpricing', {
         params: { partGroup: selectValue },
       })
       .then((response) => {

@@ -160,7 +160,7 @@ class JSAform extends React.Component {
     employee_initals10
   ) => {
     axios
-      .post('http://34.229.169.195:5000/jsaform', {
+      .post('http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/jsaform', {
         date: date,
         ticket_num: ticket_num,
         company: company,
@@ -431,7 +431,7 @@ class JSAform extends React.Component {
   };
 
   getjsaform_id = () => {
-    axios.get('http://34.229.169.195:5000/jsaform_ticket').then((response) => {
+    axios.get('http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/jsaform_ticket').then((response) => {
       this.setState({ ticketArray: response.data }); // the auto-incremented sql id is included in this response.data object
 
       console.log('successfully retrieved the data');

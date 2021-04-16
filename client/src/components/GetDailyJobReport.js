@@ -71,12 +71,12 @@ class GetDailyJobReport extends React.Component {
   getDailyJobReport = async () => {
     const { getAccessTokenSilently } = this.props.auth0;
     const token = await getAccessTokenSilently({
-      audience: 'http://34.229.169.195:5000/',
+      audience: 'http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/',
       scope: 'view:forms',
     });
 
     axios
-      .get('http://34.229.169.195:5000/dailyjobreport', {
+      .get('http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/dailyjobreport', {
         params: { id: this.state.selectValue },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -91,7 +91,7 @@ class GetDailyJobReport extends React.Component {
   };
 
   getDailyJobReportID = () => {
-    axios.get('http://34.229.169.195:5000/dailyjobreport_id').then((response) => {
+    axios.get('http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/dailyjobreport_id').then((response) => {
       if (response && response.data)
         this.setState({ contract_nums: response.data });
     });

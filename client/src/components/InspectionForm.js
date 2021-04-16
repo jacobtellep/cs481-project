@@ -247,7 +247,7 @@ class InspectionForm extends React.Component {
     mechanicInitals
   ) => {
     axios
-      .post('http://34.229.169.195:5000/inspectionform', {
+      .post('http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/inspectionform', {
         company: company,
         date: date,
         location: location,
@@ -638,7 +638,7 @@ class InspectionForm extends React.Component {
   };
 
   getInspectionForm_id = () => {
-    axios.get('http://34.229.169.195:5000/inspection_id').then((response) => {
+    axios.get('http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/inspection_id').then((response) => {
       this.setState({ jobArray: response.data }); // the auto-incremented sql id is included in this response.data object
 
       console.log(response.data);

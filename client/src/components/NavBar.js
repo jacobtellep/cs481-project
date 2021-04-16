@@ -12,12 +12,12 @@ const NavBar = () => {
 
   const protectPricing = async () => {
     const token = await getAccessTokenSilently({
-      audience: 'http://34.229.169.195:5000/',
+      audience: 'http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/',
       scope: 'view:forms',
     });
 
     axios
-      .get('http://34.229.169.195:5000/pricing', {
+      .get('http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/pricing', {
         headers: { Authorization: `Bearer ${token}` },
       })
       .catch((error) => {
@@ -29,12 +29,12 @@ const NavBar = () => {
 
   const protectTasks = async () => {
     const token = await getAccessTokenSilently({
-      audience: 'http://34.229.169.195:5000/',
+      audience: 'http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/',
       scope: 'view:forms',
     });
 
     axios
-      .get('http://34.229.169.195:5000/tasksharing', {
+      .get('http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/tasksharing', {
         headers: { Authorization: `Bearer ${token}` },
       })
       .catch((error) => {
