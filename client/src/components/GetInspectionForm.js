@@ -126,6 +126,7 @@ class GetInspectionForm extends React.Component {
     mechanicInitals: "",
     job_numbers: [],
     selectValue: "",
+    retrieved: false
   };
 
   getInspectionForm = async () => {
@@ -147,6 +148,7 @@ class GetInspectionForm extends React.Component {
 
         console.log(response.data);
         console.log("successfully retrieved the data");
+        this.setState({retrieved: true});
       });
   };
 
@@ -240,6 +242,32 @@ class GetInspectionForm extends React.Component {
         </select>
       );
     };
+
+    const downloadButton = () => {
+        if(this.state.retrieved) {
+            return(
+                <button
+                  style={{
+                    color: "black",
+                    backgroundColor: "peachpuff",
+                    width: "100px",
+                    margin: "10px",
+                    marginLeft: "10px",
+                    border: "2px solid black",
+                  }}
+                  onClick={() =>
+                    this.export("JobNumber" + this.state.selectValue)
+                  }
+                  className="ui button"
+                  type="button"
+                >
+                  Download
+                </button>
+            )
+        }
+    }
+
+
     return (
       <div>
         <div>
@@ -271,7 +299,7 @@ class GetInspectionForm extends React.Component {
             >
               Retrieve
             </button>
-
+            {downloadButton()}
             <br />
             <br />
             <br />
@@ -622,23 +650,6 @@ class GetInspectionForm extends React.Component {
                           <hr></hr>
                         </div>
                       </div>
-                      <button
-                        style={{
-                          color: "black",
-                          backgroundColor: "peachpuff",
-                          width: "100px",
-                          margin: "10px",
-                          marginLeft: "10px",
-                          border: "2px solid black",
-                        }}
-                        onClick={() =>
-                          this.export("JobNumber" + this.state.selectValue)
-                        }
-                        className="ui button"
-                        type="button"
-                      >
-                        Download
-                      </button>
                     </div> //**************end of return
                   );
                 })}{" "}

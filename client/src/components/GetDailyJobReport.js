@@ -64,6 +64,7 @@ class GetDailyJobReport extends React.Component {
     jobDescription: "",
     selectValue: "",
     contract_nums: [],
+    retrieved: false,
     dailyJobReport: [],
   };
 
@@ -87,6 +88,7 @@ class GetDailyJobReport extends React.Component {
 
         console.log(response.data);
         console.log("successfully retrieved the data");
+         this.setState({retrieved: true});
       });
   };
 
@@ -164,6 +166,7 @@ class GetDailyJobReport extends React.Component {
   };
 
   render() {
+
     const renderDrop = () => {
       return (
         <select
@@ -178,6 +181,29 @@ class GetDailyJobReport extends React.Component {
         </select>
       );
     };
+
+    const downloadButton = () => {
+        console.log(this.state.retrieved);
+        if(this.state.retrieved === true) {
+            return(
+            <button
+              onClick={() =>
+                this.export("Contract Num" + this.state.selectValue)
+              }
+              className="ui button"
+              type="button"
+              style={{
+                color: "black",
+                backgroundColor: "peachpuff",
+                width: "100px",
+                margin: "10px",
+                border: "2px solid black",
+              }}
+            >
+              Download
+            </button>
+        )}
+    }
 
     return (
       <div>
@@ -215,6 +241,8 @@ class GetDailyJobReport extends React.Component {
             >
               Retrieve
             </button>
+
+            {downloadButton()}
           </div>
 
           <br />
@@ -230,6 +258,7 @@ class GetDailyJobReport extends React.Component {
           >
             {this.state.GetDailyJobReport &&
               this.state.GetDailyJobReport.map((value, index) => {
+
                 {
                   /* Created variables to help format and split*/
                 }
@@ -398,22 +427,6 @@ class GetDailyJobReport extends React.Component {
                     >
                       {value.job_description}
                     </div>
-                    <button
-                      onClick={() =>
-                        this.export("Contract Num" + this.state.selectValue)
-                      }
-                      className="ui button"
-                      type="button"
-                      style={{
-                        color: "black",
-                        backgroundColor: "peachpuff",
-                        width: "100px",
-                        margin: "10px",
-                        border: "2px solid black",
-                      }}
-                    >
-                      Download
-                    </button>
                   </div>
                 );
               })}

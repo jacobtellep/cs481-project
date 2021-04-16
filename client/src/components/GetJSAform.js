@@ -87,6 +87,7 @@ class GetJSAform extends React.Component {
     employee_initals10: "",
     ticket_numbers: [],
     selectValue: "",
+    retrieved: false
   };
 
   getjsaform = async () => {
@@ -107,6 +108,7 @@ class GetJSAform extends React.Component {
         this.setState({ GetJSAform: response.data }); // the auto-incremented sql id is included in this response.data object
 
         console.log("successfully retrieved the data");
+        this.setState({retrieved: true});
       });
   };
 
@@ -199,6 +201,31 @@ class GetJSAform extends React.Component {
         </select>
       );
     };
+
+    const downloadButton = () => {
+        if(this.state.retrieved) {
+            return(
+                <button
+                  style={{
+                    color: "black",
+                    backgroundColor: "peachpuff",
+                    width: "100px",
+                    margin: "10px",
+                    marginLeft: "10px",
+                    border: "2px solid black",
+                  }}
+                  onClick={() =>
+                    this.export("JobNumber" + this.state.selectValue)
+                  }
+                  className="ui button"
+                  type="button"
+                >
+                  Download
+                </button>
+            )
+        }
+    }
+
     return (
       <div>
         <div>
@@ -229,7 +256,7 @@ class GetJSAform extends React.Component {
             >
               Retrieve
             </button>
-
+            {downloadButton()}
             <br />
             <br />
             <br />
@@ -582,22 +609,6 @@ class GetJSAform extends React.Component {
                           ))}
                         </div>
                       </div>
-                      <button
-                        onClick={() =>
-                          this.export("TicketNumber" + this.state.selectValue)
-                        }
-                        className="ui button"
-                        type="button"
-                        style={{
-                          color: "black",
-                          backgroundColor: "peachpuff",
-                          width: "100px",
-                          margin: "10px",
-                          border: "2px solid black",
-                        }}
-                      >
-                        Download
-                      </button>
                     </div>
                   );
                 })}{" "}
