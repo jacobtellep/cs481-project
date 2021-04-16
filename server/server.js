@@ -22,7 +22,7 @@ const checkJwt = jwt({
   }),
 
   // Validate the audience and the issuer.
-  audience: 'http://34.229.169.195:5000/',
+  audience: 'http://ec2-54-89-63-156.compute-1.amazonaws.com:5000/',
   issuer: `https://dev-s6qumqdd.us.auth0.com/`,
   algorithms: ['RS256'],
 });
