@@ -650,7 +650,6 @@ class GetInspectionForm extends React.Component {
                           <hr></hr>
                         </div>
                       </div>
-
                     </div> //**************end of return
                   );
                 })}{" "}

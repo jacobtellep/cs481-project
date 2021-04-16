@@ -427,7 +427,6 @@ class GetDailyJobReport extends React.Component {
                     >
                       {value.job_description}
                     </div>
-
                   </div>
                 );
               })}
