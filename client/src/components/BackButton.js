@@ -9,6 +9,7 @@ const BackButton = (props) => {
   return (
     <Link to={props.path}>
       <img
+        alt=""
         style={{
           width: "25px",
           margin: "10px",

@@ -333,7 +333,7 @@ class GetJSAform extends React.Component {
                           }}
                         >
                           {weather.map((str) => {
-                            if (String(str).toLowerCase() == "true")
+                            if (String(str).toLowerCase() === "true")
                               return (
                                 <div style={{ paddingBottom: "1px" }}>
                                   {" "}
@@ -341,8 +341,8 @@ class GetJSAform extends React.Component {
                                 </div>
                               );
                             else if (
-                              String(str).toLowerCase() == "true" ||
-                              String(str).toLowerCase() != "false"
+                              String(str).toLowerCase() === "true" ||
+                              String(str).toLowerCase() !== "false"
                             )
                               return (
                                 <div style={{ paddingBottom: "1px" }}>
@@ -398,7 +398,7 @@ class GetJSAform extends React.Component {
                             }}
                           >
                             {hazard_1.map((str) => {
-                              if (String(str).toLowerCase() == "true")
+                              if (String(str).toLowerCase() === "true")
                                 return (
                                   <div style={{ paddingBottom: "1px" }}>
                                     <input type="checkbox" checked={true} />
@@ -433,7 +433,7 @@ class GetJSAform extends React.Component {
                             }}
                           >
                             {hazard_2.map((str) => {
-                              if (String(str).toLowerCase() == "true")
+                              if (String(str).toLowerCase() === "true")
                                 return (
                                   <div style={{ paddingBottom: "1px" }}>
                                     <input type="checkbox" checked={true} />
@@ -471,7 +471,7 @@ class GetJSAform extends React.Component {
                             }}
                           >
                             {hazard_3.map((str) => {
-                              if (String(str).toLowerCase() == "true")
+                              if (String(str).toLowerCase() === "true")
                                 return (
                                   <div style={{ paddingBottom: "1px" }}>
                                     <input type="checkbox" checked={true} />

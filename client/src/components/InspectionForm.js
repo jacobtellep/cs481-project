@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
-import DatePicker from 'react-date-picker';
 import './InspectionForm.css';
 import BackButton from './BackButton';
 
@@ -621,10 +620,10 @@ class InspectionForm extends React.Component {
     const equip = this.state.equipment;
 
     if (
-      comp.trim() == '' ||
-      loc.trim() == '' ||
-      job.trim() == '' ||
-      equip.trim() == ''
+      comp.trim() === '' ||
+      loc.trim() === '' ||
+      job.trim() === '' ||
+      equip.trim() === ''
     ) {
       this.setState({ hasError: true });
       console.log('error field not filled or id already chosen');

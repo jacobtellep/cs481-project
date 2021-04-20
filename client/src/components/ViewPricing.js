@@ -1,10 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, {useState} from 'react';
 import axios from 'axios';
 
 const ViewPricing = () => {
   const [selectValue, setSelectValue] = useState('');
-  const [pricing, setPricing] = useState([]);
+  const [setPricing] = useState([]);
 
   const getPricing = () => {
     axios

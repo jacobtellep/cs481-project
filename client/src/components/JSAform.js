@@ -412,12 +412,12 @@ class JSAform extends React.Component {
     const afe = this.state.afe_num;
 
     if (
-      ticket.trim() == '' ||
-      comp.trim() == '' ||
-      rep.trim() == '' ||
-      loc.trim() == '' ||
-      well.trim() == '' ||
-      afe.trim() == ''
+      ticket.trim() === '' ||
+      comp.trim() === '' ||
+      rep.trim() === '' ||
+      loc.trim() === '' ||
+      well.trim() === '' ||
+      afe.trim() === ''
     ) {
       this.setState({ hasError: true });
       console.log('Error with input');

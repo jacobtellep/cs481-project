@@ -259,9 +259,6 @@ class GetDailyJobReport extends React.Component {
             {this.state.GetDailyJobReport &&
               this.state.GetDailyJobReport.map((value, index) => {
 
-                {
-                  /* Created variables to help format and split*/
-                }
                 const weatherNotes = value.weather_delay_notes;
                 const weatherStart = value.weather_delay_start;
                 const weatherEnd = value.weather_delay_end;

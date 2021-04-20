@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import './Forms.css';
@@ -6,7 +6,7 @@ import BackButton from './BackButton';
 import axios from 'axios';
 
 const TaskSharing = () => {
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const {  getAccessTokenSilently } = useAuth0();
   const history = useHistory();
 
   const createTask = async () => {

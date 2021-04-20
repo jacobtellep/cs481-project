@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "axios";
 import "./DailyJobReport.css";
-import DatePicker from "react-date-picker";
-import { withRouter } from "react-router-dom";
 import BackButton from "./BackButton";
 
 class DailyJobReport extends React.Component {
@@ -318,10 +316,10 @@ class DailyJobReport extends React.Component {
     const lead = this.state.foreman;
 
     if (
-      cust.trim() == "" ||
-      proj.trim() == "" ||
-      contract.trim() == "" ||
-      lead.trim() == ""
+      cust.trim() === "" ||
+      proj.trim() === "" ||
+      contract.trim() === "" ||
+      lead.trim() === ""
     ) {
       this.setState({ hasError: true });
       console.log("error field not filled or id already chosen");
@@ -353,8 +351,7 @@ class DailyJobReport extends React.Component {
     window.addEventListener("load", this.getDailyJobReportID());
   }
 
-  render() {
-    const date = this.state.date; // this is just so to not have to rewrite
+  render() { // this is just so to not have to rewrite
     const customer = this.state.customer;
     const project = this.state.project;
     const contractNumber = this.state.contractNumber;
