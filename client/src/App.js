@@ -19,7 +19,6 @@ import DataSent from './components/DataSent';
 import { useAuth0 } from '@auth0/auth0-react';
 import Loading from './components/Loading';
 import WrongPermissions from './components/WrongPermissions';
-import logo from './HGCARTE.jpg';
 import TaskSharing from './components/TaskSharing';
 import CreateTask from './components/CreateTask';
 import Home from './components/Home';
