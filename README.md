@@ -1,20 +1,20 @@
-*************************************************
+## *************************************************
 
-###**Requires internet connection**
+### **Requires internet connection**
 
-###Install node.js
+### Install node.js
 
-###Inside client folder run 'npm install' (without single quotes)
+### Inside client folder run 'npm install' (without single quotes)
 
-###Inside server folder run 'npm install' (without single quotes)
+### Inside server folder run 'npm install' (without single quotes)
 
-###Inside server folder run 'node server.js (without single quotes)
+### Inside server folder run 'node server.js (without single quotes)
 
-###Inside client folder run 'npm start' (without single quotes)
+### Inside client folder run 'npm start' (without single quotes)
 
-###App will open in the default browser on your machine 
+### App will open in the default browser on your machine 
 
-##*************************************************
+## *************************************************
 
 
 
