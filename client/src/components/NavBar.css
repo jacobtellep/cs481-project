@@ -1,0 +1,40 @@
+nav {
+  display: flex;
+}
+
+li {
+  list-style: none;
+}
+
+a:hover {
+  color: orange;
+}
+
+.menu {
+  background-color: black;
+  justify-content: space-between;
+}
+
+.link {
+  display: block;
+  padding-left: 8px;
+  color: white;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  color: white;
+  cursor: pointer;
+  font-size: larger;
+  font-weight: bold;
+}
+
+.menu-items {
+  float: left;
+}
+
+.buttonblack {
+  color: black;
+}

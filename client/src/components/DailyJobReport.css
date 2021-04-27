@@ -1,0 +1,114 @@
+.border {
+  border: 2px solid black;
+  margin: 10px;
+  width: 600px;
+  box-shadow: black;
+  border-radius: 5px;
+}
+
+.job-info-inputs {
+  align-items: left;
+  justify-content: left;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin-left: 20px;
+}
+
+.weather-delay-inputs {
+  align-items: left;
+  justify-content: left;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.weather-delay-one {
+  display: flex;
+  flex-direction: row;
+}
+
+.weather-notes {
+  width: 435px;
+}
+
+.weather-start {
+  width: 100px;
+}
+
+.weather-end {
+  width: 100px;
+}
+
+.project-delay-inputs {
+  align-items: left;
+  justify-content: left;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.project-delay-one {
+  display: flex;
+  flex-direction: row;
+}
+
+.project-notes {
+  width: 435px;
+}
+
+.project-start {
+  width: 100px;
+}
+
+.project-end {
+  width: 100px;
+}
+
+.bid-work-inputs {
+  align-items: left;
+  justify-content: left;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.bid-work-one {
+  display: flex;
+  flex-direction: row;
+}
+
+.employee-name {
+  width: 435px;
+}
+
+.hours {
+  width: 100px;
+}
+
+.job-number {
+  width: 100px;
+}
+
+.job-description-input {
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 635px;
+  height: 75px;
+  resize: none;
+}
+
+.submit-button {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+.retrieve-button {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+/* .retrieve-report {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} */

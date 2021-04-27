@@ -1,0 +1,37 @@
+.border {
+  background-color: ghostwhite;
+  border: 2px solid black;
+  margin: 10px;
+  padding: 10px;
+  width: 700px;
+  box-shadow: black;
+  border-radius: 5px;
+}
+
+.sub-border {
+  background-color: white;
+  border: 2px solid black;
+  box-shadow: black;
+  border-radius: 5px;
+}
+
+.info {
+  padding-left: 20px;
+}
+
+.columns {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.column1 {
+  display: flex;
+  flex-direction: column;
+}
+
+.column2 {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+}
