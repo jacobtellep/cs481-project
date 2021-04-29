@@ -63,7 +63,7 @@ const App = () => {
           <ProtectedRoute path="/tasksharing" component={TaskSharing} />
           <ProtectedRoute path="/createtask" component={CreateTask} />
           <ProtectedRoute path="/viewtask" component={ViewTask} />
-          <Route path="/" exact component={Home}></Route>
+          <ProtectedRoute path="/" exact component={Home}></ProtectedRoute>
         </Switch>
       </Router>
     </div>
