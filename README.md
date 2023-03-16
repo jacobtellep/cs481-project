@@ -1,13 +1,6 @@
-## *************************************************
-
 ### Install node.js
 
 Run `npm install` inside client and server folders
-
-## *************************************************
-
-
-
 
 ## Available Scripts
 
